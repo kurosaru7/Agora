@@ -6,10 +6,11 @@ try{
       case 'home' :
         home();
       break;
-      case 'B' :
-        echo 'B';
+      case 'connection' :
+        connection($_GET);
+        home();
       break;
-      case 'C' :
+      case 'myProfile' :
         echo 'C';
       break;
     }
