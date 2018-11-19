@@ -23,7 +23,7 @@
        </form>
     </ul>
   </div>
-  <form>
+  <form id="formAccueil" action="./index.php">
     <div class="form-row">
       <div class="col" >
         <input type="text" class="form-control" placeholder="Pseudo">
@@ -31,8 +31,8 @@
       <div class="col">
         <input type="text" class="form-control" placeholder="Mot de passe">
       </div>
-      <button type="button" class="btn btn-success">Se connecter</button>
-      <a href ='#'><button type="button" class="btn btn-link">Créer un compte</button></a>
+      <button type="submit" class="btn btn-success" name='action' value='connexion'>Se connecter</button>
+      <a href ='#'><button type="submit" name='action' value='inscription' class="btn btn-link">Créer un compte</button></a>
     </div>
   </form>
 </nav>
