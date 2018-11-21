@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 require('controller/backend.php');
 try{
@@ -16,12 +16,10 @@ try{
       case 'addSubject' :
         if(isset($_GET['name'])){
           $onlyPrint = false;
-          addSubjectC($_GET,$onlyPrint);
         }else{
           $onlyPrint = true;
-          
-        addSubjectC($_GET,$onlyPrint);
         }
+        addSubjectC($_GET,$onlyPrint);
       break;
     }
   }else{
