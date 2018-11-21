@@ -38,24 +38,24 @@
             <a class="dropdown-item" href="index.php?action=deconnection">Se deconnecter</a>
           </div>
         </li></div>';
-    }else {
-      echo "
-      ";
-      
     }
   }else {
     echo "
     <form id='formAccueil' method='get' action='./index.php'>
-    <div class='form-row'>
+    <div class='formulaire form-row'>
       <div class='col' >
         <input type='text' class='form-control' name='pseudo' placeholder='Pseudo'>
-        ".$_SESSION['error']."
+        <div class='row error'>
+        <span>".$_SESSION['error']."</span>
+        </div>
       </div>
       <div class='col'>
         <input type='password' class='form-control' name='pw' placeholder='Mot de passe'>
       </div>
-      <button type='submit' class='btn btn-success' name='action' value='connection'>Se connecter</button>
-      <a href ='#'><button type='submit' name='action' value='inscription' class='btn btn-link'>Créer un compte</button></a>
+      <div class='col'>
+      <button type='submit' class='btn connection' name='action' value='connection'>Se connecter</button>
+      </div>
+      <a href ='#'><button type='submit' name='action' value='inscription' class='btn btn-link'>Créer un compte></a>
     </div>
   </form>";
   }

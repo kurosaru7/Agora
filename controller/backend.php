@@ -1,8 +1,12 @@
 <?php require('model/backend.php');
-session_start();
 
 function home(){
   $title = 'Agora';
+  if(isset($_SESSION['error'])){
+    print_r($_SESSION['error']);
+  }else{
+    $_SESSION['error'] = "";
+  }
   require('view/home.php');
 }
 
@@ -14,9 +18,9 @@ function connection($array){
     if ($infos['password'] == $pw){
       $_SESSION['status'] = 'connected';
       $_SESSION['pseudo'] = $pseudo;
-      $_SESSION['error'] = '';
     }
   }else {
     $_SESSION['error'] = "Erreur : Compte inconnu.";
   }
+  home();
 }

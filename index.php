@@ -1,5 +1,6 @@
-<?php require('controller/backend.php');
-
+<?php 
+session_start();
+require('controller/backend.php');
 try{
   if(isset($_GET['action'])){
     switch($_GET['action']){
@@ -8,7 +9,6 @@ try{
       break;
       case 'connection' :
         connection($_GET);
-        home();
       break;
       case 'myProfile' :
         echo 'C';

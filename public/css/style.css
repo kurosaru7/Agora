@@ -10,15 +10,38 @@ nav{
     border-color: #6C3483;
     border-style: solid;
     border-width: 1px;
+    color: #6C3483;
 }
 .nav-list{
     border-color: #6C3483;
     border-left-style: solid;
     border-width: 1px;
 }
-button{
+.btn.connection{
     color: #6C3483;
+    border-color: #6C3483;
+    border-style: solid;
+    border-width: 1px;
 }
 #pseudo{
     color: #6C3483;
+}
+span{
+    font-size: 8px;
+    padding-bottom: 0px;
+}
+.formulaire{
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+.row.error{
+    position:absolute;
+    margin:auto;
+    left: 10%;
+}
+.form-control{
+    color: #6C3483;
+    border-color: #6C3483;
+    border-style: solid;
+    border-width: 1px;
 }
