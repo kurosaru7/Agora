@@ -13,6 +13,14 @@ try{
       case 'myProfile' :
         echo 'C';
       break;
+      case 'addSubject' :
+        if(isset($_GET['name'])){
+          $onlyPrint = false;
+        }else{
+          $onlyPrint = true;
+        }
+        addSubjectC($_GET['name'],$_GET['categorie'],$_GET['message'],$onlyPrint);
+      break;
     }
   }else{
     home();

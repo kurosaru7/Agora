@@ -3,13 +3,13 @@
 function dbConnect() {
   try
   {
-    $db = new PDO('mysql:host=localhost;dbname=agora;charset=utf8','root','');
+    $db = new PDO('mysql:host=localhost;dbname=agora;charset=utf8','red','');
   }
   catch(Exception $e)
   {
     die('Erreur :' .$e->getMessage());
   }
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $db;
 }
 
@@ -53,6 +53,25 @@ function selectInfoUser($user){
   $result = $req->fetch(PDO::FETCH_ASSOC);
   return $result;
 }
+
+function addSubject($nom,$profil,$categorie){
+  $db = dbConnect();
+  $adresse = uniqid();
+  $query = $db->prepare('INSERT INTO profil(nom,dateS,statut,profil,categorie,adresse) VALUES(:nom,NOW(),"ouvert",:profil,:categorie,:adresse');
+  $query->execute(array(
+    'nom' => $nom,
+    'profil' => $profil,
+    'categorie' => $categorie,
+    'adresse' => $adresse
+  ));
+}
+
+function getCategories(){
+  $db = dbConnect();
+  $query = $db->query('SELECT * FROM categorie');
+  return $query;
+}
+
 
 
 

@@ -22,6 +22,13 @@
         <button  class="btn nav-element my-2 my-sm-0" type="submit">Rechercher un sujet</button>
        </form>
     </ul>
+    <?php
+    if(isset($_SESSION['status'])) {
+      if($_SESSION['status'] == 'connected'){
+        echo "&nbsp <a href = 'index.php?action=addSubject'><button  class='btn nav-element my-2 my-sm-0' type='submit'>Créer un sujet</button></a>";
+      }
+    }
+    ?>
   </div>
   <?php
   if (isset($_SESSION['status'])) {
@@ -38,6 +45,10 @@
             <a class="dropdown-item" href="index.php?action=deconnection">Se deconnecter</a>
           </div>
         </li></div>';
+    }else {
+      echo "
+      ";
+
     }
   }else {
     echo "
@@ -59,7 +70,7 @@
     </div>
   </form>";
   }
-  
-    
+
+
   ?>
 </nav>

@@ -24,3 +24,28 @@ function connection($array){
   }
   home();
 }
+
+function addSubjectC($name,$categorie,$message,$onlyPrint){
+  $title = 'Créer mon sujet';
+  $categories = getCategories();
+  $count = 0;
+  while($data = $categories->fetch()){
+    $name[$count] = $data['nom'];
+    $id[$count] = $data['id'];
+    $count++;
+  }
+  if(!$onlyPrint){
+    $rdm = uniqid();
+    $adresse = $rdm.'.txt';
+    $info = selectInfoUser($_SESSION['pseudo']);
+    $id_user = $info['id'];
+    addSubject($nom,$id_user,$categorie);
+
+    $content = fopen('public/sujet/'.$adresse, 'w+');
+    fwrite($content,$message);
+    fclose($content);
+
+    header('Location:index.php?action=addSubject');
+  }
+  require('view/addSubject.php');
+}
