@@ -42,9 +42,10 @@ function addSubjectC($onlyPrint){
 
     $rdm = uniqid();
     $adresse = $rdm.'.txt';
+    echo($adresse);
     $info = selectInfoUser($_SESSION['pseudo']);
     $id_user = $info['id'];
-    addSubject($nom,$id_user,$categorie);
+    addSubject($name,$id_user,$categorie);
 
     $content = fopen('public/sujet/'.$adresse, 'w+');
     fwrite($content,$message);
