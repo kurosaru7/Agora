@@ -19,7 +19,7 @@ try{
         }else{
           $onlyPrint = true;
         }
-        addSubjectC($_GET,$onlyPrint);
+        addSubjectC($onlyPrint);
       break;
     }
   }else{

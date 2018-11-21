@@ -54,15 +54,15 @@ function selectInfoUser($user){
   return $result;
 }
 
-function addSubject($nom,$profil,$categorie){
+function addSubject($nom,$profil,$categorie,$adresse){
   $db = dbConnect();
-  $adresse = uniqid();
-  $query = $db->prepare('INSERT INTO profil(nom,dateS,statut,profil,categorie,adresse) VALUES(:nom,NOW(),"ouvert",:profil,:categorie,:adresse');
+  $query = $db->prepare('INSERT INTO sujet(nom,dateS,statut,profil,categorie,adresse) VALUES(:nom,:dateS,"ouvert",:profil,:categorie,:adresse)');
   $query->execute(array(
     'nom' => $nom,
     'profil' => $profil,
     'categorie' => $categorie,
-    'adresse' => $adresse
+    'adresse' => $adresse,
+    'dateS' => date('Y-m-d H:i:s')
   ));
 }
 

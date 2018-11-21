@@ -34,24 +34,25 @@ function addSubjectC($onlyPrint){
     $id[$count] = $data['id'];
     $count++;
   }
-  if(!$onlyPrint){
 
+  if(!$onlyPrint){
     $categorie = $_GET['categorie'];
     $message = $_GET['message'];
     $name = $_GET['name'];
 
     $rdm = uniqid();
-    $adresse = $rdm.'.txt';
+    $address = $rdm.'.txt';
     $info = selectInfoUser($_SESSION['pseudo']);
     $id_user = $info['id'];
-    addSubject($nom,$id_user,$categorie);
 
-    $content = fopen('public/sujet/'.$adresse, 'w+');
+    $content = fopen('public/sujet/'.$address, 'w+');
     fwrite($content,$message);
     fclose($content);
+    addSubject($name,$id_user,intval($categorie),$address);
+
+    header('Location: index.php?action=home');
     echo 'test';
 
-    // header('Location:index.php?action=addSubject');
   }
   require('view/addSubject.php');
 }
