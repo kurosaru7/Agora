@@ -1,10 +1,10 @@
-<nav class="navbar navbar-expand-lg navbar-light " style="background-color: #6C3483;">
+<nav class="navbar navbar-expand-lg navbar-light ">
   <img src = 'public/images/agora.png' width = 50px;>&nbsp;
   <a class="navbar-brand" href="index.php?action=home">Accueil</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+  <div class="nav-list collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
        <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -18,19 +18,19 @@
         </div>
       </li>&nbsp;
       <form class="form-inline">
-        <input class="form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Search">
-        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Rechercher un sujet</button>
+        <input class="nav-element form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Search">
+        <button  class="btn nav-element my-2 my-sm-0" type="submit">Rechercher un sujet</button>
        </form>
     </ul>
   </div>
   <?php
   if (isset($_SESSION['status'])) {
     if ($_SESSION['status'] == 'connected'){
-      echo "<div class=' row mr-2'><span class='navbar-text'> Bonjour </span>";
+      echo "<div class='row mr-2'><span class='navbar-text'> Bonjour </span>";
       echo '<div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
          <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="pseudo" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             '.$_SESSION['pseudo'].'
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

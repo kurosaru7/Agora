@@ -1,7 +1,24 @@
 body{
-    background-color: darkgrey;
+    background-color: whitesmoke;
     height: 100%;
 }
-#navbar{
+nav{
     background-color: #A9A9A9;
+    
+}
+.nav-element{
+    border-color: #6C3483;
+    border-style: solid;
+    border-width: 1px;
+}
+.nav-list{
+    border-color: #6C3483;
+    border-left-style: solid;
+    border-width: 1px;
+}
+button{
+    color: #6C3483;
+}
+#pseudo{
+    color: #6C3483;
 }
