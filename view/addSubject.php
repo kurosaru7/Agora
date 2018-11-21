@@ -12,8 +12,8 @@
     <textarea rows="4" cols="50" placeholder="Ecrivez votre message..." name = "message"></textarea><br>
       <select name="categorie">
         <?php
-          for($i = 0 ; $i < count($name) ; $i++){
-            echo '<option value = '.$id[$i].'>'.strtoupper($name[$i]).'</option>';
+          for($i = 0 ; $i < count($listCategories) ; $i++){
+            echo '<option value = '.$id[$i].'>'.strtoupper($listCategories[$i]).'</option>';
           }
         ?>
       </select>

@@ -16,10 +16,12 @@ try{
       case 'addSubject' :
         if(isset($_GET['name'])){
           $onlyPrint = false;
+          addSubjectC($_GET,$onlyPrint);
         }else{
           $onlyPrint = true;
+          
+        addSubjectC($_GET,$onlyPrint);
         }
-        addSubjectC($_GET['name'],$_GET['categorie'],$_GET['message'],$onlyPrint);
       break;
     }
   }else{

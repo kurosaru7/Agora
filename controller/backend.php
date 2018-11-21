@@ -25,16 +25,19 @@ function connection($array){
   home();
 }
 
-function addSubjectC($name,$categorie,$message,$onlyPrint){
+function addSubjectC($onlyPrint){
   $title = 'Créer mon sujet';
   $categories = getCategories();
   $count = 0;
   while($data = $categories->fetch()){
-    $name[$count] = $data['nom'];
+    $listCategories[$count] = $data['nom'];
     $id[$count] = $data['id'];
     $count++;
   }
   if(!$onlyPrint){
+    $categorie = $_GET['categorie'];
+    $message = $_GET['message'];
+    $name = $_GET['name'];
     $rdm = uniqid();
     $adresse = $rdm.'.txt';
     $info = selectInfoUser($_SESSION['pseudo']);
