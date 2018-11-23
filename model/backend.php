@@ -3,7 +3,7 @@
 function dbConnect() {
   try
   {
-    $db = new PDO('mysql:host=localhost;dbname=agora;charset=utf8','root','root');
+    $db = new PDO('mysql:host=localhost;dbname=agora;charset=utf8','red','');
   }
   catch(Exception $e)
   {
@@ -91,7 +91,7 @@ function printSubjectbycategories($idCategorie){
                       JOIN profil P
                       ON P.id = S.profil
                       WHERE C.id = :idCategorie
-                      ORDER BY categorie');
+                      ORDER BY dateS');
   $query->execute(array(
     'idCategorie' => $idCategorie
   ));
@@ -104,6 +104,17 @@ function addUser($pseudo,$pw){
     'pseudo' => $pseudo,
     'password' => $pw
   ));
+}
+
+function printLastSubjects(){
+  $db = dbConnect();
+  $query = $db->query('SELECT S.id,S.nom,S.dateS,S.profil,C.nom AS nom_categorie,P.pseudo
+                      FROM sujet S JOIN categorie C
+                      ON S.categorie = C.id
+                      JOIN profil P
+                      ON P.id = S.profil
+                      ORDER BY dateS DESC');
+  return $query;
 }
 
 

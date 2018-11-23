@@ -11,6 +11,25 @@ function home(){
 
   $count=0;
   $count2 = 0;
+  $count3 = 0;
+
+  $lastSubjects = printLastSubjects();
+
+  while($data3 = $lastSubjects->fetch()){
+     $idLastSujet[$count3][0] = $data3['id'];
+      $lastNomSujet[$count3][0]= $data3['nom'];
+
+      $lastDateSujet[$count3][0] = $data3['dateS'];
+      $lastHeure[$count3][0] = explode(' ',$lastDateSujet[$count3][0]);
+
+
+
+      $idLastProfil[$count3][0] = $data3['profil'];
+      $lastPseudo[$count3][0] = $data3['pseudo'];
+      $count3++;
+
+  }
+
 
   while($data2 = $categories->fetch()){
 
@@ -21,7 +40,12 @@ function home(){
 
       $idSujet[$count2][$count] = $data['id'];
       $nomSujet[$count2][$count] = $data['nom'];
+
       $dateSujet[$count2][$count] = $data['dateS'];
+      $heure[$count2][$count] = explode(' ',$dateSujet[$count2][$count]);
+
+
+
       $idProfil[$count2][$count] = $data['profil'];
       $nomCategorie[$count2][$count] = $data['nom_categorie'];
       $pseudo[$count2][$count] = $data['pseudo'];
@@ -45,35 +69,46 @@ function connection($array){
 }
 
 function addSubjectC($onlyPrint){
-  $title = 'Créer mon sujet';
-  $categories = getCategories();
-  $count = 0;
-  while($data = $categories->fetch()){
-    $listCategories[$count] = $data['nom'];
-    $id[$count] = $data['id'];
-    $count++;
+  if(isConnect()){
+    $title = 'Créer mon sujet';
+    $categories = getCategories();
+    $count = 0;
+    while($data = $categories->fetch()){
+      $listCategories[$count] = $data['nom'];
+      $id[$count] = $data['id'];
+      $count++;
+    }
+
+    if(!$onlyPrint){
+      $categorie = $_GET['categorie'];
+      $message = $_GET['message'];
+      $name = $_GET['name'];
+
+      $rdm = uniqid();
+      $address = $rdm.'.txt';
+      $info = selectInfoUser($_SESSION['pseudo']);
+      $id_user = $info['id'];
+
+      $content = fopen('public/sujet/'.$address, 'w+');
+      fwrite($content,$message);
+      fclose($content);
+      addSubject($name,$id_user,intval($categorie),$address);
+
+      header('Location: index.php?action=home');
+
+    }
+    require('view/addSubject.php');
+  }else{
+    header('Location: index.php');
   }
-
-  if(!$onlyPrint){
-    $categorie = $_GET['categorie'];
-    $message = $_GET['message'];
-    $name = $_GET['name'];
-
-    $rdm = uniqid();
-    $address = $rdm.'.txt';
-    $info = selectInfoUser($_SESSION['pseudo']);
-    $id_user = $info['id'];
-
-    $content = fopen('public/sujet/'.$address, 'w+');
-    fwrite($content,$message);
-    fclose($content);
-    addSubject($name,$id_user,intval($categorie),$address);
-
-    header('Location: index.php?action=home');
-
-  }
-  require('view/addSubject.php');
 }
+
+function isConnect(){
+  if(isset($_SESSION['status'])){
+    return true;
+  }
+}
+
 function deconnection(){
   session_destroy();
   header('Location: index.php');
