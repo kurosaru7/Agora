@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (!isset($_SESSION['error'])) {
+  $_SESSION['error'] = "";
+}
 require('controller/backend.php');
 try{
   if(isset($_GET['action'])){
