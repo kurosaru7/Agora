@@ -21,6 +21,9 @@ try{
         }
         addSubjectC($onlyPrint);
       break;
+      case 'deconnection':
+        deconnection();  
+      break;
     }
   }else{
     home();

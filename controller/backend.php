@@ -74,3 +74,7 @@ function addSubjectC($onlyPrint){
   }
   require('view/addSubject.php');
 }
+function deconnection(){
+  session_destroy();
+  header('Location: index.php');
+}
