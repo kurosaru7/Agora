@@ -1,25 +1,41 @@
 <?php require('template/top.php'); ?>
 <?php require('template/navbar.php'); ?>
 
-<div class="container">
-<div class="align-center">
-<br>
-<h1 class="h3 mb-3 font-weight-normal"> Créer un sujet </h1>
-
-  <form class="form-signin" action = "index.php" method = "GET" enctype="multipart/form-data">
+<div id="form-main">
+  <div id="form-div">
+  <h1 class="h3 mb-3 font-weight-normal"> Créer un sujet </h1>
+    <form class="form" id="form1" action = "index.php" method = "GET">
       <input type = "hidden" name = "action" value = "addSubject">
-      <input type = "text" name = "name" placeholder = "Titre du sujet"><br>
-    <textarea rows="4" cols="50" placeholder="Ecrivez votre message..." name = "message"></textarea><br>
-      <select name="categorie">
-        <?php
-          for($i = 0 ; $i < count($listCategories) ; $i++){
-            echo '<option value = '.$id[$i].'>'.strtoupper($listCategories[$i]).'</option>';
-          }
-        ?>
-      </select>
-      <input type = "submit" value = "Créer">
+      <p class="name">
+        <input name="name" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Titre du sujet" />
+      </p>
+
+      <p class="text">
+        <textarea name="message" class="validate[required,length[6,300]] feedback-input" id="message" placeholder="Ecrivez votre problème..."></textarea>
+      </p>
+
+
+      <div class="submit">
+        <input type="submit" value="Créer" id="button-blue"/>
+        <div class="ease"></div>
+
+         <div class="center-on-page">
+        <div class="select">
+          <select name="categorie" id = "slct">
+            <?php
+              for($i = 0 ; $i < count($listCategories) ; $i++){
+                echo '<option value = '.$id[$i].'>'.strtoupper($listCategories[$i]).'</option>';
+              }
+            ?>
+          </select>
+        </div>
+      </div>
+
+      </div>
+
+
     </form>
-</div>
+  </div>
 
 
 <?php require('template/bottom.php'); ?>

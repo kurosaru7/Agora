@@ -10,7 +10,7 @@
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Catégories
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="categorie-card">
           <a class="dropdown-item" href="#">PHP</a>
           <a class="dropdown-item" href="#">HTML</a>
           <a class="dropdown-item" href="#">SQL</a>
@@ -40,7 +40,7 @@
           <a class="nav-link dropdown-toggle" href="#" id="pseudo" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             '.$_SESSION['pseudo'].'
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="profil-card" >
             <a class="dropdown-item" href="index.php?action=myProfile">Profil</a>
             <a class="dropdown-item" href="index.php?action=deconnection">Se deconnecter</a>
           </div>
@@ -66,7 +66,7 @@
       <div class='col'>
       <button type='submit' class='btn connection' name='action' value='connection'>Se connecter</button>
       </div>
-      <a href ='#'><button type='submit' name='action' value='inscription' class='btn btn-link'>Créer un compte></a>
+      <a href ='#'><button type='submit' name='action' value='inscription' class='btn btn-link'>Créer un compte</button></a>
     </div>
   </form>";
   }
