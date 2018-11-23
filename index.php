@@ -14,9 +14,6 @@ try{
       case 'connection' :
         connection($_GET);
       break;
-      case 'myProfile' :
-        echo 'C';
-      break;
       case 'addSubject' :
         if(isset($_GET['name'])){
           $onlyPrint = false;
@@ -31,17 +28,19 @@ try{
       case 'register':
         register();
         break;
+      case 'myProfile':
+        displayProfile();
+        break;
+      case '':
+        home();
+        break;
       case 'addAnswer' :
-        try {
         if(isset($_GET['name'])){
           $onlyPrint = false;
         }else{
           $onlyPrint = true;
         }
         addAnswerC($onlyPrint);
-        }catch(Throwable $e){
-          echo 'Exception reçue : ',  $e->getMessage(), "\n";
-        }
         break;
     }
   }else{
