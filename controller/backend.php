@@ -41,7 +41,7 @@ function connection($array){
       $_SESSION['status'] = 'connected';
       $_SESSION['pseudo'] = $pseudo;
   }
-  home();
+  header('Location: index.php');
 }
 
 function addSubjectC($onlyPrint){
@@ -77,4 +77,24 @@ function addSubjectC($onlyPrint){
 function deconnection(){
   session_destroy();
   header('Location: index.php');
+}
+function register(){
+  if (isset($_GET['pseudo'])){
+    $test = selectInfoUser($_GET['pseudo']);
+    if (!$test) {
+      if (isset($_GET['pw']) && isset($_GET['pwV']) && $_GET['pwV'] == $_GET['pw']){
+        addUser($_GET['pseudo'],$_GET['pw']);
+        connection($_GET);
+      }
+    }else{
+      $_SESSION['error'] = "Erreur : compte déjà existant";
+      header('Location: index.php?action=register');
+    }
+    
+  }else{
+    require('view/template/top.php');
+    require('view/template/navbar.php');
+    require('view/formRegister.php');
+    require('view/template/bottom.php');
+  }
 }

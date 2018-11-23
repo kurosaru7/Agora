@@ -97,6 +97,14 @@ function printSubjectbycategories($idCategorie){
   ));
   return $query;
 }
+function addUser($pseudo,$pw){
+  $db = dbConnect();
+  $query = $db->prepare('INSERT INTO profil(pseudo,password) VALUES(:pseudo,:password)');
+  $query->execute(array(
+    'pseudo' => $pseudo,
+    'password' => $pw
+  ));
+}
 
 
 

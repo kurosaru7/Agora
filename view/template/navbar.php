@@ -45,10 +45,6 @@
             <a class="dropdown-item" href="index.php?action=deconnection">Se deconnecter</a>
           </div>
         </li></div>';
-    }else {
-      echo "
-      ";
-
     }
   }else {
     echo "
@@ -66,7 +62,9 @@
       <div class='col'>
       <button type='submit' class='btn connection' name='action' value='connection'>Se connecter</button>
       </div>
-      <a href ='#'><button type='submit' name='action' value='inscription' class='btn btn-link'>Créer un compte</button></a>
+      <div class='col'>
+      <a href ='index.php?action=register'>Créer un compte</a>
+      </div>
     </div>
   </form>";
   }

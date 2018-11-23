@@ -27,6 +27,9 @@ try{
       case 'deconnection':
         deconnection();  
       break;
+      case 'register':
+        register();
+        break;
     }
   }else{
     home();
