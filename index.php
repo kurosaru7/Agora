@@ -13,9 +13,6 @@ try{
       case 'connection' :
         connection($_GET);
       break;
-      case 'myProfile' :
-        echo 'C';
-      break;
       case 'addSubject' :
         if(isset($_GET['name'])){
           $onlyPrint = false;
@@ -29,6 +26,12 @@ try{
       break;
       case 'register':
         register();
+        break;
+      case 'myProfile':
+        displayProfile();
+        break;
+      case '':
+        home();
         break;
     }
   }else{

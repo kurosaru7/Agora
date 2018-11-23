@@ -87,7 +87,12 @@ function register(){
         connection($_GET);
       }
     }else{
-      $_SESSION['error'] = "Erreur : compte déjà existant";
+      $_SESSION['error'] = "<script>
+      function myFunction() {
+          alert('Erreur : Compte déjà existant!');
+      }
+      myFunction();
+      </script>";
       header('Location: index.php?action=register');
     }
     
@@ -97,4 +102,8 @@ function register(){
     require('view/formRegister.php');
     require('view/template/bottom.php');
   }
+}
+function displayProfile(){
+  selectInfoUser($_SESSION['pseudo']);
+
 }
