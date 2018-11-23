@@ -24,5 +24,7 @@ for($y = 0 ; $y < count($nomSujet[$i]) ; $y++) {
 echo '</tbody></table>';
 
 }
- ?>
+
+?>
+
 <?php require('template/bottom.php'); ?>

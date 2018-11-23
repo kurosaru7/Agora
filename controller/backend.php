@@ -41,7 +41,7 @@ function connection($array){
       $_SESSION['status'] = 'connected';
       $_SESSION['pseudo'] = $pseudo;
   }
-  require('view/home.php');
+  home();
 }
 
 function addSubjectC($onlyPrint){
