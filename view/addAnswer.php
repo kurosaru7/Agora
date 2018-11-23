@@ -18,17 +18,7 @@
         <input type="submit" value="Créer" id="button-blue"/>
         <div class="ease"></div>
 
-         <div class="center-on-page">
-        <div class="select">
-          <select name="sujet" id = "slct">
-            <?php
-              for($i = 0 ; $i < count($listSujet) ; $i++){
-                echo '<option value = '.$id[$i].'>'.strtoupper($listSujet[$i]).'</option>';
-              }
-            ?>
-          </select>
-        </div>
-      </div>
+        
 
       </div>
 
