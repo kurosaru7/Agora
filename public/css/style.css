@@ -38,7 +38,8 @@ button{
     margin:auto;
     left: 10%;
 }
-.form-control{
+
+nav .form-control{
     color: #6C3483;
     border-color: #6C3483;
     border-style: solid;
