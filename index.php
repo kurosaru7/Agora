@@ -4,6 +4,7 @@ if (!isset($_SESSION['error'])) {
   $_SESSION['error'] = "";
 }
 require('controller/backend.php');
+require('controller/frontend.php');
 try{
   if(isset($_GET['action'])){
     switch($_GET['action']){
@@ -29,6 +30,18 @@ try{
       break;
       case 'register':
         register();
+        break;
+      case 'addAnswer' :
+        try {
+        if(isset($_GET['name'])){
+          $onlyPrint = false;
+        }else{
+          $onlyPrint = true;
+        }
+        addAnswerC($onlyPrint);
+        }catch(Throwable $e){
+          echo 'Exception reçue : ',  $e->getMessage(), "\n";
+        }
         break;
     }
   }else{
