@@ -14,7 +14,7 @@ for($i=0 ; $i < count($tab_categories); $i++){
 </thead>';
 ?>
 <tbody class="table-hover">
-<?
+<?php
 for($y = 0 ; $y < count($nomSujet[$i]) ; $y++) {
   echo '<tr>
 <td class="text-left">'.$nomSujet[$i][$y].'</td>
