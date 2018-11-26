@@ -26,7 +26,7 @@ function addAnswerC($onlyPrint){
     require('view/addAnswer.php');
   }
 
-function addCommetC($onlyPrint){  
+function addCommentC($onlyPrint){  
     if(!$onlyPrint){
       $answer = getAnswer($_GET['idAnswer'])->fetch();
       $idAnswer = $answer['id'];
@@ -39,15 +39,15 @@ function addCommetC($onlyPrint){
       $info = selectInfoUser($_SESSION['pseudo']);
       $id_user = $info['id'];
   
-      $content = fopen('public/commet/'.$address, 'w+');
+      $content = fopen('public/comment/'.$address, 'w+');
       fwrite($content,$_GET['message']);
       fclose($content);
       addAnswer($address,$idSujet,$id_user);
   
-      header('Location: index.php?action=addCommet');
+      header('Location: index.php?action=addComment');
   
     }
-    require('view/addCommet.php');
+    require('view/addComment.php');
   }
 
   ?>

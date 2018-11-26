@@ -21,7 +21,7 @@ function getSujet($idSujet){
   return $query;
 }
 
-function addCommet($adresse,$answer,$profil){
+function addComment($adresse,$answer,$profil){
   $db = dbConnect();
   $query = $db->prepare('INSERT INTO reponse(points,datecom,adresse,reponse,profil) VALUES(1,:datecom,:adresse,:reponse,:profil)');
   $query->execute(array(
