@@ -7,7 +7,7 @@
   <div id="form-div">
   <h1 class="h3 mb-3 font-weight-normal"> Créer un commentaire </h1>
     <form class="form" id="form1" action = "index.php" method = "GET">
-      <input type = "hidden" name = "action" value = "addCommet">
+      <input type = "hidden" name = "action" value = "addComment">
 
       </p>
 
@@ -23,7 +23,7 @@
         
 
       </div>
-
+      <input type ="hidden" name="idAnswer" value=1>
 
     </form>
   </div>

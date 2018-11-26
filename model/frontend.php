@@ -1,13 +1,13 @@
-<?php 
+<?php
 
-function addAnswer($adresse,$sujet,$profil){
+function addAnswer($address,$idSujet,$idUser){
   $db = dbConnect();
   $query = $db->prepare('INSERT INTO reponse(points,dateM,adresse,sujet,profil) VALUES(1,:dateM,:adresse,:sujet,:profil)');
   $query->execute(array(
-    'sujet' => $sujet,
-    'adresse' => $adresse,
+    'sujet' => $idSujet,
+    'adresse' => $address,
     'dateM' => date('Y-m-d H:i:s'),
-    'profil' => $profil
+    'profil' => $idUser
   ));
 }
 
@@ -21,14 +21,14 @@ function getSujet($idSujet){
   return $query;
 }
 
-function addComment($adresse,$answer,$profil){
+function addComment($address,$idAnswer,$idUser){
   $db = dbConnect();
   $query = $db->prepare('INSERT INTO reponse(points,datecom,adresse,reponse,profil) VALUES(1,:datecom,:adresse,:reponse,:profil)');
   $query->execute(array(
-    'reponse'=> $answer,
-    'adresse'=> $adresse,
+    'reponse'=> $idAnswer,
+    'adresse'=> $address,
     'datecom'=> date('Y-m-d H:i:s'),
-    'profil'=> $profil
+    'profil'=> $idUser
   ));
 }
 
@@ -41,5 +41,12 @@ function getAnswer($idAnswer){
   return $query;
 }
 
-
+function editAnswer($adresse,$profil){
+  $db =dbConnect();
+  $query =$db->prepare('UPDATE reponse SET adresse = :adresse WHERE id =:idAnswer');
+  $query -> execute(array(
+    'idAnswer'=> $idAnswer,
+    'adresse'=> $adresse
+  ));
+}
 ?>

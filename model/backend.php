@@ -3,7 +3,7 @@
 function dbConnect() {
   try
   {
-    $db = new PDO('mysql:host=localhost;dbname=agora;charset=utf8','root','');
+    $db = new PDO('mysql:host=localhost;dbname=agora;charset=utf8','root','root');
   }
   catch(Exception $e)
   {
@@ -127,6 +127,14 @@ $query->execute(array(
 return $query;
 }
 
+function getReponse($id){
+  $db = dbConnect();
+  $query = $db->prepare('SELECT * FROM reponse WHERE sujet = :sujet');
+  $query->execute(array(
+    'sujet' => $id
+  ));
+return $query;
+}
 
 
 

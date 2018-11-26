@@ -341,16 +341,12 @@ td {
 
 .nomSujet {
   margin-top: 5%;
-  margin-left: 35%;
 }
 
-.card-avatar {
-  border: 1px solid grey;
-}
 
 .card-message {
   margin-left : 25%;
-  margin-top : -31%;
+  margin-top : -27%;
 }
 
 .content {
@@ -362,4 +358,12 @@ td {
   font-size: 12px;
   margin-top : 2%;
   margin-left : 78%;
+}
+
+.administration {
+  margin-top : -4%;
+}
+.underline {
+  text-decoration: underline;
+  text-decoration: underline red;
 }

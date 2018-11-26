@@ -1,4 +1,5 @@
-<?php require('model/backend.php');
+<?php
+require('model/backend.php');
 
 function home(){
   $title = 'Agora';
@@ -89,22 +90,15 @@ function printSubjectC($id){
   $nomSujet = $data['nomSujet'];
   $pseudoCreator = $data['pseudo'];
   $scoreProfilCreator = $data['scoreProfil'];
-
   $dateInscriptionCreator = $data['dateInscription'];
   $dateInscriptionCreator = explode('-',$dateInscriptionCreator);
   $dateInscriptionCreator = $dateInscriptionCreator[2].'-'.$dateInscriptionCreator[1].'-'.$dateInscriptionCreator[0];
-
-
   $dateCreationSujet = $data['dateCreationSujet'];
   $dateHeure = explode(' ',$dateCreationSujet);
   $dateEnvoi = $dateHeure[0];
   $dateEnvoi = explode('-',$dateEnvoi);
   $dateEnvoi = $dateEnvoi[2].'-'.$dateEnvoi[1].'-'.$dateEnvoi[0];
-
-
   $heureEnvoi = $dateHeure[1];
-
-
   $statutSujet = $data['statutSujet'];
   $categorieSujet = $data['statutSujet'];
   $avatar = 'public/images/avatar/'.$data['avatar'];
@@ -114,7 +108,18 @@ function printSubjectC($id){
     $content .= $line;
   }
 
-  $idCategorieSujet = $data['idcategorieSujet'];
+  $reponses = getReponse($id);
+  $count = 0;
+  while($data2 = $reponses->fetch()){
+    $dateR[$count] = $data2['datem'];
+    $contentReponse[$count] = $data['adresse'];
+    $dataReponse[$count] = fopen('public/reponse/'.$data2['adresse']);
+    $count++;
+     while(false !== ($line = fgets($dataReponse[$count]))){
+      $contentReponse[$count] .= $line;
+    }
+  }
+
   require('view/printSubject.php');
 }
 

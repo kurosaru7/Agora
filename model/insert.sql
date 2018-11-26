@@ -4,11 +4,11 @@
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `agora`;
-INSERT INTO `agora`.`profil` (`id`, `mail`, `nom`, `prenom`, `adresse`, `telephone`, `score`, `avatar`, `statut`, `pseudo`, `pasword`, `datep`) VALUES (1, 'otarino@live.fr', 'Delcourt', 'Christopher', '45 place des carpettes', '0678451296', 500, 'otarino.png', 'admin', 'oTaRiNo', '05121999', '1999-12-05');
-INSERT INTO `agora`.`profil` (`id`, `mail`, `nom`, `prenom`, `adresse`, `telephone`, `score`, `avatar`, `statut`, `pseudo`, `pasword`, `datep`) VALUES (2, 'Erwan@gmail.com', 'Hacques', 'Erwan', '13 rue des champignons', '0636987456', 0, 'slunpp.jpg', 'visiteur', 'Slunpp', 'secret', '1997-04-12');
-INSERT INTO `agora`.`profil` (`id`, `mail`, `nom`, `prenom`, `adresse`, `telephone`, `score`, `avatar`, `statut`, `pseudo`, `pasword`, `datep`) VALUES (3, 'barnabe@gmail.com', 'Barnabe', 'Morgan', '9 rue des chimpanzés', '0614783575', -50, 'ed.jpeg', 'visiteur', 'Ed', 'nulmomonul', '1900-01-01');
-INSERT INTO `agora`.`profil` (`id`, `mail`, `nom`, `prenom`, `adresse`, `telephone`, `score`, `avatar`, `statut`, `pseudo`, `pasword`, `datep`) VALUES (4, 'olivier@hotmail.fr', 'Lespagnon', 'Olivier', '1 avenue chaise', '0798563250', 400, 'masoj.png', 'admin', 'Masoj', 'patoche', '1997-05-05');
-INSERT INTO `agora`.`profil` (`id`, `mail`, `nom`, `prenom`, `adresse`, `telephone`, `score`, `avatar`, `statut`, `pseudo`, `pasword`, `datep`) VALUES (5, 'jean@wanadoo.fr', 'Neymar', 'Jean', '9 place du stade', '0684553859', 1000, 'god.jpg', 'visiteur', 'God', 'oklmpasbesoin', '1000-01-01');
+INSERT INTO `agora`.`utilisateur` (`id`, `mail`, `nom`, `prenom`, `adresse`, `telephone`, `score`, `avatar`, `statut`, `pseudo`, `password`, `datep`) VALUES (1, 'otarino@live.fr', 'Delcourt', 'Christopher', '45 place des carpettes', '0678451296', 500, 'otarino.png', 'admin', 'oTaRiNo', '05121999', '1999-12-05');
+INSERT INTO `agora`.`utilisateur` (`id`, `mail`, `nom`, `prenom`, `adresse`, `telephone`, `score`, `avatar`, `statut`, `pseudo`, `password`, `datep`) VALUES (2, 'Erwan@gmail.com', 'Hacques', 'Erwan', '13 rue des champignons', '0636987456', 0, 'slunpp.jpg', 'visiteur', 'Slunpp', 'secret', '1997-04-12');
+INSERT INTO `agora`.`utilisateur` (`id`, `mail`, `nom`, `prenom`, `adresse`, `telephone`, `score`, `avatar`, `statut`, `pseudo`, `password`, `datep`) VALUES (3, 'barnabe@gmail.com', 'Barnabe', 'Morgan', '9 rue des chimpanzés', '0614783575', -50, 'ed.jpeg', 'visiteur', 'Ed', 'nulmomonul', '1900-01-01');
+INSERT INTO `agora`.`utilisateur` (`id`, `mail`, `nom`, `prenom`, `adresse`, `telephone`, `score`, `avatar`, `statut`, `pseudo`, `password`, `datep`) VALUES (4, 'olivier@hotmail.fr', 'Lespagnon', 'Olivier', '1 avenue chaise', '0798563250', 400, 'masoj.png', 'admin', 'Masoj', 'patoche', '1997-05-05');
+INSERT INTO `agora`.`utilisateur` (`id`, `mail`, `nom`, `prenom`, `adresse`, `telephone`, `score`, `avatar`, `statut`, `pseudo`, `password`, `datep`) VALUES (5, 'jean@wanadoo.fr', 'Neymar', 'Jean', '9 place du stade', '0684553859', 1000, 'god.jpg', 'visiteur', 'God', 'oklmpasbesoin', '1000-01-01');
 
 COMMIT;
 
@@ -96,8 +96,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `agora`;
-INSERT INTO `agora`.`ticket` (`id`, `sujet`, `dateT`, `profil`, `adresse`, `pieces_jointe`) VALUES (1, 'Le boutton pour envoyer sa réponse sur la page d\'un sujet ne marche pas', '2018-11-08', 3, 'c38c6717-33fc-4912-ae0d-4bef26bd5290.txt', '27781f59-af23-445a-9905-483c89f3fdda.txt');
-INSERT INTO `agora`.`ticket` (`id`, `sujet`, `dateT`, `profil`, `adresse`, `pieces_jointe`) VALUES (2, 'La catégorie PHP n\'affiche rien', '2018-11-15', 2, 'a54b5fc8-4167-48e4-88cf-d3cd5faa0d49.txt', NULL);
+INSERT INTO `agora`.`ticket` (`id`, `sujet`, `dateT`, `profil`, `adresse`, `pieces_jointe`) VALUES (1, 'Le boutton pour envoyer sa réponse sur la page d un sujet ne marche pas', '2018-11-08', 3, 'c38c6717-33fc-4912-ae0d-4bef26bd5290.txt', '27781f59-af23-445a-9905-483c89f3fdda.txt');
+INSERT INTO `agora`.`ticket` (`id`, `sujet`, `dateT`, `profil`, `adresse`, `pieces_jointe`) VALUES (2, 'La catégorie PHP n affiche rien', '2018-11-15', 2, 'a54b5fc8-4167-48e4-88cf-d3cd5faa0d49.txt', NULL);
 INSERT INTO `agora`.`ticket` (`id`, `sujet`, `dateT`, `profil`, `adresse`, `pieces_jointe`) VALUES (3, 'Je ne vois pas mes messages privés', '2018-10-09', 1, 'f1ac60c6-b017-4d3d-805c-e5d41b7cc75f.txt', '66a3ae44-043f-4c29-a7eb-8818cf7c5e9c.txt');
 
 COMMIT;

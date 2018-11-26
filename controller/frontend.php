@@ -1,53 +1,58 @@
-<?php 
+<?php
+require('model/frontend.php');
+
 
 function addAnswerC($onlyPrint){
-    
-  
-    if(!$onlyPrint){
-      $sujet = getSujet($_GET['idSujet'])->fetch();
-      $idSujet = $sujet['id'];
-      $sujet = $_GET['sujet'];
-      $message = $_GET['message'];
-      $name = $_GET['name'];
-  
+
+
+    if($onlyPrint == false){
+      $idSujet = $_GET['idSujet'];
+
       $rdm = uniqid();
       $address = $rdm.'.txt';
       $info = selectInfoUser($_SESSION['pseudo']);
-      $id_user = $info['id'];
-  
+      $idUser = $info['id'];
       $content = fopen('public/reponse/'.$address, 'w+');
       fwrite($content,$_GET['message']);
       fclose($content);
-      addAnswer($address,$idSujet,$id_user);
-  
+      addAnswer($address,intval($idSujet),intval($idUser));
       header('Location: index.php?action=addAnswer');
-  
     }
     require('view/addAnswer.php');
   }
 
-function addCommentC($onlyPrint){  
+function addCommentC($onlyPrint){
     if(!$onlyPrint){
-      $answer = getAnswer($_GET['idAnswer'])->fetch();
-      $idAnswer = $answer['id'];
-      $answer = $_GET['answer'];
-      $message = $_GET['message'];
-      $name = $_GET['name'];
-  
+    $idAnswer = $_GET['idAnswer'];
       $rdm = uniqid();
       $address = $rdm.'.txt';
       $info = selectInfoUser($_SESSION['pseudo']);
       $id_user = $info['id'];
-  
+
       $content = fopen('public/comment/'.$address, 'w+');
       fwrite($content,$_GET['message']);
       fclose($content);
-      addAnswer($address,$idSujet,$id_user);
-  
+      addAnswer($address,$idAnswer,$id_user);
+
       header('Location: index.php?action=addComment');
-  
+
     }
     require('view/addComment.php');
   }
 
-  ?>
+function editAnswerE($editPrint){
+
+  if($editPrint){
+    $answer= getAnswer($_GET['idAnswer']->fetch());
+    $idAnswer= $answer['id'];
+    $answer= $_GET['answer'];
+    $name = $_GET['name'];
+
+    $content= fopen('public/reponse/'.$adress, 'w+');
+    editAnswer($adresse,$profil);
+    fwrite($content,$_GET['message']);
+    fclose($content);
+  }
+}
+
+?>
