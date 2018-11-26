@@ -1,13 +1,13 @@
-<?php 
+<?php
 
-function addAnswer($adresse,$sujet,$profil){
+function addAnswer($address,$idSujet,$idUser){
   $db = dbConnect();
   $query = $db->prepare('INSERT INTO reponse(points,dateM,adresse,sujet,profil) VALUES(1,:dateM,:adresse,:sujet,:profil)');
   $query->execute(array(
-    'sujet' => $sujet,
-    'adresse' => $adresse,
+    'sujet' => $idSujet,
+    'adresse' => $address,
     'dateM' => date('Y-m-d H:i:s'),
-    'profil' => $profil
+    'profil' => $idUser
   ));
 }
 

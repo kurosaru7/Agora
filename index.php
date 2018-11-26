@@ -3,8 +3,9 @@ session_start();
 if (!isset($_SESSION['error'])) {
   $_SESSION['error'] = "";
 }
-require('controller/backend.php');
-require('controller/frontend.php');
+require_once('controller/backend.php');
+require_once('controller/frontend.php');
+
 try{
   if(isset($_GET['action'])){
     switch($_GET['action']){

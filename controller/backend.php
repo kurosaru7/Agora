@@ -1,4 +1,5 @@
-<?php require('model/backend.php');
+<?php
+require('model/backend.php');
 
 function home(){
   $title = 'Agora';

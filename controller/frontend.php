@@ -1,50 +1,46 @@
-<?php 
+<?php
+require('model/frontend.php');
+
 
 function addAnswerC($onlyPrint){
-    
-  
+
+
     if($onlyPrint == false){
       $idSujet = $_GET['idSujet'];
-  
+
       $rdm = uniqid();
       $address = $rdm.'.txt';
       $info = selectInfoUser($_SESSION['pseudo']);
       $idUser = $info['id'];
       $content = fopen('public/reponse/'.$address, 'w+');
       fwrite($content,$_GET['message']);
-      fclose($content);      
-      try{
-        addAnswer($address,$idSujet,$idUser);
-      }catch(Exception $e){
-        $message = $e->getMessage();
-      }
-      echo $message;
+      fclose($content);
+      addAnswer($address,intval($idSujet),intval($idUser));
       header('Location: index.php?action=addAnswer');
-  
     }
     require('view/addAnswer.php');
   }
 
-function addCommentC($onlyPrint){  
+function addCommentC($onlyPrint){
     if(!$onlyPrint){
       $answer = getAnswer($_GET['idAnswer'])->fetch();
       $idAnswer = $answer['id'];
       $answer = $_GET['answer'];
       $message = $_GET['message'];
       $name = $_GET['name'];
-  
+
       $rdm = uniqid();
       $address = $rdm.'.txt';
       $info = selectInfoUser($_SESSION['pseudo']);
       $id_user = $info['id'];
-  
+
       $content = fopen('public/comment/'.$address, 'w+');
       fwrite($content,$_GET['message']);
       fclose($content);
       addAnswer($address,$idAnswer,$id_user);
-  
+
       header('Location: index.php?action=addComment');
-  
+
     }
     require('view/addComment.php');
   }
@@ -62,6 +58,6 @@ function editAnswerE($editPrint){
     fwrite($content,$_GET['message']);
     fclose($content);
   }
-}  
+}
 
 ?>
