@@ -18,7 +18,7 @@ for($x = 0 ; $x < 5 ; $x++){
 }
 
 for($i=0 ; $i < count($tab_categories); $i++){
-  echo '<table>
+  echo '<table class="table-fill">
 <thead>
 <tr>
 <th class="text-left">'.strtoupper($tab_categories[$i]).'</th>

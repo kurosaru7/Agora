@@ -150,6 +150,7 @@ function register(){
 }
 function displayProfile(){
   $perso_data_arr = selectInfoUser($_SESSION['pseudo']);
+  $title = 'Profil';
   unset($perso_data_arr['id'], $perso_data_arr['statut'], $perso_data_arr['password'], $perso_data_arr['datep'], $perso_data_arr['pseudo'], $perso_data_arr['score']);
   require('./view/profilePage.php');
 }
