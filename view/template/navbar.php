@@ -54,7 +54,7 @@
       <div class='col' >
         <input type='text' class='form-control' name='pseudo' placeholder='Pseudo'>
         <div class='row error'>
-        <span>".$_SESSION['error']."</span>
+        <span></span>
         </div>
       </div>
       <div class='col'>
@@ -73,3 +73,10 @@
 
   ?>
 </nav>
+<?php if ($_SESSION['error'] != ""){
+ echo('<div class="alert alert-warning alert-dismissible">
+ <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+ <strong>Attention!</strong> '.$_SESSION['error'].'
+</div>');
+}
+?>
