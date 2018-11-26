@@ -1,22 +1,8 @@
 <?php
-    for($i=0 ; $i < 11; $i++){
-    echo '<table class="table-fill">
-    <thead>
-    <tr>
-    <th class="text-left">Coucou</th>
-    </tr>
-    </thead>';
+    require('template/top.php');
+    require('template/navbar.php');
+    echo('<div class="card" style="width: 18rem;"><div class="card-header">Profil</div><ul class="list-group list-group-flush">');
+    foreach ($perso_data_arr as $key => $value){
+        echo('<li class="list-group-item">'.$key.' : '.$value.'</li>');
     }
-?>
-<tbody class="table-hover">
-<?php
-    // for($y = 0 ; $y < count($nomSujet[$i]) ; $y++) {
-    // echo '<tr>
-    // <td class="text-left">'.$nomSujet[$i][$y].'</td>
-    // </tr>';
-
-    // }
-    // echo '</tbody></table>';
-
-    // }
 ?>

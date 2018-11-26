@@ -3,7 +3,11 @@
 function dbConnect() {
   try
   {
+<<<<<<< Updated upstream
     $db = new PDO('mysql:host=localhost;dbname=agora;charset=utf8','root','root');
+=======
+    $db = new PDO('mysql:host=localhost;dbname=agora;charset=utf8','root','');
+>>>>>>> Stashed changes
   }
   catch(Exception $e)
   {
