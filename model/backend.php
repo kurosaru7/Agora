@@ -85,7 +85,7 @@ function getCategories(){
 
 function printSubjectbycategories($idCategorie){
   $db = dbConnect();
-  $query = $db->prepare('SELECT S.id,S.nom,S.dateS,S.profil,C.nom AS nom_categorie,P.pseudo
+  $query = $db->prepare('SELECT S.id AS idSujet,S.nom,S.dateS,S.profil,C.nom AS nom_categorie,P.pseudo
                       FROM sujet S JOIN categorie C
                       ON S.categorie = C.id
                       JOIN profil P
@@ -108,7 +108,7 @@ function addUser($pseudo,$pw){
 
 function printLastSubjects(){
   $db = dbConnect();
-  $query = $db->query('SELECT S.id,S.nom,S.dateS,S.profil,C.nom AS nom_categorie,P.pseudo
+  $query = $db->query('SELECT S.id AS idSujet,S.nom,S.dateS,S.profil,C.nom AS nom_categorie,P.pseudo
                       FROM sujet S JOIN categorie C
                       ON S.categorie = C.id
                       JOIN profil P
@@ -116,6 +116,17 @@ function printLastSubjects(){
                       ORDER BY dateS DESC');
   return $query;
 }
+
+function printSubject($id){
+$db = dbConnect();
+$query = $db->prepare('SELECT S.nom AS nomSujet ,P.pseudo AS pseudo,P.score AS scoreProfil ,P.datep AS dateInscription ,S.dateS AS dateCreationSujet,S.statut AS statutSujet,S.categorie AS idcategorieSujet,S.adresse AS adresseSujet,CA.nom AS nomCategorie FROM categorie CA JOIN sujet S ON CA.id = S.categorie JOIN profil P ON S.profil = P.id WHERE S.id = :idSujet ');
+$query->execute(array(
+  'idSujet' => $id
+));
+return $query;
+}
+
+
 
 
 
