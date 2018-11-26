@@ -21,14 +21,14 @@ function getSujet($idSujet){
   return $query;
 }
 
-function addComment($adresse,$answer,$profil){
+function addComment($address,$idAnswer,$idUser){
   $db = dbConnect();
   $query = $db->prepare('INSERT INTO reponse(points,datecom,adresse,reponse,profil) VALUES(1,:datecom,:adresse,:reponse,:profil)');
   $query->execute(array(
-    'reponse'=> $answer,
-    'adresse'=> $adresse,
+    'reponse'=> $idAnswer,
+    'adresse'=> $address,
     'datecom'=> date('Y-m-d H:i:s'),
-    'profil'=> $profil
+    'profil'=> $idUser
   ));
 }
 

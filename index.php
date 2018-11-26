@@ -47,7 +47,7 @@ try{
         addAnswerC($onlyPrint);
         break;
       case'addComment':
-        if(isset($_GET['name'])){
+        if(isset($_GET['message'])){
          $onlyPrint = false;
         }else{
          $onlyPrint = true;
