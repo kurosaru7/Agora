@@ -23,12 +23,13 @@ function home(){
     $subjects = printSubjectbycategories($data2['id']);
     $count = 0;
     while($data = $subjects->fetch()){
+
       $nomSujet[$count2][$count] = $data['nom'];
       $idSujet[$count2][$count] = $data['idSujet'];
       $contenu_date[$count2][$count] = $data['dateS'];
       $dateHeure[$count2][$count] = explode(' ',$contenu_date[$count2][$count]);
       $idProfil[$count2][$count] = $data['profil'];
-      $nomCategorie[$count2][$count] = $data['nomCategorie'];
+      $nomCategorie[$count2][$count] = $data['nom_categorie'];
       $pseudo[$count2][$count] = $data['pseudo'];
       $count++;
     }
@@ -97,8 +98,7 @@ function printSubjectC($id){
   $categorieSujet = $data['statutSujet'];
   $avatar = 'public/images/avatar/'.$data['avatar'];
   $data = fopen('public/sujet/'.$data['adresseSujet'],'r');
-  $idCategorieSujet = $data['idcategorieSujet'];
-
+  $content = "";
   while(false !== ($line = fgets($data))){
     $content .= $line;
   }
@@ -147,8 +147,8 @@ function register(){
     }
 
   }else{
-    require('view/template/top.php');
     require('view/template/navbar.php');
+    require('view/template/top.php');
     require('view/formRegister.php');
     require('view/template/bottom.php');
   }
@@ -158,4 +158,15 @@ function displayProfile(){
   $title = 'Profil';
   unset($perso_data_arr['id'], $perso_data_arr['statut'], $perso_data_arr['password'], $perso_data_arr['datep'], $perso_data_arr['pseudo'], $perso_data_arr['score']);
   require('./view/profilePage.php');
+}
+function getAvatarPath($pseudo){
+  $path ="./public/images/avatar/";
+  $infoUser = selectInfoUser($pseudo);
+  if (isset($infoUser['avatar'])){
+    $name = $infoUser['avatar'];
+  }else{
+    $name = 'default.jpg';
+  }
+  $path .= $name;
+  return $path;
 }

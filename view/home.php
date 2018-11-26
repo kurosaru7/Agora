@@ -1,6 +1,7 @@
 <?php
-require('template/top.php');
-require('template/navbar.php'); ?>
+
+require('template/navbar.php');
+require('template/top.php'); ?>
 
 
 <table class="table-fill">

@@ -1,5 +1,7 @@
-<?php require('template/top.php'); ?>
-<?php require('template/navbar.php'); ?>
+<?php  
+  require('template/navbar.php');
+  require('template/top.php'); 
+  ?>
 
 <div id="form-main">
   <div id="form-div">
@@ -21,7 +23,7 @@
         
 
       </div>
-
+    <input type="hidden" name="idSujet" value=1>
 
     </form>
   </div>

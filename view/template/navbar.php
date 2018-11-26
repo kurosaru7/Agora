@@ -21,7 +21,7 @@
         <input class="nav-element form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Search">
         <button  class="btn nav-element my-2 my-sm-0" type="submit">Rechercher un sujet</button>
        </form>
-    </ul>
+    
     <?php
     if(isset($_SESSION['status'])) {
       if($_SESSION['status'] == 'connected'){
@@ -29,6 +29,7 @@
       }
     }
     ?>
+    </ul>
   </div>
   <?php
   if (isset($_SESSION['status'])) {

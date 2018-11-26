@@ -38,20 +38,20 @@ try{
         home();
         break;
       case 'addAnswer' :
-        if(isset($_GET['name'])){
+        if(isset($_GET['message'])){
           $onlyPrint = false;
         }else{
           $onlyPrint = true;
         }
         addAnswerC($onlyPrint);
         break;
-      case'addCommet':
+      case'addComment':
         if(isset($_GET['name'])){
          $onlyPrint = false;
         }else{
          $onlyPrint = true;
         }
-        addCommetC($onlyPrint);
+        addCommentC($onlyPrint);
         break;
     }
   }else{
