@@ -126,6 +126,14 @@ $query->execute(array(
 return $query;
 }
 
+function getReponse($id){
+  $db = dbConnect();
+  $query = $db->prepare('SELECT * FROM reponse WHERE sujet = :sujet');
+  $query->execute(array(
+    'sujet' => $id
+  ));
+return $query;
+}
 
 
 
