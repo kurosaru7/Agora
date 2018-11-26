@@ -84,10 +84,25 @@ function printSubjectC($id){
   $nomSujet = $data['nomSujet'];
   $pseudoCreator = $data['pseudo'];
   $scoreProfilCreator = $data['scoreProfil'];
+
   $dateInscriptionCreator = $data['dateInscription'];
+  $dateInscriptionCreator = explode('-',$dateInscriptionCreator);
+  $dateInscriptionCreator = $dateInscriptionCreator[2].'-'.$dateInscriptionCreator[1].'-'.$dateInscriptionCreator[0];
+
+
   $dateCreationSujet = $data['dateCreationSujet'];
+  $dateHeure = explode(' ',$dateCreationSujet);
+  $dateEnvoi = $dateHeure[0];
+  $dateEnvoi = explode('-',$dateEnvoi);
+  $dateEnvoi = $dateEnvoi[2].'-'.$dateEnvoi[1].'-'.$dateEnvoi[0];
+
+
+  $heureEnvoi = $dateHeure[1];
+
+
   $statutSujet = $data['statutSujet'];
   $categorieSujet = $data['statutSujet'];
+  $avatar = 'public/images/avatar/'.$data['avatar'];
   $data = fopen('public/sujet/'.$data['adresseSujet'],'r');
 
   while(false !== ($line = fgets($data))){
