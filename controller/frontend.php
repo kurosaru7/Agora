@@ -23,12 +23,7 @@ function addAnswerC($onlyPrint){
 
 function addCommentC($onlyPrint){
     if(!$onlyPrint){
-      $answer = getAnswer($_GET['idAnswer'])->fetch();
-      $idAnswer = $answer['id'];
-      $answer = $_GET['answer'];
-      $message = $_GET['message'];
-      $name = $_GET['name'];
-
+    $idAnswer = $_GET['idAnswer'];
       $rdm = uniqid();
       $address = $rdm.'.txt';
       $info = selectInfoUser($_SESSION['pseudo']);
