@@ -155,3 +155,14 @@ function displayProfile(){
   unset($perso_data_arr['id'], $perso_data_arr['statut'], $perso_data_arr['password'], $perso_data_arr['datep'], $perso_data_arr['pseudo'], $perso_data_arr['score']);
   require('./view/profilePage.php');
 }
+function getAvatarPath($pseudo){
+  $path ="./public/images/avatar/";
+  $infoUser = selectInfoUser($pseudo);
+  if (isset($infoUser['avatar'])){
+    $name = $infoUser['avatar'];
+  }else{
+    $name = 'default.jpg';
+  }
+  $path .= $name;
+  return $path;
+}
