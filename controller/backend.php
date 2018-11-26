@@ -23,12 +23,13 @@ function home(){
     $subjects = printSubjectbycategories($data2['id']);
     $count = 0;
     while($data = $subjects->fetch()){
+
       $nomSujet[$count2][$count] = $data['nom'];
       $idSujet[$count2][$count] = $data['idSujet'];
       $contenu_date[$count2][$count] = $data['dateS'];
       $dateHeure[$count2][$count] = explode(' ',$contenu_date[$count2][$count]);
       $idProfil[$count2][$count] = $data['profil'];
-      $nomCategorie[$count2][$count] = $data['nomCategorie'];
+      $nomCategorie[$count2][$count] = $data['nom_categorie'];
       $pseudo[$count2][$count] = $data['pseudo'];
       $count++;
     }
