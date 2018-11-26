@@ -16,7 +16,7 @@
           </div>
           <br>
         <h5 class="card-title">
-          <font color="purple"><?php echo $pseudoCreator ?></font>
+          <font color="purple"><a href="./index.php?action=myProfile&pseudo=<?php echo($pseudoCreator); ?>"><?php echo($pseudoCreator); ?></a> </font>
           <br>
           <?php echo $scoreProfilCreator ?> Points
         </h5>

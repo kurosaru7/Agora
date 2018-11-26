@@ -45,6 +45,10 @@ function connection($array){
     if($isRegister){
       $_SESSION['status'] = 'connected';
       $_SESSION['pseudo'] = $pseudo;
+      $_SESSION['error'] = "";
+  }else{
+    $_SESSION['error'] = "Erreur : Pseudo ou mot de passe inconnu !";
+
   }
   header('Location: index.php');
 }
@@ -119,11 +123,12 @@ function isConnect(){
     return true;
   }
 }
-
+//Disconnect the user
 function deconnection(){
   session_destroy();
   header('Location: index.php');
 }
+//Check if the user is registering and register him in the database or asking for the register form
 function register(){
   if (isset($_GET['pseudo'])){
     $test = selectInfoUser($_GET['pseudo']);
@@ -149,19 +154,34 @@ function register(){
     require('view/template/bottom.php');
   }
 }
+//Display the profile page of a given user via $_GET['pseudo'] as a string
 function displayProfile(){
-  $perso_data_arr = selectInfoUser($_SESSION['pseudo']);
+  if (!isset($_GET['pseudo'])){
+    $perso_data_arr = selectInfoUser($_SESSION['pseudo']);
+    $delete = "<a href='./index.php?action=deleteMyProfile'>Supprimer mon compte</a>";
+  }else{
+    $perso_data_arr = selectInfoUser($_GET['pseudo']);
+    if (isConnect() && $_GET['pseudo'] == $_SESSION['pseudo']) {
+      $delete = "<a href='./index.php?action=deleteMyProfile'>Supprimer mon compte</a>";
+    }
+  }
   $title = 'Profil';
-  unset($perso_data_arr['id'], $perso_data_arr['statut'], $perso_data_arr['password'], $perso_data_arr['datep'], $perso_data_arr['pseudo'], $perso_data_arr['score']);
+  unset($perso_data_arr['avatar'],$perso_data_arr['id'], $perso_data_arr['statut'], $perso_data_arr['password'], $perso_data_arr['datep'], $perso_data_arr['pseudo'], $perso_data_arr['score']);
   require('./view/profilePage.php');
 }
-function getAvatarPath($pseudo){
+//Return avatar path as a string for a given $pseudo as a string
+function getAvatarPath(){
   $path ="./public/images/avatar/";
-  $infoUser = selectInfoUser($pseudo);
+  if (!isset($_GET['pseudo'])) {
+  $infoUser = selectInfoUser($_SESSION['pseudo']);
+  }else{
+    $infoUser = selectInfoUser($_GET['pseudo']);
+  }
+  
   if (isset($infoUser['avatar'])){
     $name = $infoUser['avatar'];
   }else{
-    $name = 'default.jpg';
+    $name = 'default.png';
   }
   $path .= $name;
   return $path;

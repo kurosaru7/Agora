@@ -53,6 +53,9 @@ try{
         }
         addCommetC($onlyPrint);
         break;
+      case 'deleteMyProfile':
+        deleteMyProfile();
+        break;
     }
   }else{
     home();
