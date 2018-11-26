@@ -41,5 +41,12 @@ function getAnswer($idAnswer){
   return $query;
 }
 
-
+function editAnswer($adresse,$profil){
+  $db =dbConnect();
+  $query =$db->prepare('UPDATE reponse SET adresse = :adresse WHERE id =:idAnswer');
+  $query -> execute(array(
+    'idAnswer'=> $idAnswer,
+    'adresse'=> $adresse
+  ));
+}
 ?>
