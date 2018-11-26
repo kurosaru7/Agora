@@ -2,55 +2,35 @@
 
 function home(){
   $title = 'Agora';
-  // if(isset($_SESSION['error'])){
-  //   print_r($_SESSION['error']);
-  // }else{
-  //   $_SESSION['error'] = "";
-  // }
   $categories = getCategories() ;
-
-  $count=0;
+  $count = 0;
   $count2 = 0;
   $count3 = 0;
-
   $lastSubjects = printLastSubjects();
 
   while($data3 = $lastSubjects->fetch()){
-     $idLastSujet[$count3][0] = $data3['id'];
-      $lastNomSujet[$count3][0]= $data3['nom'];
-
+      $idLastSujet[$count3][0] = $data3['idSujet'];
+      $lastNomSujet[$count3][0] = $data3['nom'];
       $lastDateSujet[$count3][0] = $data3['dateS'];
       $lastHeure[$count3][0] = explode(' ',$lastDateSujet[$count3][0]);
-
-
-
+      $lastCategorie[$count3]= $data3['nom_categorie'];
       $idLastProfil[$count3][0] = $data3['profil'];
       $lastPseudo[$count3][0] = $data3['pseudo'];
       $count3++;
-
   }
-
-
   while($data2 = $categories->fetch()){
-
     $tab_categories[$count2] = $data2['nom'];
     $subjects = printSubjectbycategories($data2['id']);
     $count = 0;
     while($data = $subjects->fetch()){
-
-      $idSujet[$count2][$count] = $data['id'];
       $nomSujet[$count2][$count] = $data['nom'];
-
-      $dateSujet[$count2][$count] = $data['dateS'];
-      $heure[$count2][$count] = explode(' ',$dateSujet[$count2][$count]);
-
-
-
+      $idSujet[$count2][$count] = $data['idSujet'];
+      $contenu_date[$count2][$count] = $data['dateS'];
+      $dateHeure[$count2][$count] = explode(' ',$contenu_date[$count2][$count]);
       $idProfil[$count2][$count] = $data['profil'];
-      $nomCategorie[$count2][$count] = $data['nom_categorie'];
+      $nomCategorie[$count2][$count] = $data['nomCategorie'];
       $pseudo[$count2][$count] = $data['pseudo'];
       $count++;
-
     }
     $count2++;
   }
@@ -78,29 +58,44 @@ function addSubjectC($onlyPrint){
       $id[$count] = $data['id'];
       $count++;
     }
-
     if(!$onlyPrint){
       $categorie = $_GET['categorie'];
       $message = $_GET['message'];
       $name = $_GET['name'];
-
       $rdm = uniqid();
       $address = $rdm.'.txt';
       $info = selectInfoUser($_SESSION['pseudo']);
       $id_user = $info['id'];
-
       $content = fopen('public/sujet/'.$address, 'w+');
       fwrite($content,$message);
       fclose($content);
       addSubject($name,$id_user,intval($categorie),$address);
-
       header('Location: index.php?action=home');
-
     }
     require('view/addSubject.php');
   }else{
     header('Location: index.php');
   }
+}
+
+function printSubjectC($id){
+  $subjectInfo = printSubject($id);
+  $data = $subjectInfo->fetch();
+  $nomSujet = $data['nomSujet'];
+  $pseudoCreator = $data['pseudo'];
+  $scoreProfilCreator = $data['scoreProfil'];
+  $dateInscriptionCreator = $data['dateInscription'];
+  $dateCreationSujet = $data['dateCreationSujet'];
+  $statutSujet = $data['statutSujet'];
+  $categorieSujet = $data['statutSujet'];
+  $data = fopen('public/sujet/'.$data['adresseSujet'],'r');
+
+  while(false !== ($line = fgets($data))){
+    $content .= $line;
+  }
+
+  $idCategorieSujet = $data['idcategorieSujet'];
+  require('view/printSubject.php');
 }
 
 function isConnect(){
@@ -130,7 +125,7 @@ function register(){
       </script>";
       header('Location: index.php?action=register');
     }
-    
+
   }else{
     require('view/template/top.php');
     require('view/template/navbar.php');

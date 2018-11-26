@@ -22,8 +22,11 @@ try{
         }
         addSubjectC($onlyPrint);
       break;
+      case 'printSubject' :
+        printSubjectC($_GET['id']);
+      break;
       case 'deconnection':
-        deconnection();  
+        deconnection();
       break;
       case 'register':
         register();
