@@ -105,7 +105,7 @@ function printSubjectC($id){
   $categorieSujet = $data['statutSujet'];
   $avatar = 'public/images/avatar/'.$data['avatar'];
   $data = fopen('public/sujet/'.$data['adresseSujet'],'r');
-
+  $content = "";
   while(false !== ($line = fgets($data))){
     $content .= $line;
   }
