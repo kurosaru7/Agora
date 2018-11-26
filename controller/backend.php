@@ -143,8 +143,8 @@ function register(){
     }
 
   }else{
-    require('view/template/top.php');
     require('view/template/navbar.php');
+    require('view/template/top.php');
     require('view/formRegister.php');
     require('view/template/bottom.php');
   }
