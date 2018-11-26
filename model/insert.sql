@@ -4,11 +4,11 @@
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `agora`;
-INSERT INTO `agora`.`utilisateur` (`id`, `mail`, `nom`, `prenom`, `adresse`, `telephone`, `score`, `avatar`, `statut`, `pseudo`, `password`, `datep`) VALUES (1, 'otarino@live.fr', 'Delcourt', 'Christopher', '45 place des carpettes', '0678451296', 500, 'otarino.png', 'admin', 'oTaRiNo', '05121999', '1999-12-05');
-INSERT INTO `agora`.`utilisateur` (`id`, `mail`, `nom`, `prenom`, `adresse`, `telephone`, `score`, `avatar`, `statut`, `pseudo`, `password`, `datep`) VALUES (2, 'Erwan@gmail.com', 'Hacques', 'Erwan', '13 rue des champignons', '0636987456', 0, 'slunpp.jpg', 'visiteur', 'Slunpp', 'secret', '1997-04-12');
-INSERT INTO `agora`.`utilisateur` (`id`, `mail`, `nom`, `prenom`, `adresse`, `telephone`, `score`, `avatar`, `statut`, `pseudo`, `password`, `datep`) VALUES (3, 'barnabe@gmail.com', 'Barnabe', 'Morgan', '9 rue des chimpanzés', '0614783575', -50, 'ed.jpeg', 'visiteur', 'Ed', 'nulmomonul', '1900-01-01');
-INSERT INTO `agora`.`utilisateur` (`id`, `mail`, `nom`, `prenom`, `adresse`, `telephone`, `score`, `avatar`, `statut`, `pseudo`, `password`, `datep`) VALUES (4, 'olivier@hotmail.fr', 'Lespagnon', 'Olivier', '1 avenue chaise', '0798563250', 400, 'masoj.png', 'admin', 'Masoj', 'patoche', '1997-05-05');
-INSERT INTO `agora`.`utilisateur` (`id`, `mail`, `nom`, `prenom`, `adresse`, `telephone`, `score`, `avatar`, `statut`, `pseudo`, `password`, `datep`) VALUES (5, 'jean@wanadoo.fr', 'Neymar', 'Jean', '9 place du stade', '0684553859', 1000, 'god.jpg', 'visiteur', 'God', 'oklmpasbesoin', '1000-01-01');
+INSERT INTO `agora`.`profil` (`id`, `mail`, `nom`, `prenom`, `adresse`, `telephone`, `score`, `avatar`, `statut`, `pseudo`, `pasword`, `datep`) VALUES (1, 'otarino@live.fr', 'Delcourt', 'Christopher', '45 place des carpettes', '0678451296', 500, 'otarino.png', 'admin', 'oTaRiNo', '05121999', '1999-12-05');
+INSERT INTO `agora`.`profil` (`id`, `mail`, `nom`, `prenom`, `adresse`, `telephone`, `score`, `avatar`, `statut`, `pseudo`, `pasword`, `datep`) VALUES (2, 'Erwan@gmail.com', 'Hacques', 'Erwan', '13 rue des champignons', '0636987456', 0, 'slunpp.jpg', 'visiteur', 'Slunpp', 'secret', '1997-04-12');
+INSERT INTO `agora`.`profil` (`id`, `mail`, `nom`, `prenom`, `adresse`, `telephone`, `score`, `avatar`, `statut`, `pseudo`, `pasword`, `datep`) VALUES (3, 'barnabe@gmail.com', 'Barnabe', 'Morgan', '9 rue des chimpanzés', '0614783575', -50, 'ed.jpeg', 'visiteur', 'Ed', 'nulmomonul', '1900-01-01');
+INSERT INTO `agora`.`profil` (`id`, `mail`, `nom`, `prenom`, `adresse`, `telephone`, `score`, `avatar`, `statut`, `pseudo`, `pasword`, `datep`) VALUES (4, 'olivier@hotmail.fr', 'Lespagnon', 'Olivier', '1 avenue chaise', '0798563250', 400, 'masoj.png', 'admin', 'Masoj', 'patoche', '1997-05-05');
+INSERT INTO `agora`.`profil` (`id`, `mail`, `nom`, `prenom`, `adresse`, `telephone`, `score`, `avatar`, `statut`, `pseudo`, `pasword`, `datep`) VALUES (5, 'jean@wanadoo.fr', 'Neymar', 'Jean', '9 place du stade', '0684553859', 1000, 'god.jpg', 'visiteur', 'God', 'oklmpasbesoin', '1000-01-01');
 
 COMMIT;
 
@@ -32,7 +32,7 @@ COMMIT;
 START TRANSACTION;
 USE `agora`;
 INSERT INTO `agora`.`sujet` (`id`, `nom`, `dateS`, `statut`, `profil`, `categorie`, `adresse`) VALUES (1, 'Problème de session', '2018-11-15 13:30:04', 'ferme', 1, 1, 'a85858b6-ee07-4a14-aaf1-0de5cd8a1e48.txt');
-INSERT INTO `agora`.`sujet` (`id`, `nom`, `dateS`, `statut`, `profil`, `categorie`, `adresse`) VALUES (2, 'J\'ai un soucis avec le chemin de mon fichier', '2018-11-16 15:01:17', 'ouvert', 3, 1, '74f0cb9d-f507-401d-bb54-bd5421f27145.txt');
+INSERT INTO `agora`.`sujet` (`id`, `nom`, `dateS`, `statut`, `profil`, `categorie`, `adresse`) VALUES (2, 'J ai un soucis avec le chemin de mon fichier', '2018-11-16 15:01:17', 'ouvert', 3, 1, '74f0cb9d-f507-401d-bb54-bd5421f27145.txt');
 INSERT INTO `agora`.`sujet` (`id`, `nom`, `dateS`, `statut`, `profil`, `categorie`, `adresse`) VALUES (3, 'Mon formulaire ne fonctionne pas', '2018-10-20 19:57:03', 'ferme', 2, 3, '9387688e-96c6-4d20-937d-f07176b91706.txt');
 INSERT INTO `agora`.`sujet` (`id`, `nom`, `dateS`, `statut`, `profil`, `categorie`, `adresse`) VALUES (4, 'Ma variable ne fonctionne pas', '2018-05-15 14:36:58', 'ferme', 4, 4, '811f9c69-e597-4c24-b11b-93cc4969aedf .txt');
 INSERT INTO `agora`.`sujet` (`id`, `nom`, `dateS`, `statut`, `profil`, `categorie`, `adresse`) VALUES (5, 'Windows.exe ne fonctionne pas', ' 2017-12-17 18:49:14', 'ferme', 5, 1, '48330d7b-e5fe-4aae-bb1c-3017db9fe336.txt');
@@ -45,10 +45,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `agora`;
-INSERT INTO `agora`.`reponse` (`id`, `adresse`, `points`, `datem`, `sujet`) VALUES (1, '7c788ddc-360e-4279-b59c-4a2c00caa634.txt', 1, '2018-11-16 03:09:04', 1);
-INSERT INTO `agora`.`reponse` (`id`, `adresse`, `points`, `datem`, `sujet`) VALUES (2, '9d970dbd-3b33-4b6c-823d-17783770911e', 103, '2018-11-25 09:04:48', 1);
-INSERT INTO `agora`.`reponse` (`id`, `adresse`, `points`, `datem`, `sujet`) VALUES (3, '0ac886d4-4f57-41d9-897f-a368f607ad9a', 1, '2018-11-01 14:04:03', 3);
-INSERT INTO `agora`.`reponse` (`id`, `adresse`, `points`, `datem`, `sujet`) VALUES (4, '9363f414-2ca1-42fb-8023-c805bbc92a70', 1, '2018-01-01 18:00:01', 5);
+INSERT INTO `agora`.`reponse` (`id`, `adresse`, `points`, `datem`, `sujet`,`profil`) VALUES (1, '7c788ddc-360e-4279-b59c-4a2c00caa634.txt', 1, '2018-11-16 03:09:04', 1, 3);
+INSERT INTO `agora`.`reponse` (`id`, `adresse`, `points`, `datem`, `sujet`,`profil`) VALUES (2, '9d970dbd-3b33-4b6c-823d-17783770911e', 103, '2018-11-25 09:04:48', 1, 3);
+INSERT INTO `agora`.`reponse` (`id`, `adresse`, `points`, `datem`, `sujet`,`profil`) VALUES (3, '0ac886d4-4f57-41d9-897f-a368f607ad9a', 1, '2018-11-01 14:04:03', 3, 2);
+INSERT INTO `agora`.`reponse` (`id`, `adresse`, `points`, `datem`, `sujet`,`profil`) VALUES (4, '9363f414-2ca1-42fb-8023-c805bbc92a70', 1, '2018-01-01 18:00:01', 5, 1);
 
 COMMIT;
 
@@ -86,7 +86,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `agora`;
-INSERT INTO `agora`.`commentaire` (`id`, `points`, `adresse`, `reponse`, `datecom`) VALUES (1, 3, '893fa896-ceb1-4de6-aba9-284bf3baeb0f.txt', 4, '2018-01-01 18:05:03');
+INSERT INTO `agora`.`commentaire` (`id`, `points`, `adresse`, `reponse`, `datecom`,`profil`) VALUES (1, 3, '893fa896-ceb1-4de6-aba9-284bf3baeb0f.txt', 4, '2018-01-01 18:05:03', 2);
 
 COMMIT;
 

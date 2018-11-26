@@ -42,6 +42,14 @@ try{
         }
         addAnswerC($onlyPrint);
         break;
+      case'addCommet':
+        if(isset($_GET['name'])){
+         $onlyPrint = false;
+        }else{
+         $onlyPrint = true;
+        }
+        addCommetC($onlyPrint);
+        break;
     }
   }else{
     home();
