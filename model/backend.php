@@ -101,10 +101,11 @@ function printSubjectbycategories($idCategorie){
 }
 function addUser($pseudo,$pw){
   $db = dbConnect();
-  $query = $db->prepare('INSERT INTO profil(pseudo,password) VALUES(:pseudo,:password)');
+  $query = $db->prepare('INSERT INTO profil(pseudo,password,datep) VALUES(:pseudo,:password,:datep)');
   $query->execute(array(
     'pseudo' => $pseudo,
-    'password' => $pw
+    'password' => $pw,
+    'datep' => date('Y-m-d')
   ));
 }
 
