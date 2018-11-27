@@ -346,39 +346,30 @@ td {
   margin-top: 5%;
 }
 
-.card-message {
-  margin-left : 23%;
-  margin-top : -27.5%;
-}
-
-.divCreator{
-  margin-left : -1%;
-}
-
-.content {
-  margin-left : 10%;
-  margin-top : -2.5%;
-}
-
 .dateEnvoi {
-  font-size: 12px;
-  margin-top : 2%;
-  margin-left : 78%;
+  font-size: 13px;
+  margin-left: 80%;
+}
+
+.card-avatar{
+  text-align : left;
+}
+
+.card-title {
+  text-align: left;
+  margin-left :12%;
+  margin-top :-7%;
+}
+
+.profilPoints {
+  font-size: 13px;
+}
+
+.dateInscription {
+  font-size: 13px;
+  margin-right : 60%;
 }
 
 .administration {
-  margin-top : -4%;
-}
-
-.card-reponse {
-  margin-top: 180px;
-}
-
-.card-reponses {
-  margin-left : -14px;
-}
-
-.card-message-reponse {
-  margin-top : -22.5%;
-  margin-left : 23%;
+  margin-top: -2.5%;
 }

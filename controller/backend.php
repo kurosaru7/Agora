@@ -97,10 +97,10 @@ function printSubjectC($id){
   $dateInscriptionCreator = $dateInscriptionCreator[2].'-'.$dateInscriptionCreator[1].'-'.$dateInscriptionCreator[0];
   $dateCreationSujet = $data['dateCreationSujet'];
   $dateHeure = explode(' ',$dateCreationSujet);
-  $dateEnvoi = $dateHeure[0];
-  $dateEnvoi = explode('-',$dateEnvoi);
-  $dateEnvoi = $dateEnvoi[2].'-'.$dateEnvoi[1].'-'.$dateEnvoi[0];
-  $heureEnvoi = $dateHeure[1];
+  $dateEnvoiC = $dateHeure[0];
+  $dateEnvoiC = explode('-',$dateEnvoiC);
+  $dateEnvoiC = $dateEnvoiC[2].'-'.$dateEnvoiC[1].'-'.$dateEnvoiC[0];
+  $heureEnvoiC = $dateHeure[1];
   $statutSujet = $data['statutSujet'];
   $categorieSujet = $data['statutSujet'];
   $avatar = 'public/images/avatar/'.$data['avatar'];
@@ -118,8 +118,18 @@ function printSubjectC($id){
       $pseudoProfil[$count] = $data2['pseudoProfil'];
       $idReponse[$count] = $data2['idReponse'];
       $pointsProfil[$count] = $data2['profilPoints'];
+
       $dateReponse[$count] = $data2['dateReponse'];
+      $dateHeure[$count] = explode(' ',$dateReponse[$count]);
+      $dateEnvoi[$count] = $dateHeure[$count][0];
+      $dateEnvoi[$count] = explode('-',$dateEnvoi[$count]);
+      $dateEnvoi[$count] = $dateEnvoi[$count][2].'-'.$dateEnvoi[$count][1].'-'.$dateEnvoi[$count][0];
+      $heureEnvoi[$count] = $dateHeure[$count][1];
+
       $dateInscription[$count] = $data2['dateInscription'];
+      $dateInscription[$count] = explode('-',$dateInscription[$count]);
+      $dateInscription[$count] = $dateInscription[$count][2].'-'.$dateInscription[$count][1].'-'.$dateInscription[$count][0];
+
       $dataReponse[$count] = fopen('public/reponse/'.$data2['adresseReponse'],'r');
       while(false !== ($line = fgets($dataReponse[$count]))){
         $contentReponse[$count] .= htmlspecialchars($line);
