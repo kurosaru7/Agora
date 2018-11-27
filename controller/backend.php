@@ -188,12 +188,14 @@ function displayProfile(){
   require('./view/profilePage.php');
 }
 //Return avatar path as a string for a given $pseudo as a string
-function getAvatarPath(){
+function getAvatarPath($pseudo){
   $path ="./public/images/avatar/";
-  if (!isset($_GET['pseudo'])){
-  $infoUser = selectInfoUser($_SESSION['pseudo']);
-  }else{
+  if (isset($_GET['pseudo'])){
     $infoUser = selectInfoUser($_GET['pseudo']);
+  }elseif (isset($pseudo) && $pseudo != "") {
+    $infoUser = selectInfoUser($pseudo);
+  }else{
+    $infoUser = selectInfoUser($_SESSION['pseudo']);
   }
   
   if (isset($infoUser['avatar'])){
