@@ -41,6 +41,14 @@ function getAnswer($idAnswer){
   return $query;
 }
 
+function getComment($idComment){
+  $db= dbConnect();
+  $query= $db->query('SELECT * FROM commentaire where id =:idComment');
+  $query->execute(array(
+      'idComment'=>$idComment
+  ));
+  return $query;
+}
 function editAnswer($adresse,$profil){
   $db =dbConnect();
   $query =$db->prepare('UPDATE reponse SET adresse = :adresse WHERE id =:idAnswer');
@@ -60,9 +68,10 @@ function deleteAnswer($address,$idAnswer,$idUser){
 
 function deleteComment($address,$idComment,$idUser){
   $db= dbConnect();
-  $query= $db->prepare('DELETE from reponse where id=:idComment');
+  $query= $db->prepare('DELETE from commentaire where id=:idComment');
   $query-> execute(array(
     'idComment'=> $idComment
   ));
 }
+
 ?>
