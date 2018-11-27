@@ -2,11 +2,11 @@
 require('model/frontend.php');
 
 function addAnswerC($onlyPrint){
-    
-  
+
+
     if($onlyPrint == false){
       $idSujet = $_GET['idSujet'];
-  
+
       $rdm = uniqid();
       $address = $rdm.'.txt';
       $info = selectInfoUser($_SESSION['pseudo']);
@@ -15,10 +15,11 @@ function addAnswerC($onlyPrint){
       fwrite($content,$_GET['message']);
       fclose($content);
 
-        addAnswer($address,intval($idSujet),intval($idUser));
+      addAnswer($address,intval($idSujet),intval($idUser));
 
-      header('Location: index.php?action=addAnswer');
-  
+      header('Location: index.php?action=printSubject&id='.$idSujet);
+
+
     }
     require('view/addAnswer.php');
   }
@@ -30,14 +31,14 @@ function addCommentC($onlyPrint){
       $address = $rdm.'.txt';
       $info = selectInfoUser($_SESSION['pseudo']);
       $id_user = $info['id'];
-  
+
       $content = fopen('public/comment/'.$address, 'w+');
       fwrite($content,$_GET['message']);
       fclose($content);
       addAnswer($address,intval($idAnswer),intval($id_user));
-  
-      header('Location: index.php?action=addComment');
-  
+
+      header('Location: index.php?action=printSubject&id='.$idAnswer);
+
     }
     require('view/addComment.php');
   }
@@ -63,7 +64,7 @@ function deleteAnswerD($deletePrint){
       $answer = $_GET['answer'];
       $iduser = getUserById ($_Get['idUser']->fetch());
       deleteAnswer($idAnswer);
-  
+
   }
 }
 

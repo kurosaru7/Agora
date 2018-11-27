@@ -87,12 +87,14 @@ function addSubjectC($onlyPrint){
 }
 
 function printSubjectC($id){
+
   $subjectInfo = printSubject($id);
   $data = $subjectInfo->fetch();
   $nomSujet = $data['nomSujet'];
   $pseudoCreator = $data['pseudo'];
   $scoreProfilCreator = $data['scoreProfil'];
   $dateInscriptionCreator = $data['dateInscription'];
+  $idSujet = $data['idSujet'];
   $dateInscriptionCreator = explode('-',$dateInscriptionCreator);
   $dateInscriptionCreator = $dateInscriptionCreator[2].'-'.$dateInscriptionCreator[1].'-'.$dateInscriptionCreator[0];
   $dateCreationSujet = $data['dateCreationSujet'];
@@ -104,6 +106,9 @@ function printSubjectC($id){
   $statutSujet = $data['statutSujet'];
   $categorieSujet = $data['statutSujet'];
   $avatar = 'public/images/avatar/'.$data['avatar'];
+  if(!file_exists($avatar)){
+    $avatar = 'public/images/avatar/default.png';
+  }
   $data = fopen('public/sujet/'.$data['adresseSujet'],'r');
   $content = "";
   while(false !== ($line = fgets($data))){
@@ -115,6 +120,9 @@ function printSubjectC($id){
     $count = 0;
     while($data2 = $reponses->fetch()){
       $avatarProfil[$count] = getAvatarPath($data2['pseudoProfil']);
+      if(!file_exists($avatarProfil[$count])){
+        $avatarProfil[$count] = 'public/images/avatar/default.png';
+      }
       $pseudoProfil[$count] = $data2['pseudoProfil'];
       $idReponse[$count] = $data2['idReponse'];
       $pointsProfil[$count] = $data2['profilPoints'];
@@ -220,6 +228,7 @@ function getAvatarPath($pseudo){
     $name = 'default.png';
   }
   $path .= $name;
+
   return $path;
 }
 function deleteMyProfile(){

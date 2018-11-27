@@ -35,7 +35,7 @@
         </div>
         <div class="card-footer text-muted">
               <div class = "dateEnvoi">
-              Envoyé le : <?php echo $dateEnvoiC ?> à <?php echo $heureEnvoiC?>
+              Envoyé le <?php echo $dateEnvoiC ?> à <?php echo $heureEnvoiC?>
             </div>
             <div class ="administration">
               <a href ="index.php?action=report.png"><img src="public/images/administration/report.png" width =20px></a>
@@ -76,7 +76,7 @@
         </div>
             <div class="card-footer text-muted">
               <div class = "dateEnvoi">
-              Envoyé le : '.$dateEnvoi[$i].'  à '.$heureEnvoi[$i].'
+              Envoyé le '.$dateEnvoi[$i].'  à '.$heureEnvoi[$i].'
             </div>
             <div class ="administration">
               <a href ="index.php?action=report.png"><img src="public/images/administration/report.png" width =20px></a>
@@ -89,6 +89,27 @@
           ?>
         </div>
       </div>
+          <br><br>
+      <div class="card">
+        <div class="card-header">
+            Ajouter une réponse
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0">
+            <form class="form" id="form1" action = "index.php" method = "GET">
+              <input type = "hidden" name = "action" value = "addAnswer">
+                <p class="text">
+                  <textarea name="message" class="validate[required,length[6,300]] feedback-input" id="message" placeholder="Ecrivez votre réponse"></textarea>
+                </p>
+                <div class="submit">
+                  <input type="submit" value="Envoyer" id="button-blue"/>
+                </div>
+              <input type="hidden" name="idSujet" value= <?php echo $idSujet ?>>
+            </form>
+          </blockquote>
+        </div>
+      </div>
+
     </div>
 
 <?php require('template/bottom.php'); ?>
