@@ -1,0 +1,2 @@
+J'ai un petit problème avec les sessions : en local chez moi, tout marche niquel, mais sur mon hébergeur , les sessions ont l'air d'être oubliées de page en page.
+Que faire ?

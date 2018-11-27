@@ -1,0 +1,1 @@
+C'est normal, il faut que tu mettes le session_start(); sur toutes les pages où t'utilisent les variables de sessions !

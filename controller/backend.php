@@ -90,7 +90,6 @@ function printSubjectC($id){
   $subjectInfo = printSubject($id);
   $data = $subjectInfo->fetch();
   $nomSujet = $data['nomSujet'];
-  $title = $nomSujet;
   $pseudoCreator = $data['pseudo'];
   $scoreProfilCreator = $data['scoreProfil'];
   $dateInscriptionCreator = $data['dateInscription'];
@@ -108,21 +107,27 @@ function printSubjectC($id){
   $data = fopen('public/sujet/'.$data['adresseSujet'],'r');
   $content = "";
   while(false !== ($line = fgets($data))){
-    $content .= $line;
+    $content .= htmlspecialchars($line);
   }
 
-  $reponses = getReponse($id);
-  $count = 0;
-  while($data2 = $reponses->fetch()){
-    $dateR[$count] = $data2['datem'];
-    $contentReponse[$count] = $data['adresse'];
-    $dataReponse[$count] = fopen('public/reponse/'.$data2['adresse']);
+  if(getReponse($id)){
+    $reponses = getReponse($id);
+    $count = 0;
+    while($data2 = $reponses->fetch()){
+      $avatarProfil[$count] = 'public/images/avatar/'.$data2['avatar'];
+      $pseudoProfil[$count] = $data2['pseudoProfil'];
+      $pointsProfil[$count] = $data2['profilPoints'];
+      $dateReponse[$count] = $data2['dateReponse'];
+      $dateInscription[$count] = $data2['dateInscription'];
+      $dataReponse[$count] = fopen('public/reponse/'.$data2['adresseReponse'],'r');
+      while(false !== ($line = fgets($dataReponse[$count]))){
+        $contentReponse[$count] .= htmlspecialchars($line);
+      }
     $count++;
-     while(false !== ($line = fgets($dataReponse[$count]))){
-      $contentReponse[$count] .= $line;
     }
   }
-  $_SESSION['error'] = "";
+
+
   require('view/printSubject.php');
 }
 
@@ -197,7 +202,7 @@ function getAvatarPath($pseudo){
   }else{
     $infoUser = selectInfoUser($_SESSION['pseudo']);
   }
-  
+
   if (isset($infoUser['avatar'])){
     $name = $infoUser['avatar'];
   }else{

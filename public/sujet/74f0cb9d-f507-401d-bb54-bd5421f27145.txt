@@ -1,0 +1,25 @@
+Bonsoir,
+
+Je tombe sur un problème qui ne m'est jamais arrivé : les chemins de mes fichiers PHP sont perçus comme incorrects suivant la page où je me trouve.
+
+Je m'explique, sur ma page, j'appelle un fichier (mon contrôleur) qui appelle la classe associée comme ceci :
+
+require_once './classes/circuit.php';
+
+Sur ma page, j'affiche des données sans problème et j'ai un formulaire qui renvoie vers un script.
+
+Sur cette page de script, j'appelle le même contrôleur qui appelle cette même classe.
+
+Mais problème, j'ai alors une erreur sur ce chemin de fichier et pour que cela fonctionne, il faut que je remplace alors la ligne précédente par ceci :
+
+require_once '../classes/circuit.php';
+
+Et après cette manipulation, le problème disparaît mais lorsque je reviens sur la page initial, j'ai une erreur de chemin. En gros, mon chemin ne peut être bon que pour la page OU mon script et je ne comprends pas pourquoi...
+
+Au niveau de l'architecture de mon projet, j'ai mes pages au niveau 0 puis mes classes dans un dossier 'classes' et mes contrôleurs dans un dossier 'dao'.
+
+À noter que j'ai le même problème avec mon fichier de paramètre de ma base de donnée (dossier 'param' au même niveau que mes pages) et ma commande parse_ini_file ...
+
+Ai-je un problème avec mon architecture ?
+
+Y a-t-il des manières de rentrer le chemin des fichiers pour que cela fonctionne tout le temps ?

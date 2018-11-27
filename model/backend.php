@@ -3,7 +3,7 @@
 function dbConnect() {
   try
   {
-    $db = new PDO('mysql:host=localhost;dbname=agora;charset=utf8','root','');
+    $db = new PDO('mysql:host=localhost;dbname=agora;charset=utf8','red','');
   }
   catch(Exception $e)
   {
@@ -129,12 +129,18 @@ return $query;
 
 function getReponse($id){
   $db = dbConnect();
-  $query = $db->prepare('SELECT * FROM reponse WHERE sujet = :sujet');
+  $query = $db->prepare('SELECT R.id AS idReponse,R.adresse AS adresseReponse,R.points AS pointsReponse,R.datem AS dateReponse,P.score AS profilPoints, P.pseudo AS pseudoProfil,P.datep AS dateInscription,P.avatar AS avatar
+                         FROM reponse R JOIN sujet S
+                         ON R.sujet = S.id
+                         JOIN profil P
+                         ON R.profil = P.id
+                         WHERE sujet = :sujet');
   $query->execute(array(
     'sujet' => $id
   ));
 return $query;
 }
+
 function deleteTuppleUser($profil){
   $db = dbConnect();
   $query = $db->prepare('DELETE FROM profil WHERE pseudo LIKE :pseudo ');

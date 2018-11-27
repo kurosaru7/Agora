@@ -1,6 +1,6 @@
-<?php  
-  require('template/top.php'); 
+<?php
   require('template/navbar.php');
+  require('template/top.php');
   ?>
 
 <div class="divCreator">
@@ -27,7 +27,7 @@
     <div class = "card-message">
       <div class="card" style="width: 60rem;">
         <div class="card-body">
-         Message :
+         Message  :
           <div class ="content">
             <?php echo $content; ?>
           </div>
@@ -36,12 +36,54 @@
           </div>
           <div class ="administration">
             <a href ="index.php?action=report.png"><img src="public/images/administration/report.png" width =25px></a>
-            <a href ="index.php?action=like.png"><img src="public/images/administration/like.png" width=40px></a>
+            <a href ="index.php?action=like.png"><img src="public/images/administration/like.png" width=35px></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <?php
+for($i =0 ; $i < $count ;$i++){
+  echo '<div class ="card-reponse">
+      <div class="card" style="width: 13rem;">
+        <div class="card-body">
+          <center>
+            <div class="card-avatar">
+              <img src = '.$avatarProfil[$i].' height =150px;>
+            </div>
+          <h5 class="card-title">
+            <font color="purple"><a href="./index.php?action=myProfile&pseudo='.$pseudoProfil[$i].'">'.$pseudoProfil[$i].'</a></font>
+            <br>
+            '.$pointsProfil[$i].' Points
+          </h5>
+          Inscrit depuis le : '.$dateInscription[$i].'
+          </center>
+        </div>
+      </div>
+      <div class = "card-message">
+        <div class="card" style="width: 60rem;">
+          <div class="card-body">
+          Réponse :
+            <div class ="content">
+              '.$contentReponse[$i].'
+            </div>
+            <div class = "dateEnvoi">
+              Envoyé le : '.$dateReponse[$i].'
+            </div>
+            <div class ="administration">
+              <a href ="index.php?action=report.png"><img src="public/images/administration/report.png" width =25px></a>
+              <a href ="index.php?action=like.png"><img src="public/images/administration/like.png" width=35px></a>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>';
+}
+
+?>
+  </div>
+
 </div>
 
 

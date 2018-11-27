@@ -1,0 +1,6 @@
+Bonjour !
+Sur mon site la session ne se transmet pas.
+En fait elle ne marche pas sur les autres pages que celle ou on est loggé. Par exemple il y a un include dans cette meme page et dans la page qui includée, je test si la session est activée ou pas (avec une variable pseudo : si elle est présente c'est bon, sinon c'est que la session n'est pas active), et bin ca ne marche pas.
+Alors que dans la page meme, sans le biais d'un include, je fais le meme test, et la ca marche.
+Alors pourquoi ca ne marche pas svp?
+Merci !

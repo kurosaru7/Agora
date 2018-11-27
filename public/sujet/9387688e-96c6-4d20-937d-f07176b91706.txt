@@ -1,0 +1,40 @@
+Bonjour,
+
+Je suis Rigadine, nouvelle sur le forum.
+
+Je rencontre un souci avec mon formulaire. Il ne fonctionne pas en ligne. J'ai du oublier quelque chose ou mal écrit le code.
+Pouvez-vous m'aider ?
+Je suis novice et c'est mon tout premier site Smiley cligne et.... je rame.
+Merci par avance.
+
+ <form id="contact_form" class="contact_form" action="contact.php" method="post" name="contact_form">
+        <ul>
+          <li>
+            <label for="Name">Nom de la Société / Vos nom et prénom</label>
+            <input type="text" name="name" id="name" required class="required" >
+          </li>
+          <br>
+          <li>
+            <label for="Fonction">Fonction</label>
+            <input type="Fonction" name="Fonction" id="Fonction" required class="required" >
+          </li>
+          <br>
+          <li>
+            <label for="Email">Email</label>
+            <input type="Email" name="Email" id="Email" required class="required">
+          </li>
+          <br>
+          <li>
+            <label for="Phone">Téléphone</label>
+            <input type="Phone" name="Phone" id="Phone" required class="required Phone">
+          </li>
+          <br>
+          <li>
+            <label for="Message">Message</label>
+            <textarea name="message" id="message" cols="100" rows="6" required  class="required" ></textarea>
+          </li>
+          <li>
+            <button type="submit" id="submit" name="submit" class="button fright">Envoyer le message</button>
+          </li>
+        </ul>
+      </form>
