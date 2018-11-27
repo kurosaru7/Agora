@@ -1,8 +1,8 @@
 <?php
 
 function addAnswer($address,$idSujet,$idUser){
-  $db = dbConnect();
-  $query = $db->prepare('INSERT INTO reponse(points,dateM,adresse,sujet,profil) VALUES(1,:dateM,:adresse,:sujet,:profil)');
+  $db= dbConnect();
+  $query= $db->prepare('INSERT INTO reponse(points,dateM,adresse,sujet,profil) VALUES(1,:dateM,:adresse,:sujet,:profil)');
   $query->execute(array(
     'sujet' => $idSujet,
     'adresse' => $address,
@@ -13,8 +13,8 @@ function addAnswer($address,$idSujet,$idUser){
 
 
 function getSujet($idSujet){
-  $db = dbConnect();
-  $query = $db->query('SELECT * FROM sujet where id =:idSujet');
+  $db= dbConnect();
+  $query= $db->query('SELECT * FROM sujet where id =:idSujet');
   $query->execute(array(
       'idSujet'=>$idSujet
   ));
@@ -22,8 +22,8 @@ function getSujet($idSujet){
 }
 
 function addComment($address,$idAnswer,$idUser){
-  $db = dbConnect();
-  $query = $db->prepare('INSERT INTO reponse(points,datecom,adresse,reponse,profil) VALUES(1,:datecom,:adresse,:reponse,:profil)');
+  $db= dbConnect();
+  $query= $db->prepare('INSERT INTO reponse(points,datecom,adresse,reponse,profil) VALUES(1,:datecom,:adresse,:reponse,:profil)');
   $query->execute(array(
     'reponse'=> $idAnswer,
     'adresse'=> $address,
@@ -33,8 +33,8 @@ function addComment($address,$idAnswer,$idUser){
 }
 
 function getAnswer($idAnswer){
-  $db = dbConnect();
-  $query = $db->query('SELECT * FROM reponse where id =:idAnswer');
+  $db= dbConnect();
+  $query= $db->query('SELECT * FROM reponse where id =:idAnswer');
   $query->execute(array(
       'idAnswer'=>$idAnswer
   ));
@@ -47,6 +47,22 @@ function editAnswer($adresse,$profil){
   $query -> execute(array(
     'idAnswer'=> $idAnswer,
     'adresse'=> $adresse
+  ));
+}
+
+function deleteAnswer($address,$idAnswer,$idUser){
+  $db= dbConnect();
+  $query= $db->prepare('DELETE from reponse where id=:idAnswer');
+  $query-> execute(array(
+    'idAnswer'=> $idAnswer
+  ));
+}
+
+function deleteComment($address,$idComment,$idUser){
+  $db= dbConnect();
+  $query= $db->prepare('DELETE from reponse where id=:idComment');
+  $query-> execute(array(
+    'idComment'=> $idComment
   ));
 }
 ?>
