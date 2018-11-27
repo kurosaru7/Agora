@@ -96,12 +96,12 @@ function printSubjectC($id){
   $dateInscriptionCreator = $data['dateInscription'];
   $idSujet = $data['idSujet'];
   $dateInscriptionCreator = explode('-',$dateInscriptionCreator);
-  $dateInscriptionCreator = $dateInscriptionCreator[2].'-'.$dateInscriptionCreator[1].'-'.$dateInscriptionCreator[0];
+  $dateInscriptionCreator = $dateInscriptionCreator[2].' '.getMonth($dateInscriptionCreator[1]).' '.$dateInscriptionCreator[0];
   $dateCreationSujet = $data['dateCreationSujet'];
   $dateHeure = explode(' ',$dateCreationSujet);
   $dateEnvoiC = $dateHeure[0];
   $dateEnvoiC = explode('-',$dateEnvoiC);
-  $dateEnvoiC = $dateEnvoiC[2].'-'.$dateEnvoiC[1].'-'.$dateEnvoiC[0];
+  $dateEnvoiC = $dateEnvoiC[2].' '.getMonth($dateEnvoiC[1]).' '.$dateEnvoiC[0];
   $heureEnvoiC = $dateHeure[1];
   $statutSujet = $data['statutSujet'];
   $categorieSujet = $data['statutSujet'];
@@ -131,12 +131,12 @@ function printSubjectC($id){
       $dateHeure[$count] = explode(' ',$dateReponse[$count]);
       $dateEnvoi[$count] = $dateHeure[$count][0];
       $dateEnvoi[$count] = explode('-',$dateEnvoi[$count]);
-      $dateEnvoi[$count] = $dateEnvoi[$count][2].'-'.$dateEnvoi[$count][1].'-'.$dateEnvoi[$count][0];
+      $dateEnvoi[$count] = $dateEnvoi[$count][2].' '.getMonth($dateEnvoi[$count][1]).' '.$dateEnvoi[$count][0];
       $heureEnvoi[$count] = $dateHeure[$count][1];
 
       $dateInscription[$count] = $data2['dateInscription'];
       $dateInscription[$count] = explode('-',$dateInscription[$count]);
-      $dateInscription[$count] = $dateInscription[$count][2].'-'.$dateInscription[$count][1].'-'.$dateInscription[$count][0];
+      $dateInscription[$count] = $dateInscription[$count][2].' '.getMonth($dateInscription[$count][1]).' '.$dateInscription[$count][0];
 
       $dataReponse[$count] = fopen('public/reponse/'.$data2['adresseReponse'],'r');
       while(false !== ($line = fgets($dataReponse[$count]))){
@@ -148,6 +148,47 @@ function printSubjectC($id){
 
 
   require('view/printSubject.php');
+}
+
+function getMonth($integer) {
+  switch($integer){
+    case 1 :
+      return 'Janvier';
+    break;
+    case 2 :
+      return 'Février';
+    break;
+    case 3 :
+      return 'Mars';
+    break;
+    case 4 :
+      return 'Avril';
+    break;
+    case 5 :
+      return 'Mai';
+    break;
+    case 6 :
+      return 'Juin';
+    break;
+    case 7 :
+      return 'Juillet';
+    break;
+    case 8 :
+      return 'Aôut';
+    break;
+    case 9 :
+      return 'Septembre';
+    break;
+    case 10 :
+      return 'Octobre';
+    break;
+    case 11 :
+      return 'Novembre';
+    break;
+    case 12 :
+      return 'Décembre';
+    break;
+  }
 }
 
 function isConnect(){
