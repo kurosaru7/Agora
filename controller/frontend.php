@@ -1,11 +1,12 @@
 <?php
 require('model/frontend.php');
+
 function addAnswerC($onlyPrint){
-
-
+    
+  
     if($onlyPrint == false){
       $idSujet = $_GET['idSujet'];
-
+  
       $rdm = uniqid();
       $address = $rdm.'.txt';
       $info = selectInfoUser($_SESSION['pseudo']);
@@ -17,26 +18,26 @@ function addAnswerC($onlyPrint){
         addAnswer($address,intval($idSujet),intval($idUser));
 
       header('Location: index.php?action=addAnswer');
-
+  
     }
     require('view/addAnswer.php');
   }
 
 function addCommentC($onlyPrint){
     if(!$onlyPrint){
-    $idAnswer = $_GET['idAnswer'];
+      $idAnswer = $_GET['idAnswer'];
       $rdm = uniqid();
       $address = $rdm.'.txt';
       $info = selectInfoUser($_SESSION['pseudo']);
       $id_user = $info['id'];
-
+  
       $content = fopen('public/comment/'.$address, 'w+');
       fwrite($content,$_GET['message']);
       fclose($content);
-      addAnswer($address,inval($idAnswer),inval($id_user));
-
+      addAnswer($address,intval($idAnswer),intval($id_user));
+  
       header('Location: index.php?action=addComment');
-
+  
     }
     require('view/addComment.php');
   }
@@ -44,11 +45,10 @@ function addCommentC($onlyPrint){
 function editAnswerE($editPrint){
 
   if($editPrint){
-    $answer= getAnswer($_GET['idAnswer']->fetch());
-    $idAnswer= $answer['id'];
-    $answer= $_GET['answer'];
+    $answer = getAnswer($_GET['idAnswer']->fetch());
+    $idAnswer = $answer['id'];
+    $answer = $_GET['answer'];
     $name = $_GET['name'];
-
     $content= fopen('public/reponse/'.$adress, 'w+');
     editAnswer($adresse,$profil);
     fwrite($content,$_GET['message']);
@@ -56,4 +56,25 @@ function editAnswerE($editPrint){
   }
 }
 
+function deleteAnswerD($deletePrint){
+  if($deletePrint){
+      $answer = getAnswer($_Get['idAnswer']->fetch());
+      $idAnswer = $answer['id'];
+      $answer = $_GET['answer'];
+      $iduser = getUserById ($_Get['idUser']->fetch());
+      deleteAnswer($idAnswer);
+  
+  }
+}
+
+function deleteCommentD($deletePrint){
+  if($deletePrint){
+    $comment = getComment($_Get['idComment']->fetch());
+    $idComment = $comment['id'];
+    $comment = $_GET['comment'];
+    $iduser = getUserById ($_Get['idUser']->fetch());
+    deleteComment($id);
+
+  }
+}
 ?>
