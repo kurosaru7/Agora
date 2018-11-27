@@ -1,6 +1,6 @@
 <?php  
-  require('template/navbar.php');
   require('template/top.php'); 
+  require('template/navbar.php');
   ?>
 
 <div id="form-main">

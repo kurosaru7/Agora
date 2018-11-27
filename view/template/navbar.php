@@ -7,14 +7,14 @@
   <div class="nav-list collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
        <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Catégories
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="categorie-card">
-          <a class="dropdown-item" href="#">PHP</a>
-          <a class="dropdown-item" href="#">HTML</a>
-          <a class="dropdown-item" href="#">SQL</a>
-          <a class="dropdown-item" href="#">JS</a>
+          <a class="dropdown-item" href="./index.php?action=displayCategory&cat=php">PHP</a>
+          <a class="dropdown-item" href="./index.php?action=displayCategory&cat=html">HTML</a>
+          <a class="dropdown-item" href="./index.php?action=displayCategory&cat=sql">SQL</a>
+          <a class="dropdown-item" href="./index.php?action=displayCategory&cat=js">JS</a>
         </div>
       </li>&nbsp;
       <form class="form-inline">
@@ -80,3 +80,4 @@
 </div>');
 }
 ?>
+<div class="container">

@@ -36,6 +36,7 @@ function home(){
     }
     $count2++;
   }
+  $_SESSION['error'] = "";
   require('view/home.php');
 }
 
@@ -80,6 +81,7 @@ function addSubjectC($onlyPrint){
     }
     require('view/addSubject.php');
   }else{
+    $_SESSION['error'] = "";
     header('Location: index.php');
   }
 }
@@ -88,6 +90,7 @@ function printSubjectC($id){
   $subjectInfo = printSubject($id);
   $data = $subjectInfo->fetch();
   $nomSujet = $data['nomSujet'];
+  $title = $nomSujet;
   $pseudoCreator = $data['pseudo'];
   $scoreProfilCreator = $data['scoreProfil'];
   $dateInscriptionCreator = $data['dateInscription'];
@@ -119,7 +122,7 @@ function printSubjectC($id){
       $contentReponse[$count] .= $line;
     }
   }
-
+  $_SESSION['error'] = "";
   require('view/printSubject.php');
 }
 
@@ -131,30 +134,40 @@ function isConnect(){
 //Disconnect the user
 function deconnection(){
   session_destroy();
+  $_SESSION['error'] = "";
   header('Location: index.php');
 }
 //Check if the user is registering and register him in the database or asking for the register form
 function register(){
-  if (isset($_GET['pseudo'])){
-    $test = selectInfoUser($_GET['pseudo']);
-    if (!$test) {
-      if (isset($_GET['pw']) && isset($_GET['pwV']) && $_GET['pwV'] == $_GET['pw']){
-        addUser($_GET['pseudo'],$_GET['pw']);
-        connection($_GET);
-      }
-    }else{
-      $_SESSION['error'] = "<script>
-      function myFunction() {
-          alert('Erreur : Compte déjà existant!');
-      }
-      myFunction();
-      </script>";
-      header('Location: index.php?action=register');
-    }
+  $title = "Inscription";
 
+  if (isset($_GET['pseudo'])){
+    foreach ($_GET as $key => $value){
+      $value = htmlspecialchars($value);
+    }
+    if ($_GET['pseudo'] != ""){
+      $test = selectInfoUser($_GET['pseudo']);
+      if (!$test){
+        if (isset($_GET['pw']) && isset($_GET['pwV']) && $_GET['pwV'] == $_GET['pw'] && $_GET['pw'] != "" ){
+          addUser($_GET['pseudo'],$_GET['pw']);
+          $_SESSION['error'] = "";
+          connection($_GET);
+        }else{
+          $_SESSION['error'] = "Erreur : les mots de passe ne correspondent pas !";
+          header('Location: index.php?action=register');
+        }
+      }else{
+        $_SESSION['error'] = "Erreur : Compte déjà existant !";
+        header('Location: ./index.php?action=register');
+      }
+    }else {
+      $_SESSION['error'] = "Erreur : Un des champs est mal rempli.";
+      header('Location: ./index.php?action=register');
+    }
   }else{
     require('view/template/navbar.php');
     require('view/template/top.php');
+    print_r($_GET);
     require('view/formRegister.php');
     require('view/template/bottom.php');
   }
@@ -166,7 +179,7 @@ function displayProfile(){
     $delete = "<a href='./index.php?action=deleteMyProfile'>Supprimer mon compte</a>";
   }else{
     $perso_data_arr = selectInfoUser($_GET['pseudo']);
-    if (isConnect() && $_GET['pseudo'] == $_SESSION['pseudo']) {
+    if (isConnect() && $_GET['pseudo'] == $_SESSION['pseudo']){
       $delete = "<a href='./index.php?action=deleteMyProfile'>Supprimer mon compte</a>";
     }
   }
@@ -177,7 +190,7 @@ function displayProfile(){
 //Return avatar path as a string for a given $pseudo as a string
 function getAvatarPath(){
   $path ="./public/images/avatar/";
-  if (!isset($_GET['pseudo'])) {
+  if (!isset($_GET['pseudo'])){
   $infoUser = selectInfoUser($_SESSION['pseudo']);
   }else{
     $infoUser = selectInfoUser($_GET['pseudo']);
@@ -190,4 +203,17 @@ function getAvatarPath(){
   }
   $path .= $name;
   return $path;
+}
+function deleteMyProfile(){
+  $profile = $_SESSION['pseudo'];
+  deleteTuppleUser($profile);
+  deconnection();
+  header('Location: ./index.php');
+}
+function displayCategory(){
+  $cat = $_GET['cat'];
+  $title = strtoupper($cat);
+  $subjects = getSubjectsByCategory($cat);
+  require('./view/subjectsFromCategories.php');
+
 }

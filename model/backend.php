@@ -3,7 +3,7 @@
 function dbConnect() {
   try
   {
-    $db = new PDO('mysql:host=localhost;dbname=agora;charset=utf8','root','root');
+    $db = new PDO('mysql:host=localhost;dbname=agora;charset=utf8','root','');
   }
   catch(Exception $e)
   {
@@ -134,6 +134,32 @@ function getReponse($id){
     'sujet' => $id
   ));
 return $query;
+}
+function deleteTuppleUser($profil){
+  $db = dbConnect();
+  $query = $db->prepare('DELETE FROM profil WHERE pseudo LIKE :pseudo ');
+  $query->execute(array(
+    'pseudo' => $profil
+  ));
+  return 1;
+}
+function  getSubjectsByCategory($cat){
+  $db = dbConnect();
+  $query = $db->prepare('SELECT * FROM sujet WHERE categorie = (SELECT id FROM categorie WHERE nom LIKE :categorie)');
+  $query->execute(array(
+    'categorie' => $cat,
+  ));
+  $result = $query->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
+function getUserById($id){
+  $db = dbConnect();
+  $query = $db->prepare('SELECT * FROM profil WHERE id = :id ');
+  $query->execute(array(
+    'id' => $id,
+  ));
+  $result = $query->fetch(PDO::FETCH_ASSOC);
+  return $result;
 }
 
 

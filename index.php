@@ -57,6 +57,9 @@ try{
       case 'deleteMyProfile':
         deleteMyProfile();
         break;
+      case 'displayCategory':
+        displayCategory();
+        break;
     }
   }else{
     home();
