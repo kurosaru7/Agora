@@ -114,8 +114,9 @@ function printSubjectC($id){
     $reponses = getReponse($id);
     $count = 0;
     while($data2 = $reponses->fetch()){
-      $avatarProfil[$count] = 'public/images/avatar/'.$data2['avatar'];
+      $avatarProfil[$count] = getAvatarPath($data2['pseudoProfil']);
       $pseudoProfil[$count] = $data2['pseudoProfil'];
+      $idReponse[$count] = $data2['idReponse'];
       $pointsProfil[$count] = $data2['profilPoints'];
       $dateReponse[$count] = $data2['dateReponse'];
       $dateInscription[$count] = $data2['dateInscription'];

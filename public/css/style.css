@@ -339,14 +339,20 @@ td {
   border-right: 1px solid #C1C3D1;
 }
 
+
+
+
 .nomSujet {
   margin-top: 5%;
 }
 
-
 .card-message {
-  margin-left : 25%;
-  margin-top : -27%;
+  margin-left : 23%;
+  margin-top : -27.5%;
+}
+
+.divCreator{
+  margin-left : -1%;
 }
 
 .content {
@@ -363,7 +369,16 @@ td {
 .administration {
   margin-top : -4%;
 }
-.underline {
-  text-decoration: underline;
-  text-decoration: underline red;
+
+.card-reponse {
+  /* margin-top: 190px; */
+}
+
+.card-reponses {
+  margin-left : -14px;
+}
+
+.card-message-reponse {
+  margin-top : -22.5%;
+  margin-left : 23%;
 }

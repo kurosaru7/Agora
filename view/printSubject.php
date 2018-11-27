@@ -3,11 +3,12 @@
   require('template/top.php');
   ?>
 
+<div class = "nomSujet">
+  <h1>Sujet : <?php echo $nomSujet; ?></h1>
+</div>
+
 <div class="divCreator">
   <div class = "container">
-    <div class = "nomSujet">
-       <h1>Sujet : <?php echo $nomSujet; ?></h1>
-    </div>
     <br>
     <div class="card" style="width: 13rem;">
       <div class="card-body">
@@ -41,14 +42,18 @@
         </div>
       </div>
     </div>
-    <?php
+  </div>
+</div>
+<div class = "card-reponses">
+<?php
 for($i =0 ; $i < $count ;$i++){
   echo '<div class ="card-reponse">
+    <div class="container">
       <div class="card" style="width: 13rem;">
         <div class="card-body">
           <center>
             <div class="card-avatar">
-              <img src = '.$avatarProfil[$i].' height =150px;>
+              <img src = '.$avatarProfil[$i].' height =100px;>
             </div>
           <h5 class="card-title">
             <font color="purple"><a href="./index.php?action=myProfile&pseudo='.$pseudoProfil[$i].'">'.$pseudoProfil[$i].'</a></font>
@@ -59,7 +64,7 @@ for($i =0 ; $i < $count ;$i++){
           </center>
         </div>
       </div>
-      <div class = "card-message">
+      <div class = "card-message-reponse">
         <div class="card" style="width: 60rem;">
           <div class="card-body">
           Réponse :
@@ -78,13 +83,11 @@ for($i =0 ; $i < $count ;$i++){
       </div>
     </div>
   </div>
+  </div>
 </div>';
 }
 
 ?>
-  </div>
-
 </div>
-
 
 <?php require('template/bottom.php'); ?>
