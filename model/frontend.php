@@ -21,22 +21,22 @@ function getSujet($idSujet){
   return $query;
 }
 
-function addComment($address,$idAnswer,$idUser){
+function addComment($address,$idAns,$idUser){
   $db= dbConnect();
-  $query= $db->prepare('INSERT INTO reponse(points,datecom,adresse,reponse,profil) VALUES(1,:datecom,:adresse,:reponse,:profil)');
+  $query= $db->prepare('INSERT INTO commentaire(points,datecom,adresse,reponse,profil) VALUES(1,:datecom,:adresse,:reponse,:profil)');
   $query->execute(array(
-    'reponse'=> $idAnswer,
+    'reponse'=> $idAns,
     'adresse'=> $address,
     'datecom'=> date('Y-m-d H:i:s'),
     'profil'=> $idUser
   ));
 }
 
-function getAnswer($idAnswer){
+function getAnswer($idAns){
   $db= dbConnect();
-  $query= $db->query('SELECT * FROM reponse where id =:idAnswer');
+  $query= $db->query('SELECT * FROM reponse where id =:idAns');
   $query->execute(array(
-      'idAnswer'=>$idAnswer
+      'idAns'=>$idAns
   ));
   return $query;
 }

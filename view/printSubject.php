@@ -38,9 +38,9 @@
               Envoyé le <?php echo $dateEnvoiC ?> à <?php echo $heureEnvoiC?>
             </div>
             <div class ="administration">
-              <a href ="index.php?action=report.png"><img src="public/images/administration/report.png" width =20px></a>
-              <a href ="index.php?action=like.png"><img src="public/images/administration/like.png" width=20px></a>
-              <a href ="index.php?action=deleteSubject&id= <?php echo $id;?>"><img src="public/image/administration/delete.png" width=30px></a>  
+              <a href ="index.php?action=report.png"><img src="public/images/administration/report.png" width = 20px></a>
+              <a href ="index.php?action=like.png"><img src="public/images/administration/like.png" width = 20px></a>
+              
           </div>
           </div>
       </div>
@@ -82,7 +82,7 @@
             <div class ="administration">
               <a href ="index.php?action=report.png"><img src="public/images/administration/report.png" width =20px></a>
               <a href ="index.php?action=like.png"><img src="public/images/administration/like.png" width=20px></a>
-              <a href ="index.php?action=deleteResponse&repId='.$idReponse[$i].'"><img src="public/image/administration/gfggf.png" width=30px></a>    </div>
+              <a hef ="index.php?action=sup.png"><img src="public/images/administration/sup.png" width = 20px></a>
             </div>
           </div>
       </div>
