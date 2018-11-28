@@ -35,7 +35,7 @@
   if (isset($_SESSION['status'])) {
     if ($_SESSION['status'] == 'connected'){
       echo "<div class='row mr-2'><span class='navbar-text'> Bonjour </span>";
-      echo '<div class="collapse navbar-collapse" id="navbarNavDropdown">
+      echo ('<div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
          <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="pseudo" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -43,9 +43,15 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="profil-card" >
             <a class="dropdown-item" href="index.php?action=myProfile">Profil</a>
+            ');
+            $type = selectInfoUser($_SESSION['pseudo']);
+            if ($type['statut'] == 'admin'){
+              echo('<a class="dropdown-item" href="index.php?action=administation">Administration</a>');
+            }
+            echo('
             <a class="dropdown-item" href="index.php?action=deconnection">Se deconnecter</a>
           </div>
-        </li></div>';
+        </li></div>');
     }
   }else {
     echo "

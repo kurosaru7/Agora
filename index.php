@@ -60,6 +60,9 @@ try{
       case 'displayCategory':
         displayCategory();
         break;
+      case 'administation':
+        displayAdminPage();
+        break;
     }
   }else{
     home();

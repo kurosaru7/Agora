@@ -285,3 +285,16 @@ function displayCategory(){
   require('./view/subjectsFromCategories.php');
 
 }
+function displayAdminPage(){
+  $title = "Administration";
+  if (isset($_GET['admin'])) {
+    require('./view/template/top.php');
+    require('./view/template/navbar.php');
+    if ($_GET['admin'] == "addAdmin") {
+      require('./view/formAddAdmin.php');
+      
+    }
+  }else {
+    require('./view/adminPage.php');
+  }
+}
