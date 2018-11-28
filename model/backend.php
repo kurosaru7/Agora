@@ -134,7 +134,8 @@ function getReponse($id){
                          ON R.sujet = S.id
                          JOIN profil P
                          ON R.profil = P.id
-                         WHERE sujet = :sujet');
+                         WHERE sujet = :sujet
+                         ORDER BY dateReponse');
   $query->execute(array(
     'sujet' => $id
   ));
