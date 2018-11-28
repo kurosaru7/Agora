@@ -60,6 +60,13 @@ try{
       case 'displayCategory':
         displayCategory();
         break;
+      case 'deleteSubject' : 
+        deleteSubject($id);
+        break;
+      case 'deleteResponse' :
+        deleteResponse($id);
+        break;
+
       case 'administation':
         displayAdminPage();
         break;

@@ -84,7 +84,20 @@ function addSubjectC($onlyPrint){
     $_SESSION['error'] = "";
     header('Location: index.php');
   }
+  
 }
+function deleteSubject($id) {
+  $subjectId = $_GET['id'];
+  delsubject($subjectId);
+  header('location: index.php?action=home');
+}
+
+function deleteResponse($id) {
+  $responseId = $_GET['repId'];
+  delCommentary($responseId);
+  delresponse($responseId);
+  header('location: index.php?action=home');
+  }
 
 function printSubjectC($id){
 

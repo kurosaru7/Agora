@@ -13,11 +13,12 @@ function dbConnect() {
     return $db;
 }
 
-function deleteSubject() {
-$db = $this->dbConnect();
-
-
-
+function delSubject($subjectId) {
+  $db = dbConnect();
+  $req = $db->prepare("DELETE FROM sujet WHERE id = :id");
+  $req->execute(array(
+  ":id" => $subjectId,
+  ));
 }
 
 
@@ -29,19 +30,20 @@ $db = $this->dbConnect();
 }
 
 
-function deleteResponse () {
-$db = $this->dbConnect();
-
-
-
+function delResponse ($responseId) {
+  $db = dbConnect();
+  $req = $db->prepare("DELETE FROM reponse WHERE id = :id");
+  $req->execute(array(
+  ":id" => $responseId,
+  ));
 }
 
-function deleteCommentary () {
-$db = $this->dbConnect();
-
-
-
-
+function delCommentary ($responseId) {
+  $db = dbConnect();
+  $req = $db->prepare("DELETE FROM commentaire WHERE reponse =:id");
+  $req->execute(array(
+  ":id" => $responseId,
+  ));
 }
 
 function selectInfoUser($user){
