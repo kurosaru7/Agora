@@ -41,14 +41,15 @@ function getAnswer($idAns){
   return $query;
 }
 
-function getComment($idComment){
-  $db= dbConnect();
-  $query= $db->query('SELECT * FROM commentaire where id =:idComment');
-  $query->execute(array(
-      'idComment'=>$idComment
-  ));
-  return $query;
-}
+// function getComment($idComment){
+//   $db= dbConnect();
+//   $query= $db->query('SELECT * FROM commentaire where id =:idComment');
+//   $query->execute(array(
+//       'idComment'=>$idComment
+//   ));
+//   return $query;
+// }
+
 function editAnswer($adresse,$profil){
   $db =dbConnect();
   $query =$db->prepare('UPDATE reponse SET adresse = :adresse WHERE id =:idAnswer');

@@ -27,7 +27,8 @@ function addAnswerC($onlyPrint){
 function addCommentC($onlyPrint){
     if($onlyPrint == false){
       $idSujet = $_GET['idSujet'];
-      
+      $idAns = $_GET['idAns'];
+
       $rdm = uniqid();
       $address = $rdm.'.txt';
       $info = selectInfoUser($_SESSION['pseudo']);
@@ -65,7 +66,7 @@ function deleteAnswerD($deletePrint){
       $answer = $_GET['answer'];
       $iduser = getUserById ($_Get['idUser']->fetch());
       deleteAnswer($idAnswer);
-  
+
   }
 }
 

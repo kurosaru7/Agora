@@ -14,7 +14,7 @@ foreach ($subjects as $key => $value) {
         $pseudo = getUserById($value['profil']);
         $dateHeure = explode(" ",$value['dateS']);
         echo '<tr>
-                <td class="text-left"><a href = index.php?action=printSubject&id='.$value['id'].'>'.$value['nom'].'</a><font color="purple"> | Créateur </font>: '.$pseudo['pseudo'].'<font color="purple"> | Crée le : </font>'.$dateHeure[0].' <font color="purple">à</font> '. $dateHeure[1].'</td>
+                <td class="text-left"><a href = index.php?action=printSubject&id='.$value['id'].'>'.$value['nom'].'</a><font color="purple"> | Créateur </font><a href="./index.php?action=myProfile&pseudo='.$pseudo['pseudo'].'">: '.$pseudo['pseudo'].'</a><font color="purple"> | Crée le : </font>'.$dateHeure[0].' <font color="purple">à</font> '. $dateHeure[1].'</td>
             </tr>';
 }
 echo '</tbody></table>';
