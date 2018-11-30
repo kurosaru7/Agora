@@ -3,7 +3,7 @@ require('model/backend.php');
 
 function home(){
   $title = 'Agora';
-  $categories = getCategories() ;
+  $categories = getCategories();
   $count = 0;
   $count2 = 0;
   $count3 = 0;
@@ -36,7 +36,6 @@ function home(){
     }
     $count2++;
   }
-  $_SESSION['error'] = "";
   require('view/home.php');
 }
 
@@ -306,8 +305,21 @@ function displayAdminPage(){
     if ($_GET['admin'] == "addAdmin") {
       require('./view/formAddAdmin.php');
       
+    }elseif ($_GET['admin'] == "createAdmin") {
+      $pseudo = $_GET['pseudo'];
+      $pw = $_GET['pw'];
+      createAdmin($pseudo,$pw);
+      header('Location: ./index.php');
     }
   }else {
     require('./view/adminPage.php');
+  }
+}
+function isAdmin(){
+  $role = selectInfoUser($_SESSION['pseudo']);
+  if ($role['statut'] == 'admin') {
+    return true;
+  }else {
+    return false;
   }
 }

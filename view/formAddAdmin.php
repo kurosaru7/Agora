@@ -5,9 +5,8 @@
         <input class="form-control" name="pseudo" type="text" placeholder="Pseudo" />
         <input class="form-control" type="password" name="pw" placeholder="Mot de passe">
         <input class="form-control" type="password" name="pwV" placeholder="Vérifiez le mot de passe">
-        <button class="btn btn-primary" type="submit" name="addAdmin">Créer</button>
-    </div>
-
-
+        <input type="hidden" name="action" value="administration">
+        <button class="btn btn-primary" type="submit" name="admin" value="createAdmin">Créer</button>
     </form>
-  </div>
+    </div>
+</div>

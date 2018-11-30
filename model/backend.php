@@ -101,11 +101,12 @@ function printSubjectbycategories($idCategorie){
 }
 function addUser($pseudo,$pw){
   $db = dbConnect();
-  $query = $db->prepare('INSERT INTO profil(pseudo,password,datep) VALUES(:pseudo,:password,:datep)');
+  $query = $db->prepare('INSERT INTO profil(pseudo,password,datep,statut) VALUES(:pseudo,:password,:datep,:statut)');
   $query->execute(array(
     'pseudo' => $pseudo,
     'password' => $pw,
-    'datep' => date('Y-m-d')
+    'datep' => date('Y-m-d'),
+    'statut' => 'visiteur'
   ));
 }
 
@@ -169,6 +170,18 @@ function getUserById($id){
   ));
   $result = $query->fetch(PDO::FETCH_ASSOC);
   return $result;
+}
+function createAdmin($pseudo,$pw){
+  $pseudo = $_GET['pseudo'];
+  $pw = $_GET['pw'];
+  $pwV = $_GET['pwV'];
+  $db = dbConnect();
+  $query = $db->prepare('INSERT INTO profil(pseudo,password,datep,statut) VALUES(:pseudo,:password,:datep,"admin")');
+  $query->execute(array(
+    'pseudo' => $pseudo,
+    'password' => $pw,
+    'datep' => date('Y-m-d')
+  ));
 }
 
 
