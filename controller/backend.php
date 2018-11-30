@@ -12,8 +12,8 @@ function home(){
   while($data3 = $lastSubjects->fetch()){
       $idLastSujet[$count3][0] = $data3['idSujet'];
       $lastNomSujet[$count3][0] = $data3['nom'];
-      $lastDateSujet[$count3][0] = $data3['dateS'];
-      $lastHeure[$count3][0] = explode(' ',$lastDateSujet[$count3][0]);
+      $lastDateSujet[$count3][0] = getFrenchDate($data3['dateS']);
+      // $lastHeure[$count3][0] = explode(' ',$lastDateSujet[$count3][0]);
       $lastCategorie[$count3]= $data3['nom_categorie'];
       $idLastProfil[$count3][0] = $data3['profil'];
       $lastPseudo[$count3][0] = $data3['pseudo'];
@@ -83,7 +83,7 @@ function addSubjectC($onlyPrint){
     $_SESSION['error'] = "";
     header('Location: index.php');
   }
-  
+
 }
 function deleteSubject($id) {
   $subjectId = $_GET['id'];
@@ -98,6 +98,7 @@ function deleteResponse($id) {
   header('location: index.php?action=home');
   }
 
+
 function printSubjectC($id){
 
   $subjectInfo = printSubject($id);
@@ -105,16 +106,9 @@ function printSubjectC($id){
   $nomSujet = $data['nomSujet'];
   $pseudoCreator = $data['pseudo'];
   $scoreProfilCreator = $data['scoreProfil'];
-  $dateInscriptionCreator = $data['dateInscription'];
+  $dateInscriptionCreator = getFrenchDate($data['dateInscription']);
   $idSujet = $data['idSujet'];
-  $dateInscriptionCreator = explode('-',$dateInscriptionCreator);
-  $dateInscriptionCreator = $dateInscriptionCreator[2].' '.getMonth($dateInscriptionCreator[1]).' '.$dateInscriptionCreator[0];
-  $dateCreationSujet = $data['dateCreationSujet'];
-  $dateHeure = explode(' ',$dateCreationSujet);
-  $dateEnvoiC = $dateHeure[0];
-  $dateEnvoiC = explode('-',$dateEnvoiC);
-  $dateEnvoiC = $dateEnvoiC[2].' '.getMonth($dateEnvoiC[1]).' '.$dateEnvoiC[0];
-  $heureEnvoiC = $dateHeure[1];
+  $dateCreationSujet = getFrenchDate($data['dateCreationSujet']);
   $statutSujet = $data['statutSujet'];
   $categorieSujet = $data['statutSujet'];
   $avatar = 'public/images/avatar/'.$data['avatar'];
@@ -126,7 +120,10 @@ function printSubjectC($id){
   while(false !== ($line = fgets($data))){
     $content .= htmlspecialchars($line);
   }
-
+  if(isset($_GET['closeSubject']))
+  {
+    closeSubject($idSujet);   
+  }
   if(getReponse($id)){
     $reponses = getReponse($id);
     $count = 0;
@@ -138,69 +135,93 @@ function printSubjectC($id){
       $pseudoProfil[$count] = $data2['pseudoProfil'];
       $idReponse[$count] = $data2['idReponse'];
       $pointsProfil[$count] = $data2['profilPoints'];
-
-      $dateReponse[$count] = $data2['dateReponse'];
-      $dateHeure[$count] = explode(' ',$dateReponse[$count]);
-      $dateEnvoi[$count] = $dateHeure[$count][0];
-      $dateEnvoi[$count] = explode('-',$dateEnvoi[$count]);
-      $dateEnvoi[$count] = $dateEnvoi[$count][2].' '.getMonth($dateEnvoi[$count][1]).' '.$dateEnvoi[$count][0];
-      $heureEnvoi[$count] = $dateHeure[$count][1];
-
-      $dateInscription[$count] = $data2['dateInscription'];
-      $dateInscription[$count] = explode('-',$dateInscription[$count]);
-      $dateInscription[$count] = $dateInscription[$count][2].' '.getMonth($dateInscription[$count][1]).' '.$dateInscription[$count][0];
-
+      $dateReponse[$count] = getFrenchDate($data2['dateReponse']);
+      $dateInscription[$count] = getFrenchDate($data2['dateInscription']);
       $dataReponse[$count] = fopen('public/reponse/'.$data2['adresseReponse'],'r');
       while(false !== ($line = fgets($dataReponse[$count]))){
         $contentReponse[$count] .= htmlspecialchars($line);
       }
+      $count2 = 0;
+      if(getComment($idReponse[$count])){
+        $comments = getComment($idReponse[$count]);
+        while($data3 = $comments->fetch()){
+          $pseudoProfilComment[$count][$count2] = $data3['pseudoCommentaire'];
+          $idReponseComment[$count][$count2] = $data3['idCommentaire'];
+          $pointsProfilComment[$count][$count2] = $data3['profilPointsCommentaire'];
+          $dateReponseComment[$count][$count2] = getFrenchDate($data3['dateCommentaire']);
+          $dateInscriptionComment[$count][$count2] = getFrenchDate($data3['dateInscriptionCommentaire']);
+          $dataReponseComment[$count][$count2] = fopen('public/comment/'.$data3['adresseCommentaire'],'r');
+          while(false !== ($lineC = fgets($dataReponseComment[$count][$count2]))){
+            $contentComment[$count][$count2] .= htmlspecialchars($lineC);
+          }
+          $count2++;
+        }
+      }
     $count++;
     }
   }
+  
 
 
   require('view/printSubject.php');
 }
 
-function getMonth($integer) {
-  switch($integer){
-    case 1 :
-      return 'Janvier';
-    break;
-    case 2 :
-      return 'Février';
-    break;
-    case 3 :
-      return 'Mars';
-    break;
-    case 4 :
-      return 'Avril';
-    break;
-    case 5 :
-      return 'Mai';
-    break;
-    case 6 :
-      return 'Juin';
-    break;
-    case 7 :
-      return 'Juillet';
-    break;
-    case 8 :
-      return 'Aôut';
-    break;
-    case 9 :
-      return 'Septembre';
-    break;
-    case 10 :
-      return 'Octobre';
-    break;
-    case 11 :
-      return 'Novembre';
-    break;
-    case 12 :
-      return 'Décembre';
-    break;
+function getMonth($integer){
+    switch($integer){
+      case 1 :
+        return 'Janvier';
+      break;
+      case 2 :
+        return 'Février';
+      break;
+      case 3 :
+        return 'Mars';
+      break;
+      case 4 :
+        return 'Avril';
+      break;
+      case 5 :
+        return 'Mai';
+      break;
+      case 6 :
+        return 'Juin';
+      break;
+      case 7 :
+        return 'Juillet';
+      break;
+      case 8 :
+        return 'Aôut';
+      break;
+      case 9 :
+        return 'Septembre';
+      break;
+      case 10 :
+        return 'Octobre';
+      break;
+      case 11 :
+        return 'Novembre';
+      break;
+      case 12 :
+        return 'Décembre';
+      break;
+    }
   }
+
+function getFrenchDate($dateFormatSQL) {
+
+  if(strlen($dateFormatSQL) <= 10){
+    $date = explode('-',$dateFormatSQL);
+    $date= $date[2].' '.getMonth($date[1]).' '.$date[0];
+    $result = $date;
+  }else{
+    $dateAndHeure = explode(' ',$dateFormatSQL);
+    $date = $dateAndHeure[0];
+    $date = explode('-',$date);
+    $date = $date[2]." ".getMonth($date[1])." ".$date[0];
+    $heure = $dateAndHeure[1];
+    $result = $date.' à '.$heure;
+  }
+  return $result;
 }
 
 function isConnect(){
@@ -300,17 +321,16 @@ function displayCategory(){
 function displayAdminPage(){
   $title = "Administration";
   if (isset($_GET['admin'])) {
+    if ($_GET['admin'] == "closeSubject") {
+      home();
+      
+    } else {
     require('./view/template/top.php');
     require('./view/template/navbar.php');
     if ($_GET['admin'] == "addAdmin") {
       require('./view/formAddAdmin.php');
-      
-    }elseif ($_GET['admin'] == "createAdmin") {
-      $pseudo = $_GET['pseudo'];
-      $pw = $_GET['pw'];
-      createAdmin($pseudo,$pw);
-      header('Location: ./index.php');
     }
+  }
   }else {
     require('./view/adminPage.php');
   }

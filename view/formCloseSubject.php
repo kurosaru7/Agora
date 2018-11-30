@@ -1,6 +1,6 @@
 <?php
-  require('./view/template/top.php');
-  require('./view/template/navbar.php');
+require('template/top.php');
+require('template/navbar.php');
  ?>
 
 

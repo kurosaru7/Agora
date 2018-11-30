@@ -23,7 +23,7 @@
         
 
       </div>
-      <input type ="hidden" name="idAnswer" value=1>
+      <input type ="hidden" name="idAns" value=1>
 
     </form>
   </div>

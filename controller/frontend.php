@@ -25,8 +25,10 @@ function addAnswerC($onlyPrint){
   }
 
 function addCommentC($onlyPrint){
-    if(!$onlyPrint){
-      $idAnswer = $_GET['idAnswer'];
+    if($onlyPrint == false){
+      $idSujet = $_GET['idSujet'];
+      $idAns = $_GET['idAns'];
+
       $rdm = uniqid();
       $address = $rdm.'.txt';
       $info = selectInfoUser($_SESSION['pseudo']);
@@ -35,9 +37,9 @@ function addCommentC($onlyPrint){
       $content = fopen('public/comment/'.$address, 'w+');
       fwrite($content,$_GET['message']);
       fclose($content);
-      addAnswer($address,intval($idAnswer),intval($id_user));
+      addComment($address,intval($idAns),intval($id_user));
 
-      header('Location: index.php?action=printSubject&id='.$idAnswer);
+      header('Location: index.php?action=printSubject&id='.$idSujet);
 
     }
     require('view/addComment.php');
@@ -67,6 +69,7 @@ function deleteAnswerD($deletePrint){
 
   }
 }
+
 
 function deleteCommentD($deletePrint){
   if($deletePrint){

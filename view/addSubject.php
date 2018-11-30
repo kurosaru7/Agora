@@ -1,5 +1,5 @@
-<?php  
-  require('template/top.php'); 
+<?php
+  require('template/top.php');
   require('template/navbar.php');
   ?>
 
@@ -19,8 +19,7 @@
 
       <div class="submit">
         <input type="submit" value="Créer" id="button-blue"/>
-        <div class="ease"></div>
-
+    </div>
          <div class="center-on-page">
         <div class="select">
           <select name="categorie" id = "slct">
@@ -37,7 +36,4 @@
 
 
     </form>
-  </div>
-
-
-<?php require('template/bottom.php'); ?>
+  <?php require('template/bottom.php'); ?>

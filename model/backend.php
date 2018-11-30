@@ -3,7 +3,7 @@
 function dbConnect() {
   try
   {
-    $db = new PDO('mysql:host=localhost;dbname=agora;charset=utf8','root','');
+    $db = new PDO('mysql:host=localhost;dbname=agora;charset=utf8','phpmyadmin','secret');
   }
   catch(Exception $e)
   {
@@ -22,11 +22,20 @@ function delSubject($subjectId) {
 }
 
 
-function closeSubject () {
-$db = $this->dbConnect();
+function getStatusSubject ($subjectId) {
+$db = dbConnect();
+$req = $db->prepare("SELECT statut FROM sujet WHERE id =:id");
+$req->execute(array(
+  ":id" => $subjectId,
+));
+}
 
-
-
+function closeSubject($subjectId) {
+$db = dbConnect();
+$req = $db->prepare("UPDATE `sujet` SET `statut` = 'ferme' WHERE `sujet`.`id` = :id");
+$req->execute(array(
+  ":id" => $subjectId,
+));
 }
 
 
@@ -144,6 +153,24 @@ function getReponse($id){
   ));
 return $query;
 }
+
+
+function getComment($id){
+  $db = dbConnect();
+  $query = $db->prepare('SELECT C.id AS idCommentaire,C.adresse AS adresseCommentaire,C.points AS pointsCommentaire,C.datecom AS dateCommentaire,P.score AS profilPointsCommentaire, P.pseudo AS pseudoCommentaire,P.datep AS dateInscriptionCommentaire,P.avatar AS avatar
+                         FROM reponse R
+                         JOIN commentaire C
+                         ON C.reponse = R.id
+                         JOIN profil P
+                         ON C.profil = P.id
+                         WHERE R.id = :reponse
+                         ORDER BY dateCommentaire');
+  $query->execute(array(
+    'reponse' => $id
+  ));
+return $query;
+}
+
 
 function deleteTuppleUser($profil){
   $db = dbConnect();
