@@ -17,10 +17,38 @@ function delSubject($subjectId) {
   $db = dbConnect();
   $req = $db->prepare("DELETE FROM sujet WHERE id = :id");
   $req->execute(array(
-  ":id" => $subjectId,
+    ":id" => $subjectId,
   ));
 }
 
+// SUPPRIMER UN UTILISATEUR ADMIN
+function deleteUser($userPseudo){
+  $db = dbConnect();
+  $req = $db->prepare("DELETE FROM profil WHERE pseudo = :pseudo");
+  $req->execute(array(
+    ":pseudo" => $userPseudo,
+  ));
+}
+
+// MODIFIER LA CATEGORIE D UN SUJET
+function modifySubjectCategory($subjectId){
+  $db= dbConnect();
+  $req = $db->prepare("UPDATE sujet SET categorie = :category WHERE sujet.id = :id");
+  $req->execute(array(
+    ":id" => $subjectId,
+    ":category" => $categoryId,
+  ));
+}
+
+//MODIFIER LE NOM D UN SUJET
+function modifySubjectName($subjectId){
+  $db = dbConnect();
+  $req = $db->prepare("UPDATE sujet SET nom = :nom WHERE sujet.id = :id ");
+  $req->execute(array(
+    ":id" => $subjectId,
+    ":nom" => $nameSubject,
+  ));
+}
 
 function getStatusSubject ($subjectId) {
 $db = dbConnect();
