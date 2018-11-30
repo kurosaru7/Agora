@@ -99,6 +99,7 @@ function deleteResponse($id) {
   header('location: index.php?action=home');
   }
 
+
 function printSubjectC($id){
 
   $subjectInfo = printSubject($id);
@@ -120,7 +121,10 @@ function printSubjectC($id){
   while(false !== ($line = fgets($data))){
     $content .= htmlspecialchars($line);
   }
-
+  if(isset($_GET['closeSubject']))
+  {
+    closeSubject($idSujet);   
+  }
   if(getReponse($id)){
     $reponses = getReponse($id);
     $count = 0;
@@ -157,6 +161,7 @@ function printSubjectC($id){
     $count++;
     }
   }
+  
 
 
   require('view/printSubject.php');
@@ -317,12 +322,16 @@ function displayCategory(){
 function displayAdminPage(){
   $title = "Administration";
   if (isset($_GET['admin'])) {
+    if ($_GET['admin'] == "closeSubject") {
+      home();
+      
+    } else {
     require('./view/template/top.php');
     require('./view/template/navbar.php');
     if ($_GET['admin'] == "addAdmin") {
       require('./view/formAddAdmin.php');
-
     }
+  }
   }else {
     require('./view/adminPage.php');
   }

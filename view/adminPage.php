@@ -9,6 +9,7 @@
                 <li class="list-group-item"><a href="./index.php?action=administation&admin=addAdmin">Ajouter un compte ADMIN</a></li>
                 <li class="list-group-item"><a href="./index.php?action=administation&admin=manageUsers">Gérer les utilisateurs</a></li>
                 <li class="list-group-item"><a href="./index.php?action=administation&admin=manageCategories">Gérer les catégories</a></li>
+                <li class="list-group-item"><a href="./index.php?action=administation&admin=closeSubject">Fermer un sujet</a></li>
             </ul>
         </div>
     </div>
