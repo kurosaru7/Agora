@@ -3,7 +3,7 @@
 function dbConnect() {
   try
   {
-    $db = new PDO('mysql:host=localhost;dbname=agora;charset=utf8','phpmyadmin','secret');
+    $db = new PDO('mysql:host=localhost;dbname=agora;charset=utf8','root','root');
   }
   catch(Exception $e)
   {
