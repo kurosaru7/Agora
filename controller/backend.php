@@ -3,7 +3,7 @@ require('model/backend.php');
 
 function home(){
   $title = 'Agora';
-  $categories = getCategories() ;
+  $categories = getCategories();
   $count = 0;
   $count2 = 0;
   $count3 = 0;
@@ -36,7 +36,6 @@ function home(){
     }
     $count2++;
   }
-  $_SESSION['error'] = "";
   require('view/home.php');
 }
 
@@ -109,6 +108,7 @@ function deletecommentC(){
   header('location: index.php?action=printSubject&id=' . $idSujet);
 }
 
+
 function printSubjectC($id){
 
   $subjectInfo = printSubject($id);
@@ -140,7 +140,10 @@ function printSubjectC($id){
   while(false !== ($line = fgets($data))){
     $content .= htmlspecialchars($line);
   }
-
+  if(isset($_GET['closeSubject']))
+  {
+    closeSubject($idSujet);   
+  }
   if(getReponse($id)){
     $reponses = getReponse($id);
     $count = 0;
@@ -193,6 +196,7 @@ function printSubjectC($id){
     $count++;
     }
   }
+  
 
 
   require('view/printSubject.php');
@@ -353,13 +357,25 @@ function displayCategory(){
 function displayAdminPage(){
   $title = "Administration";
   if (isset($_GET['admin'])) {
+    if ($_GET['admin'] == "closeSubject") {
+      home();
+      
+    } else {
     require('./view/template/top.php');
     require('./view/template/navbar.php');
     if ($_GET['admin'] == "addAdmin") {
       require('./view/formAddAdmin.php');
-
     }
+  }
   }else {
     require('./view/adminPage.php');
+  }
+}
+function isAdmin(){
+  $role = selectInfoUser($_SESSION['pseudo']);
+  if ($role['statut'] == 'admin') {
+    return true;
+  }else {
+    return false;
   }
 }

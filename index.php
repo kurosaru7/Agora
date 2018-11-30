@@ -71,6 +71,14 @@ try{
         break;
       case 'administation':
         displayAdminPage();
+
+      case 'administration':
+        if (isAdmin()) {
+          displayAdminPage();
+        }else{
+          $_SESSION['error'] = "Erreur : vous n'êtes pas administrateur.";
+          header('Location: ./index.php');
+        }
         break;
     }
   }else{

@@ -3,7 +3,7 @@
 function dbConnect() {
   try
   {
-    $db = new PDO('mysql:host=localhost;dbname=agora;charset=utf8','red','');
+    $db = new PDO('mysql:host=localhost;dbname=agora;charset=utf8','phpmyadmin','secret');
   }
   catch(Exception $e)
   {
@@ -17,16 +17,53 @@ function delSubject($subjectId) {
   $db = dbConnect();
   $req = $db->prepare("DELETE FROM sujet WHERE id = :id");
   $req->execute(array(
-  ":id" => $subjectId,
+    ":id" => $subjectId,
   ));
 }
 
+// SUPPRIMER UN UTILISATEUR ADMIN
+function deleteUser($userPseudo){
+  $db = dbConnect();
+  $req = $db->prepare("DELETE FROM profil WHERE pseudo = :pseudo");
+  $req->execute(array(
+    ":pseudo" => $userPseudo,
+  ));
+}
 
-function closeSubject () {
-$db = $this->dbConnect();
+// MODIFIER LA CATEGORIE D UN SUJET
+function modifySubjectCategory($subjectId){
+  $db= dbConnect();
+  $req = $db->prepare("UPDATE sujet SET categorie = :category WHERE sujet.id = :id");
+  $req->execute(array(
+    ":id" => $subjectId,
+    ":category" => $categoryId,
+  ));
+}
 
+//MODIFIER LE NOM D UN SUJET
+function modifySubjectName($subjectId){
+  $db = dbConnect();
+  $req = $db->prepare("UPDATE sujet SET nom = :nom WHERE sujet.id = :id ");
+  $req->execute(array(
+    ":id" => $subjectId,
+    ":nom" => $nameSubject,
+  ));
+}
 
+function getStatusSubject ($subjectId) {
+$db = dbConnect();
+$req = $db->prepare("SELECT statut FROM sujet WHERE id =:id");
+$req->execute(array(
+  ":id" => $subjectId,
+));
+}
 
+function closeSubject($subjectId) {
+$db = dbConnect();
+$req = $db->prepare("UPDATE `sujet` SET `statut` = 'ferme' WHERE `sujet`.`id` = :id");
+$req->execute(array(
+  ":id" => $subjectId,
+));
 }
 
 // function getIdSujet($idReponse){
@@ -118,11 +155,12 @@ function printSubjectbycategories($idCategorie){
 }
 function addUser($pseudo,$pw){
   $db = dbConnect();
-  $query = $db->prepare('INSERT INTO profil(pseudo,password,datep) VALUES(:pseudo,:password,:datep)');
+  $query = $db->prepare('INSERT INTO profil(pseudo,password,datep,statut) VALUES(:pseudo,:password,:datep,:statut)');
   $query->execute(array(
     'pseudo' => $pseudo,
     'password' => $pw,
-    'datep' => date('Y-m-d')
+    'datep' => date('Y-m-d'),
+    'statut' => 'visiteur'
   ));
 }
 
@@ -204,6 +242,18 @@ function getUserById($id){
   ));
   $result = $query->fetch(PDO::FETCH_ASSOC);
   return $result;
+}
+function createAdmin($pseudo,$pw){
+  $pseudo = $_GET['pseudo'];
+  $pw = $_GET['pw'];
+  $pwV = $_GET['pwV'];
+  $db = dbConnect();
+  $query = $db->prepare('INSERT INTO profil(pseudo,password,datep,statut) VALUES(:pseudo,:password,:datep,"admin")');
+  $query->execute(array(
+    'pseudo' => $pseudo,
+    'password' => $pw,
+    'datep' => date('Y-m-d')
+  ));
 }
 
 
