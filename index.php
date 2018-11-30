@@ -60,13 +60,15 @@ try{
       case 'displayCategory':
         displayCategory();
         break;
-      case 'deleteSubject' : 
-        deleteSubject($id);
+      case 'deleteSubject' :
+        deleteSubject();
         break;
-      case 'deleteResponse' :
-        deleteResponse($id);
+      case 'deleteAnswer' :
+        deleteAnswerC();
         break;
-
+      case 'deleteComment' :
+        deletecommentC();
+        break;
       case 'administation':
         displayAdminPage();
         break;
@@ -78,4 +80,5 @@ try{
 
 }catch(Exception $e){
   $message = $e->getMessage();
+  require('view/error.php');
 }

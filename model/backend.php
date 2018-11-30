@@ -29,6 +29,14 @@ $db = $this->dbConnect();
 
 }
 
+// function getIdSujet($idReponse){
+//   $db = dbConnect();
+//   $req = $db->prepare('SELECT * FROM reponse WHERE id = :idReponse ');
+//   $req->execute(array(
+//     'idReponse' => $idReponse,
+//   ));
+//   return $req;
+// }
 
 function delResponse ($responseId) {
   $db = dbConnect();
@@ -43,6 +51,15 @@ function delCommentary ($responseId) {
   $req = $db->prepare("DELETE FROM commentaire WHERE reponse =:id");
   $req->execute(array(
   ":id" => $responseId,
+  ));
+}
+
+function delCommentarywithID($responseId)
+{
+  $db = dbConnect();
+  $req = $db->prepare("DELETE FROM commentaire WHERE id =:id");
+  $req->execute(array(
+    ":id" => $responseId,
   ));
 }
 
@@ -122,7 +139,7 @@ function printLastSubjects(){
 
 function printSubject($id){
 $db = dbConnect();
-$query = $db->prepare('SELECT S.nom AS nomSujet ,S.id AS idSujet,P.pseudo AS pseudo,P.score AS scoreProfil ,P.datep AS dateInscription ,P.avatar AS avatar,S.dateS AS dateCreationSujet,S.statut AS statutSujet,S.categorie AS idcategorieSujet,S.adresse AS adresseSujet,CA.nom AS nomCategorie FROM categorie CA JOIN sujet S ON CA.id = S.categorie JOIN profil P ON S.profil = P.id WHERE S.id = :idSujet ');
+$query = $db->prepare('SELECT S.nom AS nomSujet ,S.id AS idSujet,P.id AS idProfil,P.pseudo AS pseudo,P.score AS scoreProfil ,P.datep AS dateInscription ,P.avatar AS avatar,S.dateS AS dateCreationSujet,S.statut AS statutSujet,S.categorie AS idcategorieSujet,S.adresse AS adresseSujet,CA.nom AS nomCategorie FROM categorie CA JOIN sujet S ON CA.id = S.categorie JOIN profil P ON S.profil = P.id WHERE S.id = :idSujet ');
 $query->execute(array(
   'idSujet' => $id
 ));
@@ -131,7 +148,7 @@ return $query;
 
 function getReponse($id){
   $db = dbConnect();
-  $query = $db->prepare('SELECT R.id AS idReponse,R.adresse AS adresseReponse,R.points AS pointsReponse,R.datem AS dateReponse,P.score AS profilPoints, P.pseudo AS pseudoProfil,P.datep AS dateInscription,P.avatar AS avatar
+  $query = $db->prepare('SELECT R.id AS idReponse,R.adresse AS adresseReponse,R.points AS pointsReponse,R.datem AS dateReponse,P.score AS profilPoints, P.pseudo AS pseudoProfil,P.id as idProfilReponse,P.datep AS dateInscription,P.avatar AS avatar
                          FROM reponse R JOIN sujet S
                          ON R.sujet = S.id
                          JOIN profil P
@@ -147,7 +164,7 @@ return $query;
 
 function getComment($id){
   $db = dbConnect();
-  $query = $db->prepare('SELECT C.id AS idCommentaire,C.adresse AS adresseCommentaire,C.points AS pointsCommentaire,C.datecom AS dateCommentaire,P.score AS profilPointsCommentaire, P.pseudo AS pseudoCommentaire,P.datep AS dateInscriptionCommentaire,P.avatar AS avatar
+  $query = $db->prepare('SELECT C.id AS idCommentaire,C.adresse AS adresseCommentaire,C.points AS pointsCommentaire,C.datecom AS dateCommentaire,P.score AS profilPointsCommentaire, P.pseudo AS pseudoCommentaire,P.datep AS dateInscriptionCommentaire,P.avatar AS avatar,P.id AS idProfil
                          FROM reponse R
                          JOIN commentaire C
                          ON C.reponse = R.id

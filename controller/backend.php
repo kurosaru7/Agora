@@ -86,31 +86,51 @@ function addSubjectC($onlyPrint){
   }
 
 }
-function deleteSubject($id) {
+
+function deleteSubject() {
   $subjectId = $_GET['id'];
   delsubject($subjectId);
   header('location: index.php?action=home');
 }
 
-function deleteResponse($id) {
-  $responseId = $_GET['repId'];
+function deleteAnswerC() {
+  $responseId = $_GET['id'];
+  $idSujet = $_GET['idSujet'];
   delCommentary($responseId);
   delresponse($responseId);
-  header('location: index.php?action=home');
-  }
+
+  header('location: index.php?action=printSubject&id='.$idSujet);
+}
+
+function deletecommentC(){
+  $commentId = $_GET['id'];
+  $idSujet = $_GET['idSujet'];
+  delCommentarywithID($commentId);
+  header('location: index.php?action=printSubject&id=' . $idSujet);
+}
 
 function printSubjectC($id){
 
   $subjectInfo = printSubject($id);
   $data = $subjectInfo->fetch();
+  $infoConnected = selectInfoUser($_SESSION['pseudo']);
+  $idCreator = $data['idProfil'];
   $nomSujet = $data['nomSujet'];
   $pseudoCreator = $data['pseudo'];
   $scoreProfilCreator = $data['scoreProfil'];
   $dateInscriptionCreator = getFrenchDate($data['dateInscription']);
   $idSujet = $data['idSujet'];
+
+  if($infoConnected['statut'] == "admin") {
+    $optionsAdminSujet = '&nbsp;&nbsp;&nbsp;<a href ="index.php?action=deleteSubject&id='. $idSujet . '">Supprimer ce sujet</a>';
+  }else if($infoConnected['id'] == $idCreator) {
+    $optionsCreatorSujet = '&nbsp;&nbsp;&nbsp;<a href ="index.php?action=modifSubject&id='.$idSujet. '">Modifier mon sujet</a>&nbsp;&nbsp;&nbsp;<a href ="index.php?action=deleteSubject&id='.$idSujet.'">Supprimer mon sujet</a>';
+  }
+
   $dateCreationSujet = getFrenchDate($data['dateCreationSujet']);
   $statutSujet = $data['statutSujet'];
   $categorieSujet = $data['statutSujet'];
+  $nomCategorie = $data['nomCategorie'];
   $avatar = 'public/images/avatar/'.$data['avatar'];
   if(!file_exists($avatar)){
     $avatar = 'public/images/avatar/default.png';
@@ -125,12 +145,19 @@ function printSubjectC($id){
     $reponses = getReponse($id);
     $count = 0;
     while($data2 = $reponses->fetch()){
+      $idProfilReponse[$count] = $data2['idProfilReponse'];
       $avatarProfil[$count] = getAvatarPath($data2['pseudoProfil']);
       if(!file_exists($avatarProfil[$count])){
         $avatarProfil[$count] = 'public/images/avatar/default.png';
       }
       $pseudoProfil[$count] = $data2['pseudoProfil'];
       $idReponse[$count] = $data2['idReponse'];
+      if($infoConnected['statut'] == "admin") {
+        $optionsAdminReponse[$count] = '&nbsp;&nbsp;&nbsp;<a href ="index.php?action=deleteAnswer&id='.$idReponse[$count]. '&idSujet='. $idSujet .'">Supprimer cette réponse</a>';
+      } else if ($infoConnected['id'] == $idProfilReponse[$count]) {
+        $optionsCreatorReponse[$count] = '&nbsp;&nbsp;&nbsp;<a href ="index.php?action=modifAnswer&id='.$idReponse[$count].'">Modifier ma réponse</a>&nbsp;&nbsp;&nbsp;<a href ="index.php?action=deleteAnswer&id='.$idReponse[$count]. '&idSujet=' . $idSujet . '">Supprimer ma réponse</a>';
+      }
+
       $pointsProfil[$count] = $data2['profilPoints'];
       $dateReponse[$count] = getFrenchDate($data2['dateReponse']);
       $dateInscription[$count] = getFrenchDate($data2['dateInscription']);
@@ -142,12 +169,21 @@ function printSubjectC($id){
       if(getComment($idReponse[$count])){
         $comments = getComment($idReponse[$count]);
         while($data3 = $comments->fetch()){
+          $idComment[$count][$count2] = $data3['idCommentaire'];
           $pseudoProfilComment[$count][$count2] = $data3['pseudoCommentaire'];
           $idReponseComment[$count][$count2] = $data3['idCommentaire'];
           $pointsProfilComment[$count][$count2] = $data3['profilPointsCommentaire'];
+          $idProfilComment[$count][$count2] = $data3['idProfil'];
           $dateReponseComment[$count][$count2] = getFrenchDate($data3['dateCommentaire']);
           $dateInscriptionComment[$count][$count2] = getFrenchDate($data3['dateInscriptionCommentaire']);
           $dataReponseComment[$count][$count2] = fopen('public/comment/'.$data3['adresseCommentaire'],'r');
+
+          if ($infoConnected['statut'] == "admin") {
+            $optionsAdminComment[$count][$count2] = '&nbsp;&nbsp;&nbsp;<a href ="index.php?action=deleteComment&id=' . $idComment[$count][$count2] . '&idSujet=' . $idSujet . '">Supprimer ce commentaire</a>';
+          } else if ($infoConnected['id'] == $idProfilComment[$count][$count2]) {
+            $optionsCreatorComment[$count][$count2] = '&nbsp;&nbsp;&nbsp;<a href ="index.php?action=modifAnswer&id=' . $idComment[$count][$count2] . '">Modifier ma réponse</a>&nbsp;&nbsp;&nbsp;<a href ="index.php?action=deleteComment&id=' . $idComment[$count][$count2] . '&idSujet=' . $idSujet . '">Supprimer mon commentaire</a>';
+          }
+
           while(false !== ($lineC = fgets($dataReponseComment[$count][$count2]))){
             $contentComment[$count][$count2] .= htmlspecialchars($lineC);
           }

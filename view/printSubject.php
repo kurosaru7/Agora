@@ -2,10 +2,16 @@
   require('template/navbar.php');
   require('template/top.php');
   ?>
-
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href='index.php?action=displayCategory&cat=<?php echo $nomCategorie; ?>'><?php echo $nomCategorie; ?></a></li>
+      <li class="breadcrumb-item active" aria-current="page"><?php echo $nomSujet; ?></li>
+    </ol>
+  </nav>
 
   <div class = "container">
     <div class="global-sujet">
+
       <div class = "nomSujet">
         <h1> <?php echo $nomSujet; ?></h1>
       </div>
@@ -40,6 +46,8 @@
             <div class ="administration">
               <a href ="index.php?action=report.png"><img src="public/images/administration/report.png" width = 20px></a>
               <a href ="index.php?action=like.png"><img src="public/images/administration/like.png" width = 20px></a>
+              <?php echo $optionsCreatorSujet ?>
+              <?php echo $optionsAdminSujet ?>
 
           </div>
           </div>
@@ -100,6 +108,7 @@
                for($y = 0 ; $y < count($pseudoProfilComment[$i]) ; $y++){
                   echo '<br>
                        <li class="list-group-item"><font color ="purple">'.$pseudoProfilComment[$i][$y] .'</font> : ' . $contentComment[$i][$y] . '
+                       '.$optionsAdminComment[$i][$y].''. $optionsCreatorComment[$i][$y] .'
                       <small class="text-muted"><div class = "date-comment">Envoyé le ' . $dateReponseComment[$i][$y] . '</div></small></li>
                   <br>';
                 }
@@ -125,7 +134,7 @@
             <div class ="administration">
               <a href ="index.php?action=report.png"><img src="public/images/administration/report.png" width =20px></a>
               <a href ="index.php?action=like.png"><img src="public/images/administration/like.png" width=20px></a>
-              <a hef ="index.php?action=sup.png"><img src="public/images/administration/sup.png" width = 20px></a>
+              '.$optionsAdminReponse[$i].''. $optionsCreatorReponse[$i].'
             </div>
           </div>
       </div>
@@ -137,4 +146,5 @@
         </div>
       </div>
     </div>
+<?php echo $isCreator; ?>
 <?php require('template/bottom.php'); ?>
