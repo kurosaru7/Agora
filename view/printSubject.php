@@ -53,9 +53,12 @@
           </div>
       </div>
       <br>
+      <?php if($statutSujet == "ouvert") {
+      echo'
       <div class="card">
         <div class="card-header">
             Ajouter une réponse
+
         </div>
         <div class="card-body">
           <blockquote class="blockquote mb-0">
@@ -67,11 +70,16 @@
                 <div class="submit">
                   <input type="submit" value="Envoyer" id="button-blue"/>
                 </div>
-              <input type="hidden" name="idSujet" value= <?php echo $idSujet ?>>
+              <input type="hidden" name="idSujet" value= <?php echo $idSujet ?>
             </form>
           </blockquote>
         </div>
-      </div>
+        <a href="./index.php?action=printSubject&id='.$idSujet.'&closeSubject">fermer le sujet </a>
+      </div>';
+
+      }
+      else echo 'sujet fermé';
+      ?>
         <br><br>
         <div class = "card-reponses">
           <?php
