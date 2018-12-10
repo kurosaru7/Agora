@@ -3,7 +3,7 @@ require('model/backend.php');
 
 function home(){
   $title = 'Agora';
-  $categories = getCategories() ;
+  $categories = getCategories();
   $count = 0;
   $count2 = 0;
   $count3 = 0;
@@ -34,7 +34,6 @@ function home(){
     }
     $count2++;
   }
-  $_SESSION['error'] = "";
   require('view/home.php');
 }
 
@@ -113,6 +112,7 @@ function deletecommentC(){
   }
 }
 
+
 function printSubjectC($id){
 
   $subjectInfo = printSubject($id);
@@ -144,7 +144,10 @@ function printSubjectC($id){
   while(false !== ($line = fgets($data))){
     $content .= htmlspecialchars($line);
   }
-
+  if(isset($_GET['closeSubject']))
+  {
+    closeSubject($idSujet);   
+  }
   if(getReponse($id)){
     $reponses = getReponse($id);
     $count = 0;
@@ -197,6 +200,7 @@ function printSubjectC($id){
     $count++;
     }
   }
+  
 
 
   require('view/printSubject.php');

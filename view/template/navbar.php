@@ -46,7 +46,7 @@
             ');
             $type = selectInfoUser($_SESSION['pseudo']);
             if ($type['statut'] == 'admin'){
-              echo('<a class="dropdown-item" href="index.php?action=administation">Administration</a>');
+              echo('<a class="dropdown-item" href="index.php?action=administration">Administration</a>');
             }
             echo('
             <a class="dropdown-item" href="index.php?action=deconnection">Se deconnecter</a>
@@ -79,7 +79,9 @@
 
   ?>
 </nav>
-<?php if ($_SESSION['error'] != ""){
+<?php 
+if ($_SESSION['error'] != ''){
+
  echo('<div class="alert alert-warning alert-dismissible">
  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
  <strong>Attention!</strong> '.$_SESSION['error'].'
