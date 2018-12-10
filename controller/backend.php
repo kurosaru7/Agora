@@ -449,3 +449,7 @@ function closeSubjectC(){
     header('Location: index.php');
   }
 }
+
+function messaging(){
+  require('view/messaging.php');
+}

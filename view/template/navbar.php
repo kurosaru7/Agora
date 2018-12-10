@@ -39,10 +39,11 @@
       <ul class="navbar-nav">
          <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="pseudo" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            '.$_SESSION['pseudo'].'
+            '.$_SESSION['pseudo']. '
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="profil-card" >
             <a class="dropdown-item" href="index.php?action=myProfile">Profil</a>
+            <a class="dropdown-item" href="index.php?action=messaging">Messagerie</a>
             ');
             $type = selectInfoUser($_SESSION['pseudo']);
             if ($type['statut'] == 'admin'){
@@ -79,7 +80,7 @@
 
   ?>
 </nav>
-<?php 
+<?php
 if ($_SESSION['error'] != ''){
 
  echo('<div class="alert alert-warning alert-dismissible">

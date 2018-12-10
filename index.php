@@ -76,7 +76,7 @@ try{
         break;
       case 'administation':
         displayAdminPage();
-
+        break;
       case 'administration':
         if (isAdmin()) {
           displayAdminPage();
@@ -87,6 +87,9 @@ try{
         break;
       case "addAdmin" :
         addAdminC();
+      break;
+      case "messaging" :
+        Messaging();
       break;
     }
   }else{
