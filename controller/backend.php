@@ -144,10 +144,12 @@ function printSubjectC($id){
   while(false !== ($line = fgets($data))){
     $content .= htmlspecialchars($line);
   }
-  if(isset($_GET['closeSubject']))
-  {
-    closeSubject($idSujet);   
+  if($infoConnected['statut'] == "admin"){
+    $printCloseSubject = '<a href = "./index.php?action=closeSubject&id='.$idSujet.'">Fermer un sujet</a>';
+  }else{
+    $printCloseSubject = '';
   }
+
   if(getReponse($id)){
     $reponses = getReponse($id);
     $count = 0;
@@ -200,7 +202,7 @@ function printSubjectC($id){
     $count++;
     }
   }
-  
+
 
 
   require('view/printSubject.php');
@@ -438,5 +440,12 @@ function addAdminC(){
     require('view/template/top.php');
     require('view/formaddAdmin.php');
     require('view/template/bottom.php');
+  }
+}
+
+function closeSubjectC(){
+  if(isConnect() && isAdmin()){
+    closeSubject($_GET['id']);
+    header('Location: index.php');
   }
 }

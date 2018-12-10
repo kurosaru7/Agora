@@ -65,6 +65,9 @@ try{
       case 'deleteSubject' :
         deleteSubject();
         break;
+      case 'closeSubject' :
+        closeSubjectC();
+        break;
       case 'deleteAnswer' :
         deleteAnswerC();
         break;
