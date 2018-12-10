@@ -13,7 +13,6 @@ function home(){
       $idLastSujet[$count3][0] = $data3['idSujet'];
       $lastNomSujet[$count3][0] = $data3['nom'];
       $lastDateSujet[$count3][0] = getFrenchDate($data3['dateS']);
-      // $lastHeure[$count3][0] = explode(' ',$lastDateSujet[$count3][0]);
       $lastCategorie[$count3]= $data3['nom_categorie'];
       $idLastProfil[$count3][0] = $data3['profil'];
       $lastPseudo[$count3][0] = $data3['pseudo'];
@@ -27,8 +26,7 @@ function home(){
 
       $nomSujet[$count2][$count] = $data['nom'];
       $idSujet[$count2][$count] = $data['idSujet'];
-      $contenu_date[$count2][$count] = $data['dateS'];
-      $dateHeure[$count2][$count] = explode(' ',$contenu_date[$count2][$count]);
+      $contenu_date[$count2][$count] = getFrenchDate($data['dateS']);
       $idProfil[$count2][$count] = $data['profil'];
       $nomCategorie[$count2][$count] = $data['nom_categorie'];
       $pseudo[$count2][$count] = $data['pseudo'];
@@ -46,6 +44,7 @@ function connection($array){
   $isRegister = isRegister($pseudo,$pw)->fetch();
     if($isRegister){
       $_SESSION['status'] = 'connected';
+      $_SESSION['statut'] = $isRegister['statut'];
       $_SESSION['pseudo'] = $pseudo;
       $_SESSION['error'] = "";
   }else{
@@ -68,7 +67,7 @@ function addSubjectC($onlyPrint){
     if(!$onlyPrint){
       $categorie = $_GET['categorie'];
       $message = $_GET['message'];
-      $name = $_GET['name'];
+      $name = htmlspecialchars($_GET['name']);
       $rdm = uniqid();
       $address = $rdm.'.txt';
       $info = selectInfoUser($_SESSION['pseudo']);
@@ -88,25 +87,30 @@ function addSubjectC($onlyPrint){
 }
 
 function deleteSubject() {
-  $subjectId = $_GET['id'];
-  delsubject($subjectId);
-  header('location: index.php?action=home');
+  if(isConnect()){
+    $subjectId = $_GET['id'];
+    delsubject($subjectId);
+    header('location: index.php?action=home');
+  }
 }
 
 function deleteAnswerC() {
-  $responseId = $_GET['id'];
-  $idSujet = $_GET['idSujet'];
-  delCommentary($responseId);
-  delresponse($responseId);
-
+  if(isConnect()){
+    $responseId = $_GET['id'];
+    $idSujet = $_GET['idSujet'];
+    delCommentary($responseId);
+    delresponse($responseId);
   header('location: index.php?action=printSubject&id='.$idSujet);
+  }
 }
 
 function deletecommentC(){
-  $commentId = $_GET['id'];
-  $idSujet = $_GET['idSujet'];
-  delCommentarywithID($commentId);
-  header('location: index.php?action=printSubject&id=' . $idSujet);
+  if(isConnect()){
+    $commentId = $_GET['id'];
+    $idSujet = $_GET['idSujet'];
+    delCommentarywithID($commentId);
+    header('location: index.php?action=printSubject&id=' . $idSujet);
+  }
 }
 
 function printSubjectC($id){
@@ -132,7 +136,7 @@ function printSubjectC($id){
   $categorieSujet = $data['statutSujet'];
   $nomCategorie = $data['nomCategorie'];
   $avatar = 'public/images/avatar/'.$data['avatar'];
-  if(!file_exists($avatar)){
+  if(!file_exists($avatar) || $data['avatar'] == ""){
     $avatar = 'public/images/avatar/default.png';
   }
   $data = fopen('public/sujet/'.$data['adresseSujet'],'r');
@@ -259,6 +263,25 @@ function getFrenchDate($dateFormatSQL) {
 function isConnect(){
   if(isset($_SESSION['status'])){
     return true;
+  }else{
+    home();
+  }
+}
+
+function isAdmin(){
+  if ($_SESSION['statut'] == "admin") {
+    return true;
+  } else {
+    home();
+  }
+}
+
+function isPseudoValid($text){
+  $pattern = "#^[a-z0-9]+$#i";
+  if (preg_match($pattern, $text)) {
+    return true;
+  } else {
+    return false;
   }
 }
 //Disconnect the user
@@ -275,7 +298,10 @@ function register(){
     foreach ($_GET as $key => $value){
       $value = htmlspecialchars($value);
     }
-    if ($_GET['pseudo'] != ""){
+
+
+
+    if($_GET['pseudo'] != ""){
       $test = selectInfoUser($_GET['pseudo']);
       if (!$test){
         if (isset($_GET['pw']) && isset($_GET['pwV']) && $_GET['pwV'] == $_GET['pw'] && $_GET['pw'] != "" ){
@@ -297,25 +323,26 @@ function register(){
   }else{
     require('view/template/navbar.php');
     require('view/template/top.php');
-    print_r($_GET);
     require('view/formRegister.php');
     require('view/template/bottom.php');
   }
 }
 //Display the profile page of a given user via $_GET['pseudo'] as a string
 function displayProfile(){
-  if (!isset($_GET['pseudo'])){
-    $perso_data_arr = selectInfoUser($_SESSION['pseudo']);
-    $delete = "<a href='./index.php?action=deleteMyProfile'>Supprimer mon compte</a>";
-  }else{
-    $perso_data_arr = selectInfoUser($_GET['pseudo']);
-    if (isConnect() && $_GET['pseudo'] == $_SESSION['pseudo']){
+  if(isConnect()){
+    if (!isset($_GET['pseudo'])){
+      $perso_data_arr = selectInfoUser($_SESSION['pseudo']);
       $delete = "<a href='./index.php?action=deleteMyProfile'>Supprimer mon compte</a>";
+    }else{
+      $perso_data_arr = selectInfoUser($_GET['pseudo']);
+      if (isConnect() && $_GET['pseudo'] == $_SESSION['pseudo']){
+        $delete = "<a href='./index.php?action=deleteMyProfile'>Supprimer mon compte</a>";
+      }
     }
+    $title = 'Profil';
+    unset($perso_data_arr['avatar'],$perso_data_arr['id'], $perso_data_arr['statut'], $perso_data_arr['password'], $perso_data_arr['datep'], $perso_data_arr['pseudo'], $perso_data_arr['score']);
+    require('./view/profilePage.php');
   }
-  $title = 'Profil';
-  unset($perso_data_arr['avatar'],$perso_data_arr['id'], $perso_data_arr['statut'], $perso_data_arr['password'], $perso_data_arr['datep'], $perso_data_arr['pseudo'], $perso_data_arr['score']);
-  require('./view/profilePage.php');
 }
 //Return avatar path as a string for a given $pseudo as a string
 function getAvatarPath($pseudo){
@@ -338,10 +365,12 @@ function getAvatarPath($pseudo){
   return $path;
 }
 function deleteMyProfile(){
-  $profile = $_SESSION['pseudo'];
-  deleteTuppleUser($profile);
-  deconnection();
-  header('Location: ./index.php');
+  if(isConnect()){
+    $profile = $_SESSION['pseudo'];
+    deleteTuppleUser($profile);
+    deconnection();
+    header('Location: ./index.php');
+  }
 }
 function displayCategory(){
   $cat = $_GET['cat'];
@@ -351,15 +380,59 @@ function displayCategory(){
 
 }
 function displayAdminPage(){
-  $title = "Administration";
-  if (isset($_GET['admin'])) {
-    require('./view/template/top.php');
-    require('./view/template/navbar.php');
-    if ($_GET['admin'] == "addAdmin") {
-      require('./view/formAddAdmin.php');
+  if(isAdmin()){
+    $title = "Administration";
+    if (isset($_GET['admin'])) {
+      require('./view/template/top.php');
+      require('./view/template/navbar.php');
+      if ($_GET['admin'] == "addAdmin") {
+        require('./view/formAddAdmin.php');
 
+      }
+    }else {
+      require('./view/adminPage.php');
     }
-  }else {
-    require('./view/adminPage.php');
+  }
+}
+
+function isSubjectExistC(){
+  $id = $_GET['id'];
+  $isSubjectexists = isSubjectExist($id)->fetch();
+  if($isSubjectexists){
+    return true;
+  }else{
+    home();
+  }
+}
+
+function addAdminC(){
+  if (isset($_GET['pseudo'])) {
+    foreach ($_GET as $key => $value) {
+      $value = htmlspecialchars($value);
+    }
+    if ($_GET['pseudo'] != "") {
+      $test = selectInfoUser($_GET['pseudo']);
+      if (!$test) {
+        if (isset($_GET['pw']) && isset($_GET['pwV']) && $_GET['pwV'] == $_GET['pw'] && $_GET['pw'] != "") {
+          addAdmin($_GET['pseudo'], $_GET['pw']);
+          $_SESSION['error'] = "";
+          header("Location: index.php?action=administation");
+        } else {
+          $_SESSION['error'] = "Erreur : les mots de passe ne correspondent pas !";
+          header('Location: index.php?action=administation&admin=addAdmin');
+        }
+      } else {
+        $_SESSION['error'] = "Erreur : Compte déjà existant !";
+        header('Location: action=administation&admin=addAdmin');
+      }
+    } else {
+      $_SESSION['error'] = "Erreur : Un des champs est mal rempli.";
+      header('Location: action=administation&admin=addAdmin');
+    }
+  } else {
+    require('view/template/navbar.php');
+    require('view/template/top.php');
+    require('view/formaddAdmin.php');
+    require('view/template/bottom.php');
   }
 }

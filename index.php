@@ -24,7 +24,9 @@ try{
         addSubjectC($onlyPrint);
       break;
       case 'printSubject' :
-        printSubjectC($_GET['id']);
+        if(isSubjectExistC()){
+          printSubjectC($_GET['id']);
+        }
       break;
       case 'deconnection':
         deconnection();
@@ -72,6 +74,9 @@ try{
       case 'administation':
         displayAdminPage();
         break;
+      case "addAdmin" :
+        addAdminC();
+      break;
     }
   }else{
     home();

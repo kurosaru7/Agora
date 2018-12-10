@@ -118,7 +118,7 @@ function printSubjectbycategories($idCategorie){
 }
 function addUser($pseudo,$pw){
   $db = dbConnect();
-  $query = $db->prepare('INSERT INTO profil(pseudo,password,datep) VALUES(:pseudo,:password,:datep)');
+  $query = $db->prepare('INSERT INTO profil(pseudo,password,datep,statut) VALUES(:pseudo,:password,:datep,"visiteur")');
   $query->execute(array(
     'pseudo' => $pseudo,
     'password' => $pw,
@@ -133,7 +133,8 @@ function printLastSubjects(){
                       ON S.categorie = C.id
                       JOIN profil P
                       ON P.id = S.profil
-                      ORDER BY dateS DESC');
+                      ORDER BY dateS DESC
+                      LIMIT 5');
   return $query;
 }
 
@@ -180,13 +181,37 @@ return $query;
 
 
 function deleteTuppleUser($profil){
+  $data = selectInfoUser($profil);
+  $idProfil = $data['id'];
   $db = dbConnect();
-  $query = $db->prepare('DELETE FROM profil WHERE pseudo LIKE :pseudo ');
-  $query->execute(array(
-    'pseudo' => $profil
+
+  $query1 = $db->prepare('DELETE FROM commentaire WHERE profil = :id');
+  $query1->execute(array(
+    'id' => $idProfil
   ));
+
+  $query2 = $db->prepare('DELETE FROM reponse WHERE profil = :id');
+  $query2->execute(array(
+    'id' => $idProfil
+  ));
+
+  $query3 = $db->prepare('DELETE FROM sujet WHERE profil = :id');
+  $query3->execute(array(
+    'id' => $idProfil
+  ));
+
+  $query4 = $db->prepare('DELETE FROM profil WHERE id LIKE :id ');
+  $query4->execute(array(
+    'id' => $idProfil
+  ));
+
+
+
+
+
   return 1;
 }
+
 function  getSubjectsByCategory($cat){
   $db = dbConnect();
   $query = $db->prepare('SELECT * FROM sujet WHERE categorie = (SELECT id FROM categorie WHERE nom LIKE :categorie)');
@@ -206,11 +231,27 @@ function getUserById($id){
   return $result;
 }
 
+function isSubjectExist($idSujet){
+  $db = dbConnect();
+  $query = $db->prepare('SELECT * FROM sujet WHERE id = :id');
+  $query->execute(array(
+    'id' => $idSujet,
+  ));
+  return $query;
+}
 
 
 
 
-
+function addAdmin($pseudo,$pw){
+  $db = dbConnect();
+  $query = $db->prepare('INSERT INTO profil(pseudo,password,datep,statut) VALUES(:pseudo,:password,:datep,"admin")');
+  $query->execute(array(
+    'pseudo' => $pseudo,
+    'password' => $pw,
+    'datep' => date('Y-m-d')
+  ));
+}
 
 
 

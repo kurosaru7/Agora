@@ -1,6 +1,7 @@
 <?php
     require('template/top.php');
     require('template/navbar.php');
+    echo "<br><center>";
     if(isset($_SESSION['pseudo'])){
         $pseudo = $_SESSION['pseudo'];
     }else {
@@ -13,4 +14,6 @@
     if (isset($delete)) {
         echo('<li class="list-group-item">'.$delete.'</li></ul></div>');
     }
+echo "</center>";
+
 ?>
