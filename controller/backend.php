@@ -338,7 +338,7 @@ function displayProfile(){
   if(isConnect()){
     if (!isset($_GET['pseudo'])){
       $perso_data_arr = selectInfoUser($_SESSION['pseudo']);
-      $delete = "<a href='./index.php?action=deleteMyProfile'>Supprimer mon compte</a>";
+      $delete = "<a class='delete' href='./index.php?action=deleteMyProfile'>Supprimer mon compte</a>";
     }else{
       $perso_data_arr = selectInfoUser($_GET['pseudo']);
       if (isConnect() && $_GET['pseudo'] == $_SESSION['pseudo']){
@@ -346,7 +346,7 @@ function displayProfile(){
       }
     }
     $title = 'Profil';
-    unset($perso_data_arr['avatar'],$perso_data_arr['id'], $perso_data_arr['statut'], $perso_data_arr['password'], $perso_data_arr['datep'], $perso_data_arr['pseudo'], $perso_data_arr['score']);
+    unset($perso_data_arr['avatar'],$perso_data_arr['id'], $perso_data_arr['statut'], $perso_data_arr['password'], $perso_data_arr['datep'], $perso_data_arr['score']);
     require('./view/profilePage.php');
   }
 }
@@ -441,6 +441,28 @@ function addAdminC(){
     require('view/formaddAdmin.php');
     require('view/template/bottom.php');
   }
+}
+function editProfile(){
+  $usrInfos = selectInfoUser($_SESSION['pseudo']);
+  $pseudo = htmlspecialchars($_GET['pseudo']);
+  $mail = htmlspecialchars($_GET['mail']);
+  $telephone = htmlspecialchars($_GET['telephone']);
+  if ($pseudo == $usrInfos['pseudo']) {
+  }else {
+    $usrInfos['pseudo'] = $pseudo;
+  }
+  if ($mail == $usrInfos['mail']) {
+  } else {
+    $usrInfos['mail'] = $mail;
+  }
+  if ($telephone == $usrInfos['telephone']) {
+  } else {
+    $usrInfos['telephone'] = $telephone;
+  }
+  $_SESSION['error'] = "";
+  updateUsr($usrInfos);
+  displayProfile();
+  
 }
 
 function closeSubjectC(){

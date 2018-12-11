@@ -88,6 +88,9 @@ try{
       case "addAdmin" :
         addAdminC();
       break;
+      case 'editProfile':
+        editProfile();
+        break;
       case "messaging" :
         Messaging();
       break;

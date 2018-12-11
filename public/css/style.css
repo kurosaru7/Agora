@@ -430,4 +430,9 @@ td {
   margin-left : 75%;
   margin-top : -2%;
 }
-
+.champP.form-control {
+  display: none;
+}
+.btn.save{
+  display: none
+}
