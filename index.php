@@ -85,6 +85,9 @@ try{
       case "addAdmin" :
         addAdminC();
       break;
+      case 'editProfile':
+        editProfile();
+        break;
     }
   }else{
     home();

@@ -3,7 +3,7 @@
 function dbConnect() {
   try
   {
-    $db = new PDO('mysql:host=localhost;dbname=agora;charset=utf8','root','root');
+    $db = new PDO('mysql:host=localhost;dbname=agora;charset=utf8','root','');
   }
   catch(Exception $e)
   {
@@ -57,7 +57,7 @@ $req->execute(array(
   ":id" => $subjectId,
 ));
 }
-
+//FERMER UN SUJET
 function closeSubject($subjectId) {
 $db = dbConnect();
 $req = $db->prepare("UPDATE `sujet` SET `statut` = 'ferme' WHERE `sujet`.`id` = :id");
@@ -302,7 +302,17 @@ function addAdmin($pseudo,$pw){
     'datep' => date('Y-m-d')
   ));
 }
-
+//FERMER UN SUJET
+function updateUsr($usrInfos) {
+  $db = dbConnect();
+  $req = $db->prepare("UPDATE `profil` SET mail = :mail, telephone = :telephone, pseudo = :pseudo WHERE id = :id");
+  $req->execute(array(
+    ":id" => $usrInfos['id'],
+    ":pseudo" => $usrInfos['pseudo'],
+    ":mail" => $usrInfos['mail'],
+    ":telephone" => $usrInfos['telephone']
+  ));
+  }
 
 
 
