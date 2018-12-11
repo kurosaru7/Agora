@@ -451,5 +451,20 @@ function closeSubjectC(){
 }
 
 function messaging(){
-  require('view/messaging.php');
+  if(isConnect()){
+    $dataUser = selectInfoUser($_SESSION['pseudo']);
+    $idProfil = $dataUser['id'];
+    $dataConversations = getConversationsOfSomeone($idProfil);
+    while($data = $dataConversations->fetch()){
+      $pseudoConversation[] = $data['pseudo'];
+      $idConversation[] = $data['idConversation'];
+    }
+
+    if(empty($idConversation)){
+      $empty = '<p class="card-text">Vous n\'avez aucune conversation.</p>';
+    }else {
+      $empty = '';
+    }
+    require('view/messaging.php');
+  }
 }

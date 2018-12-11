@@ -303,6 +303,21 @@ function addAdmin($pseudo,$pw){
   ));
 }
 
+function getConversationsOfSomeone($idProfil){
+  $db = dbConnect();
+  $query = $db->prepare('SELECT P.pseudo AS pseudo, D.conversation AS idConversation
+                  FROM discuter D
+                  JOIN profil P
+                  ON D.profil = P.id
+                  WHERE D.conversation IN (SELECT D.conversation
+                                          FROM discuter D
+                                          WHERE D.profil = :idProfil)
+                  AND D.profil != :idProfil');
+  $query->execute(array(
+    'idProfil' => $idProfil
+  ));
+  return $query;
+}
 
 
 

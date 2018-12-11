@@ -392,7 +392,7 @@ td {
 }
 
 .footer {
-  padding: 20px 0;
+  padding: 1rem;
   text-align: center;
 }
 
@@ -430,3 +430,4 @@ td {
   margin-left : 75%;
   margin-top : -2%;
 }
+
