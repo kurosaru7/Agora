@@ -1,4 +1,4 @@
-<?
+<?php
   require('./view/template/top.php');
   require('./view/template/navbar.php');
 ?>

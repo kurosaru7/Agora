@@ -444,7 +444,7 @@ function addAdminC(){
 }
 function editProfile(){
   $usrInfos = selectInfoUser($_SESSION['pseudo']);
-  $pseudo = htmlspecialchars($_GET['pseudo']);
+  $pseudo = htmlspecialchars($_GET['pseudoE']);
   $mail = htmlspecialchars($_GET['mail']);
   $telephone = htmlspecialchars($_GET['telephone']);
   if ($pseudo == $usrInfos['pseudo']) {
