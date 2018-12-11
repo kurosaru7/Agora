@@ -144,10 +144,12 @@ function printSubjectC($id){
   while(false !== ($line = fgets($data))){
     $content .= htmlspecialchars($line);
   }
-  if(isset($_GET['closeSubject']))
-  {
-    closeSubject($idSujet);   
+  if($infoConnected['statut'] == "admin"){
+    $printCloseSubject = '<a href = "./index.php?action=closeSubject&id='.$idSujet.'">Fermer un sujet</a>';
+  }else{
+    $printCloseSubject = '';
   }
+
   if(getReponse($id)){
     $reponses = getReponse($id);
     $count = 0;
@@ -200,7 +202,7 @@ function printSubjectC($id){
     $count++;
     }
   }
-  
+
 
 
   require('view/printSubject.php');
@@ -461,4 +463,15 @@ function editProfile(){
   updateUsr($usrInfos);
   displayProfile();
   
+}
+
+function closeSubjectC(){
+  if(isConnect() && isAdmin()){
+    closeSubject($_GET['id']);
+    header('Location: index.php');
+  }
+}
+
+function messaging(){
+  require('view/messaging.php');
 }

@@ -65,6 +65,9 @@ try{
       case 'deleteSubject' :
         deleteSubject();
         break;
+      case 'closeSubject' :
+        closeSubjectC();
+        break;
       case 'deleteAnswer' :
         deleteAnswerC();
         break;
@@ -73,7 +76,7 @@ try{
         break;
       case 'administation':
         displayAdminPage();
-
+        break;
       case 'administration':
         if (isAdmin()) {
           displayAdminPage();
@@ -88,6 +91,9 @@ try{
       case 'editProfile':
         editProfile();
         break;
+      case "messaging" :
+        Messaging();
+      break;
     }
   }else{
     home();

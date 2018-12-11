@@ -70,11 +70,11 @@
                 <div class="submit">
                   <input type="submit" value="Envoyer" id="button-blue"/>
                 </div>
-              <input type="hidden" name="idSujet" value= <?php echo $idSujet ?>
+              <input type="hidden" name="idSujet" value= '.$idSujet.'>
             </form>
           </blockquote>
         </div>
-        <a href="./index.php?action=printSubject&id='.$idSujet.'&closeSubject">fermer le sujet </a>
+        '.$printCloseSubject .'
       </div>';
 
       }
