@@ -460,6 +460,7 @@ function editProfile(){
     $usrInfos['telephone'] = $telephone;
   }
   $_SESSION['error'] = "";
+  $_SESSION['pseudo'] = $pseudo;
   updateUsr($usrInfos);
   displayProfile();
   
