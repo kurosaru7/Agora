@@ -44,8 +44,8 @@
               Envoyé le <?php echo $dateCreationSujet ?>
             </div>
             <div class ="administration">
-              <a href ="index.php?action=report.png"><img src="public/images/administration/report.png" width = 20px></a>
-              <a href ="index.php?action=like.png"><img src="public/images/administration/like.png" width = 20px></a>
+              <a href ="index.php?action=report"><img src="public/images/administration/report.png" width = 20px></a>
+              <a href ="index.php?action=like"><img src="public/images/administration/like.png" width = 20px></a>
               <?php echo $optionsCreatorSujet ?>
               <?php echo $optionsAdminSujet ?>
 
@@ -140,8 +140,8 @@
               Envoyé le '.$dateReponse[$i].'
             </div>
             <div class ="administration">
-              <a href ="index.php?action=report.png"><img src="public/images/administration/report.png" width =20px></a>
-              <a href ="index.php?action=like.png"><img src="public/images/administration/like.png" width=20px></a>
+              <a href ="index.php?action=report"><img src="public/images/administration/report.png" width =20px></a>
+              <a href ="index.php?action=like"><img src="public/images/administration/like.png" width=20px></a>
               '.$optionsAdminReponse[$i].''. $optionsCreatorReponse[$i].'
             </div>
           </div>

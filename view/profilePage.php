@@ -17,10 +17,13 @@
         }
         echo('<li class="param list-group-item"><input required class=" champP form-control" type="text" name="'.$key.'" value=""><span class="texte"> '.$keyD.' : '.$value.'</span></li>');
     }
-    echo('<input type="hidden" name="action" value="editProfile">');
     if (isset($delete)) {
         echo('<li class="list-group-item">'.$delete.'<button type="submit" class="save btn">Enregistrer</button></li></ul></div>');
     }
-echo "<div class='col- ml-1'><a href='#' id='edit'>Editer mon profil</a></div></div></center>";
+    if(isAdmin()){
+        echo "<div class='col- ml-1'><a href='#' id='edit'>Editer le profil</a></div></div></center>";
+    }elseif (!(isset($_GET['pseudo']))) {
+        echo "<div class='col- ml-1'><a href='#' id='edit'>Editer le profil</a></div></div></center>";
+    }
 
 ?>

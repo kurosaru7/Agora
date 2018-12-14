@@ -94,6 +94,9 @@ try{
       case "messaging" :
         Messaging();
       break;
+      case 'report':
+        report();
+        break;
     }
   }else{
     home();

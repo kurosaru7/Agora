@@ -38,8 +38,8 @@ function home(){
 }
 
 function connection($array){
-  $pseudo = $_GET['pseudo'];
-  $pw = $_GET['pw'];
+  $pseudo = $array['pseudo'];
+  $pw = $array['pw'];
   $isRegister = isRegister($pseudo,$pw)->fetch();
     if($isRegister){
       $_SESSION['status'] = 'connected';
@@ -278,7 +278,7 @@ function isAdmin(){
   if ($_SESSION['statut'] == "admin") {
     return true;
   } else {
-    home();
+    return false;
   }
 }
 
@@ -301,15 +301,10 @@ function register(){
   $title = "Inscription";
 
   if (isset($_GET['pseudo'])){
-    foreach ($_GET as $key => $value){
-      $value = htmlspecialchars($value);
-    }
-
-
-
     if($_GET['pseudo'] != ""){
       $test = selectInfoUser($_GET['pseudo']);
-      if (!$test){
+      print_r($_GET);
+      if (!$test) {
         if (isset($_GET['pw']) && isset($_GET['pwV']) && $_GET['pwV'] == $_GET['pw'] && $_GET['pw'] != "" ){
           addUser($_GET['pseudo'],$_GET['pw']);
           $_SESSION['error'] = "";
@@ -319,8 +314,8 @@ function register(){
           header('Location: index.php?action=register');
         }
       }else{
-        $_SESSION['error'] = "Erreur : Compte déjà existant !";
-        header('Location: ./index.php?action=register');
+      $_SESSION['error'] = "Erreur : Compte déjà existant !";
+      header('Location: ./index.php?action=register');
       }
     }else {
       $_SESSION['error'] = "Erreur : Un des champs est mal rempli.";
@@ -338,15 +333,17 @@ function displayProfile(){
   if(isConnect()){
     if (!isset($_GET['pseudo'])){
       $perso_data_arr = selectInfoUser($_SESSION['pseudo']);
-      $delete = "<a class='delete' href='./index.php?action=deleteMyProfile'>Supprimer mon compte</a>";
+      $delete = "<a class='delete' href='./index.php?action=deleteMyProfile&profile=".$_SESSION['pseudo']."'>Supprimer mon compte</a>";
+      unset($perso_data_arr['avatar'],$perso_data_arr['id'], $perso_data_arr['statut'], $perso_data_arr['password'], $perso_data_arr['datep'], $perso_data_arr['score']);
+    }elseif (isset($_GET['pseudo']) && $_SESSION['statut'] == 'admin') {
+      $perso_data_arr = selectInfoUser($_GET['pseudo']);
+      $delete = "<a class='delete' href='./index.php?action=deleteMyProfile&profile=".$_GET['pseudo']."'>Supprimer le compte</a>";
     }else{
       $perso_data_arr = selectInfoUser($_GET['pseudo']);
-      if (isConnect() && $_GET['pseudo'] == $_SESSION['pseudo']){
-        $delete = "<a href='./index.php?action=deleteMyProfile'>Supprimer mon compte</a>";
-      }
+      $delete = "";
+      unset($perso_data_arr['avatar'],$perso_data_arr['id'], $perso_data_arr['statut'], $perso_data_arr['password'], $perso_data_arr['datep'], $perso_data_arr['score']);
     }
     $title = 'Profil';
-    unset($perso_data_arr['avatar'],$perso_data_arr['id'], $perso_data_arr['statut'], $perso_data_arr['password'], $perso_data_arr['datep'], $perso_data_arr['score']);
     require('./view/profilePage.php');
   }
 }
@@ -372,10 +369,14 @@ function getAvatarPath($pseudo){
 }
 function deleteMyProfile(){
   if(isConnect()){
-    $profile = $_SESSION['pseudo'];
+    if (isset($_GET['profile'])) {
+      $profile = $_GET['profile'];
+    }else {
+      $profile = $_SESSION['pseudo'];
+      deconnection();
+    }
     deleteTuppleUser($profile);
-    deconnection();
-    header('Location: ./index.php');
+    //header('Location: ./index.php');
   }
 }
 function displayCategory(){
@@ -490,4 +491,12 @@ function messaging(){
     }
     require('view/messaging.php');
   }
+}
+function report(){
+  $subId = $_GET['subjectId'];
+  $id = selectInfoUser($_SESSION['pseudo'])['id'];
+  print($id);
+  reportContent($type, $subId, $id);
+
+  
 }

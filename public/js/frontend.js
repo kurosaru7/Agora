@@ -4,7 +4,9 @@ $(function(){
         var word = str.split(' ');
         console.log(word);
         for( var i = word.length-1; i--;){
-            if ( word[i] === 'mail' || word[i] === 'pseudo' || word[i] === 'telephone' || word[i] === ':' || word[i] === '') word.splice(i, 1);
+            if ( word[i] === 'id' || word[i] === 'password' || word[i] === 'statut' || word[i] === 'avatar' || word[i] === 'score' || word[i] === 'mail' || word[i] === 'pseudo' || word[i] === 'telephone' || word[i] === ':' || word[i] === ''){
+                word.splice(i, 1);
+            }
         }
         console.log(word);
         var i = 0;
@@ -17,6 +19,10 @@ $(function(){
         $('.texte').toggle();
         $('a.delete').toggle();
 
+    });
+    $('a#displayPseudo').click(function () {
+        $(this).toggle();
+        $(this).next().find('#pseudoField').toggle();
     });
 
 });

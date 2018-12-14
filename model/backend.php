@@ -160,7 +160,6 @@ function addUser($pseudo,$pw){
     'pseudo' => $pseudo,
     'password' => $pw,
     'datep' => date('Y-m-d'),
-    'statut' => 'visiteur'
   ));
 }
 
@@ -222,31 +221,79 @@ function deleteTuppleUser($profil){
   $data = selectInfoUser($profil);
   $idProfil = $data['id'];
   $db = dbConnect();
+  try {
+    $query1 = $db->prepare('DELETE FROM commentaire WHERE profil = :id');
+    $query1->execute(array(
+      'id' => $idProfil
+    ));
 
-  $query1 = $db->prepare('DELETE FROM commentaire WHERE profil = :id');
-  $query1->execute(array(
-    'id' => $idProfil
-  ));
+  } catch (PDOException $ex){
+    echo $ex." 231";
+  }
 
+  try{
   $query2 = $db->prepare('DELETE FROM reponse WHERE profil = :id');
   $query2->execute(array(
     'id' => $idProfil
   ));
-
+} catch (PDOException $ex){
+  echo $ex." 240";
+}
+try{
   $query3 = $db->prepare('DELETE FROM sujet WHERE profil = :id');
   $query3->execute(array(
     'id' => $idProfil
   ));
+} catch (PDOException $ex){
+  echo $ex." 248";
+}
+$query7 = $db->prepare('DELETE FROM discuter WHERE profil = 
+    (SELECT id FROM profil WHERE id = :id)
+  ');
+  $query7->execute(array(
+    'id' => $idProfil
+  ));
+try{
+  $query5 = $db->prepare('DELETE FROM courrier WHERE conversation = 
+    (SELECT id FROM conversation WHERE id = 
+      (SELECT conversation FROM discuter WHERE profil = 
+        (SELECT id FROM profil WHERE id = :id )
+      )
+    )'
+  );
+  $query5->execute(array(
+    'id' => $idProfil
+  ));
+} catch (PDOException $ex){
+  echo $ex." 271";
+}
 
-  $query4 = $db->prepare('DELETE FROM profil WHERE id LIKE :id ');
+try{
+  $query6 = $db->prepare('DELETE FROM conversation WHERE id = 
+    (SELECT conversation FROM discuter WHERE profil = 
+      (SELECT id FROM profil WHERE id = :id)
+    )
+  ');
+  $query6->execute(array(
+    'id' => $idProfil
+  ));
+} catch (PDOException $ex){
+  echo $ex." 281";
+}
+try{
+  $query7 = $db->prepare('DELETE FROM discuter WHERE profil = 
+    (SELECT id FROM profil WHERE id = :id)
+  ');
+  $query7->execute(array(
+    'id' => $idProfil
+  ));
+} catch (PDOException $ex){
+  echo $ex." 294";
+}
+$query4 = $db->prepare('DELETE FROM profil WHERE id LIKE :id ');
   $query4->execute(array(
     'id' => $idProfil
   ));
-
-
-
-
-
   return 1;
 }
 
@@ -328,6 +375,16 @@ function getConversationsOfSomeone($idProfil){
     'idProfil' => $idProfil
   ));
   return $query;
+}
+function reportContent($type, $subId, $id){
+  $db = dbConnect();
+  $query = $db->prepare('INSERT INTO signaler(dateSi,type,profil,id_contenu) VALUES(:dateSi,:type,:profil,:id_contenu)');
+  $query->execute(array(
+    'dateSi' => date('Y-m-d H:i:s'),
+    'type' => $type,
+    'profil' => $id,
+    'id_contenu' => $subId
+  ));
 }
 
 

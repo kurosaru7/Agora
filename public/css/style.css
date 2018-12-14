@@ -436,3 +436,6 @@ td {
 .btn.save{
   display: none
 }
+#pseudoField{
+  display: none;
+}
