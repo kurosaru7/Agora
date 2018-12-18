@@ -35,10 +35,9 @@
         <div class="card-body">
           <?php echo $empty ?>
           <?php
-          for($i = 0; $i < count($pseudoConversation); $i++){
-            echo '<p><a href =index.php?action=printConversation&id='. $idConversation[$i].'>'.$pseudoConversation[$i].'</a><br></p>';
-          }
-          ?>
+          for($i = 0; $i < count($pseudoConversation); $i++): ?>
+            <p><a href =index.php?action=printConversation&id=<?=$idConversation[$i]?>><?=$pseudoConversation[$i]?></a><br></p>
+<?php endfor;?>
         </div>
     </div>
     </div>

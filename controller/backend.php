@@ -493,10 +493,29 @@ function messaging(){
   }
 }
 function report(){
-  $subId = $_GET['subjectId'];
+  $targetId = $_GET['id'];
+  $type = $_GET['type'];
   $id = selectInfoUser($_SESSION['pseudo'])['id'];
-  print($id);
-  reportContent($type, $subId, $id);
+  var_dump($type,$targetId,$id);
+  reportContent($type, $targetId, $id);
+  printSubjectC($targetId);
 
   
+}
+function getReportList(){
+  $list = getReportListTupples();
+  require('./view/handleReports.php');
+}
+function deleteReport(){
+  $id = $_GET['id'];
+  deleteReportDB($id);
+  getReportList();
+}
+function search(){
+  $query = $_GET['query'];
+  $query = trim($query);
+  $query = strip_tags($query);
+  $list = searchDB($query)->fetchAll(PDO::FETCH_ASSOC);
+  var_dump($list);
+  require('./view/searchResults.php');
 }

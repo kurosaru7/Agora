@@ -97,6 +97,15 @@ try{
       case 'report':
         report();
         break;
+      case 'handleReport':
+        getReportList();
+        break;
+      case 'deleteReport':
+        deleteReport();
+        break;
+      case 'search':
+        search();
+        break;
     }
   }else{
     home();

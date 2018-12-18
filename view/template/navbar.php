@@ -17,9 +17,10 @@
           <a class="dropdown-item" href="./index.php?action=displayCategory&cat=js">JS</a>
         </div>
       </li>&nbsp;
-      <form class="form-inline">
-        <input class="nav-element form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Search">
+      <form action="./index.php" class="form-inline">
+        <input name="query" class="nav-element form-control mr-sm-2" type="text" placeholder="Recherche" aria-label="Search">
         <button  class="btn nav-element my-2 my-sm-0" type="submit">Rechercher un sujet</button>
+        <input type="hidden" name="action" value="search">
        </form>
 
     <?php
@@ -79,7 +80,6 @@
   ?>
 </nav>
 <?php
-var_dump($_SESSION);
 if ($_SESSION['error'] != ''){
 
  echo('<div class="alert alert-warning alert-dismissible">

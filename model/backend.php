@@ -376,17 +376,55 @@ function getConversationsOfSomeone($idProfil){
   ));
   return $query;
 }
-function reportContent($type, $subId, $id){
+function reportContent($type, $targetId, $id){
   $db = dbConnect();
   $query = $db->prepare('INSERT INTO signaler(dateSi,type,profil,id_contenu) VALUES(:dateSi,:type,:profil,:id_contenu)');
   $query->execute(array(
     'dateSi' => date('Y-m-d H:i:s'),
     'type' => $type,
     'profil' => $id,
-    'id_contenu' => $subId
+    'id_contenu' => $targetId
   ));
 }
-
+function getReportListTupples(){
+  $db = dbConnect();
+  $query = $db->query('SELECT * FROM signaler');
+  $query = $query->fetchAll(PDO::FETCH_ASSOC);
+  return $query;
+}
+function getUserNameById($id) {
+  $db = dbConnect();
+  $req = $db->prepare("SELECT pseudo FROM profil WHERE id = :id");
+  $req->execute(array(
+    ":id" => $id,
+  ));
+  $result = $req->fetch(PDO::FETCH_ASSOC);
+  return $result;
+}
+function deleteReportDB($id){
+  $db = dbConnect();
+  $query = $db->prepare('DELETE FROM signaler WHERE id = :id');
+  $query->execute(array(
+    'id'=>$id
+  ));
+}
+function searchDB($terme){
+  $db = dbConnect();
+  $query = $db->prepare('SELECT * FROM sujet WHERE nom LIKE :nom');
+  $query->execute(array(
+    'nom'=> "%".$terme."%"
+  ));
+  return $query;
+}
+function getCatNameById($id){
+  $db = dbConnect();
+  $query = $db->prepare('SELECT nom FROM categorie WHERE id = :id');
+  $query->execute(array(
+    'id'=> $id
+  ));
+  $query = $query->fetch(PDO::FETCH_ASSOC);
+  return $query;
+}
 
 
 

@@ -4,8 +4,8 @@
   ?>
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href='index.php?action=displayCategory&cat=<?php echo $nomCategorie; ?>'><?php echo $nomCategorie; ?></a></li>
-      <li class="breadcrumb-item active" aria-current="page"><?php echo $nomSujet; ?></li>
+      <li class="breadcrumb-item"><a href='index.php?action=displayCategory&cat=<?= $nomCategorie?>'><?= $nomCategorie?></a></li>
+      <li class="breadcrumb-item active" aria-current="page"><?= $nomSujet?></li>
     </ol>
   </nav>
 
@@ -13,48 +13,47 @@
     <div class="global-sujet">
 
       <div class = "nomSujet">
-        <h1> <?php echo $nomSujet; ?></h1>
+        <h1> <?= $nomSujet?></h1>
       </div>
       <div class="card border-secondary mb-3">
         <div class="card-header">
           <center>
             <div class="card-avatar">
-              <img src = <?php echo $avatar ?>  height = 90px; width =90px;>
+              <img src = <?= $avatar ?>  height = 90px; width =90px;>
             </div>
               <h5 class="card-title">
-                <font color="purple"><a href="./index.php?action=myProfile&pseudo=<?php echo($pseudoCreator); ?>"><?php echo($pseudoCreator); ?></a> </font>
+                <font color="purple"><a href="./index.php?action=myProfile&pseudo=<?=$pseudoCreator ?>"><?=$pseudoCreator?></a> </font>
                 <br>
                 <div class="profilPoints">
-                  <?php echo $scoreProfilCreator ?> Points
+                  <?= $scoreProfilCreator ?> Points
                 </div>
               </h5>
             <div class="dateInscription">
               Inscrit depuis le :
-              <?php echo $dateInscriptionCreator ?>
+              <?= $dateInscriptionCreator ?>
             </div>
           </center>
         </div>
         <div class="card-body">
             <div class ="content">
-              <?php echo $content; ?>
+              <?= $content?>
             </div>
         </div>
         <div class="card-footer text-muted">
               <div class = "dateEnvoi">
-              Envoyé le <?php echo $dateCreationSujet ?>
+              Envoyé le <?= $dateCreationSujet ?>
             </div>
             <div class ="administration">
-              <a href ="index.php?action=report"><img src="public/images/administration/report.png" width = 20px></a>
-              <a href ="index.php?action=like"><img src="public/images/administration/like.png" width = 20px></a>
-              <?php echo $optionsCreatorSujet ?>
-              <?php echo $optionsAdminSujet ?>
+              <a href ="index.php?action=report&type=sujet&id=<?=$idSujet?>"><img src="public/images/administration/report.png" width = 20px></a>
+              <a href ="index.php?action=like&type=sujet&id=<?=$idSujet?>"><img src="public/images/administration/like.png" width = 20px></a>
+              <?= $optionsCreatorSujet ?>
+              <?= $optionsAdminSujet ?>
 
           </div>
           </div>
       </div>
       <br>
-      <?php if($statutSujet == "ouvert") {
-      echo'
+      <?php if ($statutSujet == "ouvert") : ?>
       <div class="card">
         <div class="card-header">
             Ajouter une réponse
@@ -70,57 +69,52 @@
                 <div class="submit">
                   <input type="submit" value="Envoyer" id="button-blue"/>
                 </div>
-              <input type="hidden" name="idSujet" value= '.$idSujet.'>
+              <input type="hidden" name="idSujet" value=<?=$idSujet?>>
             </form>
           </blockquote>
         </div>
-        '.$printCloseSubject .'
-      </div>';
-
-      }
-      else echo 'sujet fermé';
-      ?>
+        <?= $printCloseSubject ?>
+      </div>
+      <?php else : ?> 
+      sujet fermé
+      <?php endif; ?>
         <br><br>
         <div class = "card-reponses">
           <?php
-
-
-          for($i =0 ; $i < $count ;$i++){
-            echo '
-
-            <br><div class="global-sujet">
+            for ($i =0 ; $i < $count ;$i++) : ?>
+    <br><div class="global-sujet">
       <div class="card">
         <div class="card-header">
           <center>
             <div class="card-avatar">
-              <img src ='.$avatarProfil[$i].'  height = 90px; width =90px;>
+              <img src ="<?=$avatarProfil[$i]?>"  height = 90px; width =90px;>
             </div>
               <h5 class="card-title">
-                <font color="purple"><a href="./index.php?action=myProfile&pseudo='.$pseudoProfil[$i].'">'.$pseudoProfil[$i].'</a></font>
+                <font color="purple"><a href="./index.php?action=myProfile&pseudo=<?=$pseudoProfil[$i]?>"><?=$pseudoProfil[$i]?></a></font>
                 <br>
                 <div class="profilPoints">
-                  '.$pointsProfil[$i].' Points
+                  <?=$pointsProfil[$i]?> Points
                 </div>
               </h5>
             <div class="dateInscription">
               Inscrit depuis le :
-              '.$dateInscription[$i].'
+              <?=$dateInscription[$i]?>
             </div>
           </center>
         </div>
         <div class="card-body">
             <div class ="content">
-               '.$contentReponse[$i]. '<br><br><ul class="list-group list-group-flush">';
+              <?=$contentReponse[$i]?><br><br><ul class="list-group list-group-flush">
 
-
-               for($y = 0 ; $y < count($pseudoProfilComment[$i]) ; $y++){
-                  echo '<br>
-                       <li class="list-group-item"><font color ="purple">'.$pseudoProfilComment[$i][$y] .'</font> : ' . $contentComment[$i][$y] . '
-                       '.$optionsAdminComment[$i][$y].''. $optionsCreatorComment[$i][$y] .'
-                      <small class="text-muted"><div class = "date-comment">Envoyé le ' . $dateReponseComment[$i][$y] . '</div></small></li>
-                  <br>';
-                }
-            echo '</ul></div>
+              <?php
+               for ($y = 0 ; $y < count($pseudoProfilComment[$i]) ; $y++) :?>
+                    <br>
+                       <li class="list-group-item"><font color ="purple"><?=$pseudoProfilComment[$i][$y] ?></font> :<?=$contentComment[$i][$y] ?>
+                       <?=$optionsAdminComment[$i][$y].$optionsCreatorComment[$i][$y]?>
+                      <small class="text-muted"><div class = "date-comment">Envoyé le <?=$dateReponseComment[$i][$y]?></div></small></li>
+                  <br>
+<?php endfor; ?>
+            </ul></div>
             <br> <div class ="comment">
                 <form class="form" class="form-signin" action = "index.php" method = "GET">
                       <input type = "hidden" name = "action" value = "addComment">
@@ -130,29 +124,27 @@
                       <div class="submit-comment">
                         <input type="submit" value="Envoyer"/>
                       </div>
-                <input type="hidden" name="idAns" value= '.$idReponse[$i].'>
-                <input type="hidden" name="idSujet" value= '.$idSujet.'>
+                <input type="hidden" name="idAns" value=<?=$idReponse[$i]?>>
+                <input type="hidden" name="idSujet" value=<?=$idSujet?>>
               </form>
         </div>
         </div>
             <div class="card-footer text-muted">
               <div class = "dateEnvoi">
-              Envoyé le '.$dateReponse[$i].'
+              Envoyé le <?=$dateReponse[$i]?>
             </div>
             <div class ="administration">
-              <a href ="index.php?action=report"><img src="public/images/administration/report.png" width =20px></a>
-              <a href ="index.php?action=like"><img src="public/images/administration/like.png" width=20px></a>
-              '.$optionsAdminReponse[$i].''. $optionsCreatorReponse[$i].'
+              <a href ="index.php?action=report&type=reponse&id=<?=$idReponse[$i]?>"><img src="public/images/administration/report.png" width =20px></a>
+              <a href ="index.php?action=like&type=reponse&id=<?=$idReponse[$i]?>"><img src="public/images/administration/like.png" width=20px></a>
+              <?=$optionsAdminReponse[$i]. $optionsCreatorReponse[$i]?>
             </div>
           </div>
       </div>
     </div>
     <br>
-     ';
-          }
-          ?>
+<?php endfor; ?>
         </div>
       </div>
     </div>
-<?php echo $isCreator; ?>
+<!-- <?= $isCreator ?> -->
 <?php require('template/bottom.php'); ?>
