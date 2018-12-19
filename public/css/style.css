@@ -439,3 +439,26 @@ td {
 #pseudoField{
   display: none;
 }
+.searchbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+  
+  #searchbar-input {
+    border: 0px solid;
+    border-bottom: 2px solid #6C3483;
+    width: 200px;
+    outline: none;
+    color: #6C3483;
+    display: none;
+  }
+  
+  .fa-times {
+    display: none;
+    cursor: pointer;
+  }
+  
+  .fa-search {
+    cursor: pointer;
+  }

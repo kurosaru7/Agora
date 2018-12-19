@@ -44,8 +44,8 @@
               Envoyé le <?= $dateCreationSujet ?>
             </div>
             <div class ="administration">
-              <a href ="index.php?action=report&type=sujet&id=<?=$idSujet?>"><img src="public/images/administration/report.png" width = 20px></a>
-              <a href ="index.php?action=like&type=sujet&id=<?=$idSujet?>"><img src="public/images/administration/like.png" width = 20px></a>
+              <a href ="index.php?action=report&type=sujet&id=<?=$idSujet?>"><i class="fas fa-flag"></i></a>Signaler
+              <a href ="index.php?action=like&type=sujet&id=<?=$idSujet?>"><i class="fas fa-thumbs-up"></i></a>Like
               <?= $optionsCreatorSujet ?>
               <?= $optionsAdminSujet ?>
 
@@ -134,8 +134,8 @@
               Envoyé le <?=$dateReponse[$i]?>
             </div>
             <div class ="administration">
-              <a href ="index.php?action=report&type=reponse&id=<?=$idReponse[$i]?>"><img src="public/images/administration/report.png" width =20px></a>
-              <a href ="index.php?action=like&type=reponse&id=<?=$idReponse[$i]?>"><img src="public/images/administration/like.png" width=20px></a>
+              <a href ="index.php?action=report&type=reponse&id=<?=$idReponse[$i]?>"><i class="fas fa-flag"></i></a>Signaler
+              <a href ="index.php?action=like&type=reponse&id=<?=$idReponse[$i]?>"><i class="fas fa-thumbs-up"></i></a>Like
               <?=$optionsAdminReponse[$i]. $optionsCreatorReponse[$i]?>
             </div>
           </div>

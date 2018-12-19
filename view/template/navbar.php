@@ -17,9 +17,11 @@
           <a class="dropdown-item" href="./index.php?action=displayCategory&cat=js">JS</a>
         </div>
       </li>&nbsp;
-      <form action="./index.php" class="form-inline">
-        <input name="query" class="nav-element form-control mr-sm-2" type="text" placeholder="Recherche" aria-label="Search">
-        <button  class="btn nav-element my-2 my-sm-0" type="submit">Rechercher un sujet</button>
+      <form action="./index.php" class="searchbar form-inline">
+        <input name="query" id="searchbar-input" class="nav-element form-control mr-sm-2" type="text" placeholder="Recherche" aria-label="Search">
+        <i class="fas fa-search" id="searchbar-icon" aria-hidden="true"></i>
+        <i class="fas fa-times" id="searchbar-cross" aria-hidden="true"></i>
+        <!-- <button  class="btn nav-element my-2 my-sm-0" type="submit">Rechercher un sujet</button> -->
         <input type="hidden" name="action" value="search">
        </form>
 
