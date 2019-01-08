@@ -444,6 +444,7 @@ function addAdminC(){
   }
 }
 function editProfile(){
+
   $usrInfos = selectInfoUser($_SESSION['pseudo']);
   $pseudo = htmlspecialchars($_GET['pseudoE']);
   $mail = htmlspecialchars($_GET['mail']);
@@ -496,7 +497,6 @@ function report(){
   $targetId = $_GET['id'];
   $type = $_GET['type'];
   $id = selectInfoUser($_SESSION['pseudo'])['id'];
-  var_dump($type,$targetId,$id);
   reportContent($type, $targetId, $id);
   printSubjectC($targetId);
 
