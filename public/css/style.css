@@ -212,12 +212,7 @@ input:focus, textarea:focus {
 	}
 }
 
-.center-on-page {
-  position: absolute;
-  top: 92%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-}
+
 h1 {
   text-align: center;
 }
@@ -232,6 +227,12 @@ select {
   border: 0 !important;
   background: #2c3e50;
   background-image: none;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0 0 0 .5em;
+  color: #fff;
+  cursor: pointer;
 }
 /* Custom Select */
 .select {
@@ -244,14 +245,7 @@ select {
   overflow: hidden;
   border-radius: .25em;
 }
-select {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0 0 0 .5em;
-  color: #fff;
-  cursor: pointer;
-}
+
 select::-ms-expand {
   display: none;
 }
@@ -461,4 +455,28 @@ td {
   
   .fa-search {
     cursor: pointer;
+  }
+  .card{
+    border-color: #6C3483;
+  }
+  img#avatar{
+    border : 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+  }
+  #searchbar-input{
+    background-color: lightgrey;
+  }
+  div.mce-widget.mce-notification.mce-notification-warning.mce-has-close.mce-in{
+    display: none;
+  }
+  #mceu_16{
+    display: none;
+  }
+  #uploadAv{
+    position: relative;
+    right: 25px;
+    top: 60px;
+  }
+  #uploadField{
+    display: none;
   }

@@ -40,15 +40,21 @@ function home(){
 function connection($array){
   $pseudo = $array['pseudo'];
   $pw = $array['pw'];
-  $isRegister = isRegister($pseudo,$pw)->fetch();
-    if($isRegister){
-      $_SESSION['status'] = 'connected';
-      $_SESSION['statut'] = $isRegister['statut'];
-      $_SESSION['pseudo'] = $pseudo;
-      $_SESSION['error'] = "";
-  }else{
-    $_SESSION['error'] = "Erreur : Pseudo ou mot de passe inconnu !";
+  $isRegister = isRegister($pseudo,$pw)->fetch(PDO::FETCH_ASSOC);
 
+  if($isRegister){
+    if ($isRegister['pseudo'] == $pseudo) {
+      if ($isRegister['password'] == $pw) {
+        $_SESSION['status'] = 'connected';
+        $_SESSION['statut'] = $isRegister['statut'];
+        $_SESSION['pseudo'] = $pseudo;
+        $_SESSION['error'] = "";
+      }
+    }else {
+      $_SESSION['error'] = "Erreur : Pseudo ou mot de passe inconnu !";
+    }
+  }else{
+  $_SESSION['error'] = "Erreur : Pseudo ou mot de passe inconnu !";
   }
   header('Location: index.php');
 }
@@ -66,6 +72,7 @@ function addSubjectC($onlyPrint){
     if(!$onlyPrint){
       $categorie = $_GET['categorie'];
       $message = $_GET['message'];
+      $points = 0;
       $name = htmlspecialchars($_GET['name']);
       $rdm = uniqid();
       $address = $rdm.'.txt';
@@ -74,7 +81,7 @@ function addSubjectC($onlyPrint){
       $content = fopen('public/sujet/'.$address, 'w+');
       fwrite($content,$message);
       fclose($content);
-      addSubject($name,$id_user,intval($categorie),$address);
+      addSubject($name,$id_user,intval($categorie),$address,$points);
       header('Location: index.php?action=home');
     }
     require('view/addSubject.php');
@@ -333,13 +340,16 @@ function displayProfile(){
   if(isConnect()){
     if (!isset($_GET['pseudo'])){
       $perso_data_arr = selectInfoUser($_SESSION['pseudo']);
-      $delete = "<a class='delete' href='./index.php?action=deleteMyProfile&profile=".$_SESSION['pseudo']."'>Supprimer mon compte</a>";
+      $list = searchCreatorDB($perso_data_arr['id']);
+      $delete = "<a class='badge badge-danger' href='./index.php?action=deleteMyProfile&profile=".$_SESSION['pseudo']."'>Supprimer mon compte</a>";
       unset($perso_data_arr['avatar'],$perso_data_arr['id'], $perso_data_arr['statut'], $perso_data_arr['password'], $perso_data_arr['datep'], $perso_data_arr['score']);
     }elseif (isset($_GET['pseudo']) && $_SESSION['statut'] == 'admin') {
       $perso_data_arr = selectInfoUser($_GET['pseudo']);
-      $delete = "<a class='delete' href='./index.php?action=deleteMyProfile&profile=".$_GET['pseudo']."'>Supprimer le compte</a>";
+      $list = searchCreatorDB(selectInfoUser($perso_data_arr['id']));
+      $delete = "<a class='badge badge-danger' href='./index.php?action=deleteMyProfile&profile=".$_GET['pseudo']."'>Supprimer le compte</a>";
     }else{
       $perso_data_arr = selectInfoUser($_GET['pseudo']);
+      $list = searchCreatorDB(selectInfoUser($perso_data_arr['id']));
       $delete = "";
       unset($perso_data_arr['avatar'],$perso_data_arr['id'], $perso_data_arr['statut'], $perso_data_arr['password'], $perso_data_arr['datep'], $perso_data_arr['score']);
     }
@@ -511,11 +521,34 @@ function deleteReport(){
   deleteReportDB($id);
   getReportList();
 }
-function search(){
+function search(){  
   $query = $_GET['query'];
   $query = trim($query);
   $query = strip_tags($query);
-  $list = searchDB($query)->fetchAll(PDO::FETCH_ASSOC);
-  var_dump($list);
+  $list = searchDB($query);
+  if (selectInfoUser($query)) {
+    $list2 = searchCreatorDB(selectInfoUser($query)['id']);
+    $list = array_merge($list,$list2);
+  }
+  $profils = searchNameDB($query);
   require('./view/searchResults.php');
+}
+function likeContent(){
+  $type = strip_tags($_GET['type']);
+  $idContent = strip_tags($_GET['id']);
+  $idUser = selectInfoUser($_SESSION['pseudo']);
+  $idUser = $idUser['id'];
+  if (!checkVote($idUser,$idContent,$type)) {
+    if ($type == "sujet") {
+      $table = "sujet";
+    }else {
+      $table = "commentaire";
+    }
+    $_SESSION['error'] = "Merci de votre vote!";
+    $idContent = intval($idContent);
+    addPointContent($table, $idUser, $idContent, $type);
+  }else {
+    $_SESSION['error'] = "Erreur : Vous ne pouvez liker qu'une seule fois un contenu !";
+  }
+  header('Location: ./index.php?action=printSubject&id='.$idContent);
 }

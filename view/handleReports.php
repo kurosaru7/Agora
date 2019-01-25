@@ -2,7 +2,7 @@
     require('./view/template/top.php');
     require('./view/template/navbar.php');
 ?>
-<div class="container">
+<div class="container mt-3">
 <table id="reportTab" class="display">
     <thead>
         <tr>
@@ -31,7 +31,7 @@
                     endif;?>
                 </td>
                 <?php endforeach;?>
-                <td><a href="./index.php?action=deleteReport&id=<?=$value["id"]?>">Supprimer</a>
+                <td><a class='badge badge-danger'href="./index.php?action=deleteReport&id=<?=$value["id"]?>">Supprimer</a>
                 </td>
             </tr>
         <?php endforeach;?>

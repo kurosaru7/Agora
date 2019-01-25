@@ -113,7 +113,7 @@ function selectInfoUser($user){
 
 function isRegister($pseudo,$password){
 $db = dbConnect();
-$req = $db->prepare('SELECT * FROM profil WHERE pseudo LIKE :pseudo AND password LIKE :password');
+$req = $db->prepare('SELECT * FROM profil WHERE pseudo = :pseudo AND password = :password');
 $req->execute(array(
   'pseudo' => $pseudo,
   'password' => $password
@@ -121,15 +121,17 @@ $req->execute(array(
 return $req;
 }
 
-function addSubject($nom,$profil,$categorie,$adresse){
+function addSubject($nom,$profil,$categorie,$adresse,$points){
   $db = dbConnect();
-  $query = $db->prepare('INSERT INTO sujet(nom,dateS,statut,profil,categorie,adresse) VALUES(:nom,:dateS,"ouvert",:profil,:categorie,:adresse)');
+  $query = $db->prepare('INSERT INTO sujet(nom,dateS,statut,profil,categorie,adresse,points) VALUES(:nom,:dateS,"ouvert",:profil,:categorie,:adresse,:points)');
   $query->execute(array(
     'nom' => $nom,
     'profil' => $profil,
     'categorie' => $categorie,
     'adresse' => $adresse,
-    'dateS' => date('Y-m-d H:i:s')
+    'dateS' => date('Y-m-d H:i:s'),
+    'points' => $points
+
   ));
 }
 
@@ -414,8 +416,29 @@ function searchDB($terme){
   $query->execute(array(
     'nom'=> "%".$terme."%"
   ));
+  $query = $query->fetchAll(PDO::FETCH_ASSOC);
   return $query;
 }
+function searchCreatorDB($profil){
+  $db = dbConnect();
+  $query = $db->prepare('SELECT * FROM sujet WHERE profil = :profil');
+  $query->execute(array(
+    'profil'=> $profil
+  ));
+  $query = $query->fetchAll(PDO::FETCH_ASSOC);
+  return $query;
+}
+
+function searchNameDB($terme){
+  $db = dbConnect();
+  $query = $db->prepare('SELECT pseudo,score FROM profil WHERE pseudo LIKE :nom');
+  $query->execute(array(
+    'nom'=> "%".$terme."%"
+  ));
+  $query =$query->fetchAll(PDO::FETCH_ASSOC);
+  return $query;
+}
+
 function getCatNameById($id){
   $db = dbConnect();
   $query = $db->prepare('SELECT nom FROM categorie WHERE id = :id');
@@ -425,11 +448,59 @@ function getCatNameById($id){
   $query = $query->fetch(PDO::FETCH_ASSOC);
   return $query;
 }
+function checkVote($idUser,$idContent,$type){
+  $db = dbConnect();
+  $query = $db->prepare('SELECT * FROM aime WHERE profil = :idUser AND contenu = :idContent AND typeC = :typeC');
+  $query->execute(array(
+    'idUser'=> $idUser,
+    'idContent'=> $idContent,
+    'typeC'=> $type
+  ));
+  $return = $query->fetch(PDO::FETCH_ASSOC);
+  if ($return == NULL) {
+    $return = false;
+  }
+  return $return;
+}
+function addPointContent($table, $idUser, $idContent, $type){
+  $db = dbConnect();
+  $query = $db->prepare('SELECT points FROM '.$table.' WHERE id = :idContent');
+  $query->execute(array(
+    'idContent'=> $idContent
+  ));
+  $points = $query->fetch(PDO::FETCH_ASSOC);
+  $points = $points['points'];
+  $points ++;
+
+  $query = $db->prepare('UPDATE '.$table.'  SET points = :points  WHERE id = :idContent');
+  $query->execute(array(
+    'idContent'=> $idContent,
+    'points'=>$points
+  ));
+
+  $query = $db->prepare('INSERT INTO aime(profil, contenu, typeC) VALUES(:idUser, :idContent, :typeC)');
+  $query->execute(array(
+    'typeC'=> $type,
+    'idUser'=>$idUser,
+    'idContent'=>$idContent
+  ));
+  $query = $db->prepare('SELECT profil FROM '.$table.' WHERE id = :idContent');
+  $query->execute(array(
+    'idContent'=> $idContent
+  ));
+  $profil =  $query->fetch(PDO::FETCH_ASSOC);
+  $profil = $profil['profil'];
+
+  $query = $db->prepare('UPDATE profil SET score = score+1  WHERE id = :profil');
+  $query->execute(array(
+    'profil'=> $profil
+  ));
 
 
+  
 
+  return true;
 
-
-
+}
 
 ?>

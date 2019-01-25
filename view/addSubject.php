@@ -2,38 +2,29 @@
   require('template/top.php');
   require('template/navbar.php');
   ?>
+<div class="container mt-3">
+  <div class="row">
+    <div class="card w-100">
+      <div class="card-header text-center">
+        Créer un sujet
+      </div>
+      <div class="card-body">
+        <form class="form" id="form1" action = "index.php" method = "GET">
+          <input type = "hidden" name = "action" value = "addSubject">
+          <input name="name" type="text" class="text-center w-50 validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Titre du sujet" />
+          <textarea name="message" class="validate[required,length[6,300]] feedback-input" id="message" placeholder="Ecrivez votre problème..."></textarea>
+          <select class="center-on-page" name="categorie" id = "slct">
+                <?php
+                  for($i = 0 ; $i < count($listCategories) ; $i++){
+                    echo '<option value = '.$id[$i].'>'.strtoupper($listCategories[$i]).'</option>';
+                  }
+                ?>
+              </select>
 
-<div id="form-main">
-  <div id="form-div">
-  <h1 class="h3 mb-3 font-weight-normal"> Créer un sujet </h1>
-    <form class="form" id="form1" action = "index.php" method = "GET">
-      <input type = "hidden" name = "action" value = "addSubject">
-      <p class="name">
-        <input name="name" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Titre du sujet" />
-      </p>
-
-      <p class="text">
-        <textarea name="message" class="validate[required,length[6,300]] feedback-input" id="message" placeholder="Ecrivez votre problème..."></textarea>
-      </p>
-
-
-      <div class="submit">
-        <input type="submit" value="Créer" id="button-blue"/>
+            <input type="submit" value="Créer" id="button-blue"/>
+        </form>
+      </div>
     </div>
-         <div class="center-on-page">
-        <div class="select">
-          <select name="categorie" id = "slct">
-            <?php
-              for($i = 0 ; $i < count($listCategories) ; $i++){
-                echo '<option value = '.$id[$i].'>'.strtoupper($listCategories[$i]).'</option>';
-              }
-            ?>
-          </select>
-        </div>
-      </div>
-
-      </div>
-
-
-    </form>
+  </div>
+  </div>
   <?php require('template/bottom.php'); ?>

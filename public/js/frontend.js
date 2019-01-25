@@ -4,7 +4,7 @@ $(function(){
         var word = str.split(' ');
         console.log(word);
         for( var i = word.length-1; i--;){
-            if ( word[i] === 'id' || word[i] === 'password' || word[i] === 'statut' || word[i] === 'avatar' || word[i] === 'score' || word[i] === 'mail' || word[i] === 'pseudo' || word[i] === 'telephone' || word[i] === ':' || word[i] === ''){
+            if ( word[i] == 'datep' || word[i] === 'id' || word[i] === 'password' || word[i] === 'statut' || word[i] === 'avatar' || word[i] === 'score' || word[i] === 'mail' || word[i] === 'pseudo' || word[i] === 'telephone' || word[i] === ':' || word[i] === ''){
                 word.splice(i, 1);
             }
         }
@@ -17,9 +17,13 @@ $(function(){
         $('.champP').toggle();
         $('.btn.save').toggle();
         $('.texte').toggle();
-        $('a.delete').toggle();
-
     });
+    $('#save').click(function(e){
+        $('#editeur').submit();
+    })
+    $('#uploadAv').click(function(){
+        $('#uploadField').trigger('click');
+    return false;})
     $('a#displayPseudo').click(function () {
         $(this).toggle();
         $(this).next().find('#pseudoField').toggle();

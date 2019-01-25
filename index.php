@@ -3,6 +3,7 @@ session_start();
 if (!isset($_SESSION['error'])) {
   $_SESSION['error'] = "";
 }
+// var_dump($_SESSION);
 require_once('controller/backend.php');
 require_once('controller/frontend.php');
 
@@ -105,6 +106,9 @@ try{
         break;
       case 'search':
         search();
+        break;
+      case 'like':
+        likeContent();
         break;
     }
   }else{

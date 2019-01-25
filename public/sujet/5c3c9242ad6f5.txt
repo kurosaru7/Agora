@@ -1,0 +1,2 @@
+<p><code>&lt;button&gt;Coucou&lt;/button&gt;</code></p>
+<p><code></code></p>

@@ -46,8 +46,7 @@
             <div class ="administration">
               <a href ="index.php?action=report&type=sujet&id=<?=$idSujet?>"><i class="fas fa-flag"></i></a>Signaler
               <a href ="index.php?action=like&type=sujet&id=<?=$idSujet?>"><i class="fas fa-thumbs-up"></i></a>Like
-              <?= $optionsCreatorSujet ?>
-              <?= $optionsAdminSujet ?>
+              <?php if(isset($optionsCreatorSujet )){print($optionsCreatorSujet);} if(isset($optionsAdminSujet)){print($optionsAdminSujet);} ?>
 
           </div>
           </div>

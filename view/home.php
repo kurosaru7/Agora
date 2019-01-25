@@ -25,13 +25,19 @@ for($i=0 ; $i < count($tab_categories); $i++): ?>
 </tr>
 </thead>
 <tbody class="table-hover">
-<?php
-for($y = 0 ; $y < count($nomSujet[$i]) ; $y++) :?>
+<?php if (isset($nomSujet[$i])) {
+  for($y = 0 ; $y < count($nomSujet[$i]) ; $y++) :?>
+  
   <tr>
 <td class="text-left"><a href ="index.php?action=printSubject&id=<?=$idSujet[$i][$y]?>"><?=$nomSujet[$i][$y]?></a><font color="purple"> | Créateur </font><a href="./index.php?action=myProfile&pseudo=<?=$pseudo[$i][$y]?>">: <?=$pseudo[$i][$y]?></a><font color="purple"> | Créer le : </font><?= $contenu_date[$i][$y]?></td>
 </tr>
+<?php endfor;
+}else {?>
+  <tr>
+    <td class="text-left">Aucun sujet</td>
+  </tr>
+<?php } ?>
 
-<?php endfor;?>
 </tbody></table>
 
 <?php endfor;?>
