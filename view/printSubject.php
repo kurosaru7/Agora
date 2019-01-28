@@ -104,15 +104,16 @@
         <div class="card-body">
             <div class ="content">
               <?=$contentReponse[$i]?><br><br><ul class="list-group list-group-flush">
-
+              <?php if(isset($pseudoProfilComment[$i])){ ?>
               <?php
                for ($y = 0 ; $y < count($pseudoProfilComment[$i]) ; $y++) :?>
                     <br>
                        <li class="list-group-item"><font color ="purple"><?=$pseudoProfilComment[$i][$y] ?></font> :<?=$contentComment[$i][$y] ?>
-                       <?=$optionsAdminComment[$i][$y].$optionsCreatorComment[$i][$y]?>
+              <?php if(isset($optionsCreatorComment)) { ?><?=$optionsAdminComment[$i][$y].$optionsCreatorComment[$i][$y]?><?php } ?>
                       <small class="text-muted"><div class = "date-comment">Envoyé le <?=$dateReponseComment[$i][$y]?></div></small></li>
                   <br>
 <?php endfor; ?>
+              <?php } ?>
             </ul></div>
             <br> <div class ="comment">
                 <form class="form" class="form-signin" action = "index.php" method = "GET">
@@ -135,7 +136,7 @@
             <div class ="administration">
               <a href ="index.php?action=report&type=reponse&id=<?=$idReponse[$i]?>"><i class="fas fa-flag"></i></a>Signaler
               <a href ="index.php?action=like&type=reponse&id=<?=$idReponse[$i]?>"><i class="fas fa-thumbs-up"></i></a>Like
-              <?=$optionsAdminReponse[$i]. $optionsCreatorReponse[$i]?>
+              <?php if(isset($optionsCreatorReponse)) { ?><?=$optionsAdminReponse[$i]. $optionsCreatorReponse[$i]?><?php } ?>
             </div>
           </div>
       </div>

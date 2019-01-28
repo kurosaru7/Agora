@@ -110,6 +110,12 @@ try{
       case 'like':
         likeContent();
         break;
+      case 'updateimageProfil' :
+        updateimageProfil(1);
+      break;
+      case 'printConversation' :
+        printConversationC();
+      break;
     }
   }else{
     home();

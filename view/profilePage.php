@@ -43,6 +43,7 @@
     <div class="card-header text-center">Profil</div>
 <div class="card-avatar"><center><?php if(isAdmin()) : ?><form action="./index.php" method="get"><input type="hidden" name="action" value="changeAvatar"><input type="file" name="avatar" id="uploadField"><i id="uploadAv" class="fas fa-upload"></i></form><?php endif; ?><img id="avatar"src="<?= getAvatarPath($pseudo)?>" height="150px;"></center></div>
     <ul id="profil" class="list-group list-group-flush"><form action="./index.php" method="get" id="editeur" class="form">
+  
     <?php foreach ($perso_data_arr as $key => $value) : ?>
         <?php if ($key == 'pseudo') :
             $keyD = $key;
@@ -72,4 +73,10 @@
     <li class="list-group-item "><button id="save" class="save btn badge badge-success">Enregistrer les modifications</button></li>
     <?php endif; endif;?>
     </div>
+
+
+    <form action ="index.php?action=updateimageProfil" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image">
+        <button type="submit" class="btn btn-link">modifier</button>
+    </form>
 

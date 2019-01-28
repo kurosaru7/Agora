@@ -480,3 +480,15 @@ td {
   #uploadField{
     display: none;
   }
+
+  .updateAvatar {
+    margin : auto;
+  }
+
+  .message-screen {
+    height: 500px;
+    width: 80%;
+    display: block;
+    border-bottom: solid 2px #E8E8E8;
+    overflow-y: scroll;
+  }

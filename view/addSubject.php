@@ -11,8 +11,8 @@
       <div class="card-body">
         <form class="form" id="form1" action = "index.php" method = "GET">
           <input type = "hidden" name = "action" value = "addSubject">
-          <input name="name" type="text" class="text-center w-50 validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Titre du sujet" />
-          <textarea name="message" class="validate[required,length[6,300]] feedback-input" id="message" placeholder="Ecrivez votre problème..."></textarea>
+          <input name="name" type="text" class="text-center w-50 validate[required,custom[onlyLetter],length[0,100]] feedback-input" required placeholder="Titre du sujet" />
+          <textarea name="message" id="message"></textarea>
           <select class="center-on-page" name="categorie" id = "slct">
                 <?php
                   for($i = 0 ; $i < count($listCategories) ; $i++){

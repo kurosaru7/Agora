@@ -72,7 +72,6 @@ function addSubjectC($onlyPrint){
     if(!$onlyPrint){
       $categorie = $_GET['categorie'];
       $message = $_GET['message'];
-      $points = 0;
       $name = htmlspecialchars($_GET['name']);
       $rdm = uniqid();
       $address = $rdm.'.txt';
@@ -81,7 +80,7 @@ function addSubjectC($onlyPrint){
       $content = fopen('public/sujet/'.$address, 'w+');
       fwrite($content,$message);
       fclose($content);
-      addSubject($name,$id_user,intval($categorie),$address,$points);
+      addSubject($name,$id_user,intval($categorie),$address);
       header('Location: index.php?action=home');
     }
     require('view/addSubject.php');
@@ -124,7 +123,6 @@ function printSubjectC($id){
 
   $subjectInfo = printSubject($id);
   $data = $subjectInfo->fetch();
-  $infoConnected = selectInfoUser($_SESSION['pseudo']);
   $idCreator = $data['idProfil'];
   $nomSujet = $data['nomSujet'];
   $pseudoCreator = $data['pseudo'];
@@ -132,12 +130,25 @@ function printSubjectC($id){
   $dateInscriptionCreator = getFrenchDate($data['dateInscription']);
   $idSujet = $data['idSujet'];
 
-  if($infoConnected['statut'] == "admin") {
-    $optionsAdminSujet = '&nbsp;&nbsp;&nbsp;<a href ="index.php?action=deleteSubject&id='. $idSujet . '">Supprimer ce sujet</a>';
-  }else if($infoConnected['id'] == $idCreator) {
-    $optionsCreatorSujet = '&nbsp;&nbsp;&nbsp;<a href ="index.php?action=modifSubject&id='.$idSujet. '">Modifier mon sujet</a>&nbsp;&nbsp;&nbsp;<a href ="index.php?action=deleteSubject&id='.$idSujet.'">Supprimer mon sujet</a>';
-  }
 
+  if(isset($_SESSION['pseudo'])){ 
+    $infoConnected = selectInfoUser($_SESSION['pseudo']);
+    if($infoConnected['statut'] == "admin") {
+      $optionsAdminSujet = '&nbsp;&nbsp;&nbsp;<a href ="index.php?action=deleteSubject&id='. $idSujet . '">Supprimer ce sujet</a>';
+    }else if($infoConnected['id'] == $idCreator) {
+      $optionsCreatorSujet = '&nbsp;&nbsp;&nbsp;<a href ="index.php?action=modifSubject&id='.$idSujet. '">Modifier mon sujet</a>&nbsp;&nbsp;&nbsp;<a href ="index.php?action=deleteSubject&id='.$idSujet.'">Supprimer mon sujet</a>';
+    }
+    if($infoConnected['statut'] == "admin"){
+      $printCloseSubject = '<a href = "./index.php?action=closeSubject&id='.$idSujet.'">Fermer un sujet</a>';
+    }else{
+      $printCloseSubject = '';
+    }
+  }else{
+    $optionsAdminSujet = '';
+    $optionsCreatorSujet = '';
+    $printCloseSubject = '';
+  }
+  
   $dateCreationSujet = getFrenchDate($data['dateCreationSujet']);
   $statutSujet = $data['statutSujet'];
   $categorieSujet = $data['statutSujet'];
@@ -149,12 +160,8 @@ function printSubjectC($id){
   $data = fopen('public/sujet/'.$data['adresseSujet'],'r');
   $content = "";
   while(false !== ($line = fgets($data))){
-    $content .= htmlspecialchars($line);
-  }
-  if($infoConnected['statut'] == "admin"){
-    $printCloseSubject = '<a href = "./index.php?action=closeSubject&id='.$idSujet.'">Fermer un sujet</a>';
-  }else{
-    $printCloseSubject = '';
+    $content .= $line;
+    // attention j'ai du enlever le htmlspecialchars a cause de l'editeur de texte qui rajoute les balises
   }
 
   if(getReponse($id)){
@@ -168,18 +175,25 @@ function printSubjectC($id){
       }
       $pseudoProfil[$count] = $data2['pseudoProfil'];
       $idReponse[$count] = $data2['idReponse'];
-      if($infoConnected['statut'] == "admin") {
-        $optionsAdminReponse[$count] = '&nbsp;&nbsp;&nbsp;<a href ="index.php?action=deleteAnswer&id='.$idReponse[$count]. '&idSujet='. $idSujet .'">Supprimer cette réponse</a>';
-      } else if ($infoConnected['id'] == $idProfilReponse[$count]) {
-        $optionsCreatorReponse[$count] = '&nbsp;&nbsp;&nbsp;<a href ="index.php?action=modifAnswer&id='.$idReponse[$count].'">Modifier ma réponse</a>&nbsp;&nbsp;&nbsp;<a href ="index.php?action=deleteAnswer&id='.$idReponse[$count]. '&idSujet=' . $idSujet . '">Supprimer ma réponse</a>';
+
+      if(isset($_SESSION['pseudo'])){ 
+        if($infoConnected['statut'] == "admin") {
+          $optionsAdminReponse[$count] = '&nbsp;&nbsp;&nbsp;<a href ="index.php?action=deleteAnswer&id='.$idReponse[$count]. '&idSujet='. $idSujet .'">Supprimer cette réponse</a>';
+        } else if ($infoConnected['id'] == $idProfilReponse[$count]) {
+          $optionsCreatorReponse[$count] = '&nbsp;&nbsp;&nbsp;<a href ="index.php?action=modifAnswer&id='.$idReponse[$count].'">Modifier ma réponse</a>&nbsp;&nbsp;&nbsp;<a href ="index.php?action=deleteAnswer&id='.$idReponse[$count]. '&idSujet=' . $idSujet . '">Supprimer ma réponse</a>';
+        }
+      }else{
+        $optionsAdminReponse[$count] = '';
+        $optionsCreatorReponse[$count] = '';
       }
 
+      $contentReponse[$count] = '';
       $pointsProfil[$count] = $data2['profilPoints'];
       $dateReponse[$count] = getFrenchDate($data2['dateReponse']);
       $dateInscription[$count] = getFrenchDate($data2['dateInscription']);
       $dataReponse[$count] = fopen('public/reponse/'.$data2['adresseReponse'],'r');
       while(false !== ($line = fgets($dataReponse[$count]))){
-        $contentReponse[$count] .= htmlspecialchars($line);
+        $contentReponse[$count] .= $line;
       }
       $count2 = 0;
       if(getComment($idReponse[$count])){
@@ -194,14 +208,19 @@ function printSubjectC($id){
           $dateInscriptionComment[$count][$count2] = getFrenchDate($data3['dateInscriptionCommentaire']);
           $dataReponseComment[$count][$count2] = fopen('public/comment/'.$data3['adresseCommentaire'],'r');
 
-          if ($infoConnected['statut'] == "admin") {
-            $optionsAdminComment[$count][$count2] = '&nbsp;&nbsp;&nbsp;<a href ="index.php?action=deleteComment&id=' . $idComment[$count][$count2] . '&idSujet=' . $idSujet . '">Supprimer ce commentaire</a>';
-          } else if ($infoConnected['id'] == $idProfilComment[$count][$count2]) {
-            $optionsCreatorComment[$count][$count2] = '&nbsp;&nbsp;&nbsp;<a href ="index.php?action=modifAnswer&id=' . $idComment[$count][$count2] . '">Modifier ma réponse</a>&nbsp;&nbsp;&nbsp;<a href ="index.php?action=deleteComment&id=' . $idComment[$count][$count2] . '&idSujet=' . $idSujet . '">Supprimer mon commentaire</a>';
+          if(isset($_SESSION['pseudo'])){ 
+            if ($infoConnected['statut'] == "admin") {
+              $optionsAdminComment[$count][$count2] = '&nbsp;&nbsp;&nbsp;<a href ="index.php?action=deleteComment&id=' . $idComment[$count][$count2] . '&idSujet=' . $idSujet . '">Supprimer ce commentaire</a>';
+            } else if ($infoConnected['id'] == $idProfilComment[$count][$count2]) {
+              $optionsCreatorComment[$count][$count2] = '&nbsp;&nbsp;&nbsp;<a href ="index.php?action=modifAnswer&id=' . $idComment[$count][$count2] . '">Modifier ma réponse</a>&nbsp;&nbsp;&nbsp;<a href ="index.php?action=deleteComment&id=' . $idComment[$count][$count2] . '&idSujet=' . $idSujet . '">Supprimer mon commentaire</a>';
+            }
+          }else{
+            $optionsAdminComment[$count][$count2] = '';
+            $optionsCreatorComment[$count][$count2] = '';
           }
-
+          $contentComment[$count][$count2] = '';
           while(false !== ($lineC = fgets($dataReponseComment[$count][$count2]))){
-            $contentComment[$count][$count2] .= htmlspecialchars($lineC);
+            $contentComment[$count][$count2] .= $lineC;
           }
           $count2++;
         }
@@ -213,6 +232,7 @@ function printSubjectC($id){
 
 
   require('view/printSubject.php');
+  // echo $pseudoProfilComment[1][1];
 }
 
 function getMonth($integer){
@@ -551,4 +571,32 @@ function likeContent(){
     $_SESSION['error'] = "Erreur : Vous ne pouvez liker qu'une seule fois un contenu !";
   }
   header('Location: ./index.php?action=printSubject&id='.$idContent);
+}
+
+function updateimageProfil($idprofil){
+  $source = pathinfo($_FILES['image']['name']);
+  $size = filesize($_FILES['image']['tmp_name']);
+  move_uploaded_file($_FILES['image']['tmp_name'], 'public/images/avatar/'.$_FILES["image"]["name"]);
+  $image = $_FILES["image"]["name"];
+  updateAvatar($idprofil,$image);
+  header('Location:index.php?action=myProfile');
+}
+
+function printConversationC(){
+  if(isConnect()){
+    $dataConversation = getAconversation($_GET['id']);
+    $count = 0;
+    while($data = $dataConversation->fetch()){
+      $sujet = $data['sujet'];
+      $dateCrea = getFrenchDate($data['dateC']);
+      $dateCou[$count] = $data['datecou'];
+      $adresse[$count] = $data['adresse'];
+      $dataCourrier[$count] = fopen('public/courrier/' . $adresse[$count], 'r');
+      while (false !== ($line = fgets($dataCourrier[$count]))) {
+        $contentMessage[] = htmlspecialchars($line);
+      }
+      $count++;
+    }
+    require('view/printConversation.php');
+  }
 }

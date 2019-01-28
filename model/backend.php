@@ -121,17 +121,15 @@ $req->execute(array(
 return $req;
 }
 
-function addSubject($nom,$profil,$categorie,$adresse,$points){
+function addSubject($nom,$profil,$categorie,$adresse){
   $db = dbConnect();
-  $query = $db->prepare('INSERT INTO sujet(nom,dateS,statut,profil,categorie,adresse,points) VALUES(:nom,:dateS,"ouvert",:profil,:categorie,:adresse,:points)');
+  $query = $db->prepare('INSERT INTO sujet(nom,dateS,statut,profil,categorie,adresse) VALUES(:nom,:dateS,"ouvert",:profil,:categorie,:adresse)');
   $query->execute(array(
     'nom' => $nom,
     'profil' => $profil,
     'categorie' => $categorie,
     'adresse' => $adresse,
     'dateS' => date('Y-m-d H:i:s'),
-    'points' => $points
-
   ));
 }
 
@@ -502,5 +500,29 @@ function addPointContent($table, $idUser, $idContent, $type){
   return true;
 
 }
+
+
+function updateAvatar($id,$imageC){
+  $bdd = dbConnect();
+  $query = $bdd->prepare('UPDATE profil SET avatar = :imageC WHERE id = :id');
+  $query->execute(array(
+    'imageC' => $imageC,
+    'id' => $id
+  ));
+}
+
+function getAconversation($idConversation){
+  $db = dbConnect();
+  $query = $db->prepare('SELECT sujet,dateC,adresse,datecou
+                        FROM conversation CON
+                        JOIN courrier COU
+                        ON CON.id = COU.conversation
+                        WHERE CON.id = :idConversation');
+  $query->execute(array(
+    'idConversation' => $idConversation
+  ));
+  return $query;
+}
+
 
 ?>
