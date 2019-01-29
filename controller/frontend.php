@@ -82,4 +82,27 @@ function deleteCommentD($deletePrint){
     }
 }
 }
+
+function addMesC($onlyPrint){
+  if(isConnect()){
+
+    if($onlyPrint == false){
+      $idSujet = $_GET['idConv'];
+
+      $rdm = uniqid();
+      $address = $rdm.'.txt';
+      $info = selectInfoUser($_SESSION['pseudo']);
+      $idUser = $info['id'];
+      $content = fopen('public/courrier/'.$address, 'w+');
+      fwrite($content,$_GET['message']);
+      fclose($content);
+
+      addCourrier($address,intval($idConv));
+
+      header('Location: index.php?action=printConversation&id='.$idConv);
+
+
+    }
+  }
+}
 ?>
