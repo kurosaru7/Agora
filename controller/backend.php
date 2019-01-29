@@ -520,8 +520,17 @@ function messaging(){
     }else {
       $empty = '';
     }
-    require('view/messaging.php');
+
+
+    if(isset($_GET['alreadyHaveConversation'])){
+      $error = '<br><div class="alert alert-danger" role ="alert">Vous avez déja une conversation avec cette personne !</div>';
+    }else if(isset($_GET['pseudodontexist'])){
+      $error = '<br><div class="alert alert-danger" role ="alert">Cet utilisateur n\'a pas été trouvé attention à la casse !</div>';
+    }
+  require('view/messaging.php');
+
   }
+
 }
 function report(){
   $targetId = $_GET['id'];
@@ -593,10 +602,45 @@ function printConversationC(){
       $adresse[$count] = $data['adresse'];
       $dataCourrier[$count] = fopen('public/courrier/' . $adresse[$count], 'r');
       while (false !== ($line = fgets($dataCourrier[$count]))) {
-        $contentMessage[] = htmlspecialchars($line);
+        $contentMessage[] = $line;
       }
       $count++;
     }
     require('view/printConversation.php');
+  }
+}
+
+function createConversation() {
+  if(isConnect()){
+    $message = $_GET['message'];
+    $info = selectInfoUser($_SESSION['pseudo']);
+    $sender = $info['id'];
+
+    $info2 = selectInfoUser($_GET['pseudo']);
+    $receiver = $info2['id'];
+    $object = $_GET['object'];
+ 
+    // Gère si le profil existe
+    if(!$receiver){
+      header('Location:index.php?action=messaging&pseudodontexist=true');
+    }
+
+    // Gère si la conversation n'existe pas déja
+
+    $info3 = isConversationExist($sender,$receiver);
+
+    if(!empty($info3)){
+      header('Location:index.php?action=messaging&alreadyHaveConversation=true');
+      echo 'test !';
+    }else{
+    $rdm = uniqid();
+    $address = $rdm.'.txt';
+    $content = fopen('public/courrier/'.$address, 'w+');
+    fwrite($content,$message);
+    fclose($content);
+    createConversationbdd($sender,$receiver,$object,$address);
+    header('Location:index.php?action=messaging');
+    }
+    
   }
 }

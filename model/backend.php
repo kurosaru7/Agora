@@ -524,5 +524,52 @@ function getAconversation($idConversation){
   return $query;
 }
 
+function createConversationbdd($sender,$receiver,$object,$content){
+  $db = dbConnect();
+
+  $query1 = $db->prepare('INSERT INTO conversation(sujet,dateC) VALUES(:object,:dateC)');
+  $query1->execute(array(
+    'object' => $object,
+    'dateC' => date("Y-m-d")
+  ));
+
+  $query2 = $db->query('SELECT MAX(id) AS max_id FROM conversation');
+  $result = $query2->fetch(PDO::FETCH_ASSOC);
+  $id_conv = $result['max_id'];
+
+  $query3 = $db->prepare('INSERT INTO discuter(conversation,profil) VALUES(:conversation,:sender)');
+  $query3->execute(array(
+    'sender' => $sender,
+    'conversation' => $id_conv
+  ));
+
+  $query4 = $db->prepare('INSERT INTO discuter(conversation,profil) VALUES(:conversation,:receiver)');
+  $query4->execute(array(
+    'receiver' => $receiver,
+    'conversation' => $id_conv
+  ));
+
+  $query5 = $db->prepare('INSERT INTO courrier(conversation,adresse,datecou) VALUES(:conversation,:adresse,:datecou)');
+  $query5->execute(array(
+    'conversation' => $id_conv,
+    'adresse' => $content,
+    'datecou' => date("Y-m-d H:i:s")
+  ));
+
+}
+
+function isConversationExist($sender,$receiver){
+  $db = dbConnect();
+  $query = $db->prepare('SELECT conversation 
+                        from discuter 
+                        where profil = :sender
+                        AND conversation IN (SELECT conversation from discuter where profil = :receiver) LIMIT 1');
+  $query->execute(array(
+    'sender' => $sender,
+    'receiver' => $receiver
+  ));
+  $result = $query->fetch(PDO::FETCH_ASSOC);
+  return $result;
+}
 
 ?>

@@ -15,36 +15,12 @@
                             <input type="hidden" name="action" value="myProfile">
                         </form>
                     </li>
-                    <li class="list-group-item"><a href="#">LOREM IPSUM</a></li>
                 </ul>
             </div>
         </div>
-        <div class="col-auto">
-            <div class="card" style="width: 18rem;"><div class="card-header text-center">Gestion des tickets</div></center>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><a href="#">LOREM IPSUM</a></li>
-                    <li class="list-group-item"><a href="#">LOREM IPSUM</a></li>
-                    <li class="list-group-item"><a href="#">LOREM IPSUM</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-auto">
-            <div class="card" style="width: 18rem;"><div class="card-header text-center">Messages utilisateurs</div></center>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><a href="#">LOREM IPSUM</a></li>
-                    <li class="list-group-item"><a href="#">LOREM IPSUM</a></li>
-                    <li class="list-group-item"><a href="#">LOREM IPSUM</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="row mt-3">
-    <div class="col-auto">
             <div class="card" style="width: 18rem;"><div class="card-header text-center">Signalements</div></center>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item"><a href="./index.php?action=handleReport">Gérer les signalements</a></li>
-                    <li class="list-group-item"><a href="#">LOREM IPSUM</a></li>
-                    <li class="list-group-item"><a href="#">LOREM IPSUM</a></li>
                 </ul>
             </div>
         </div>        

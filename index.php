@@ -116,6 +116,9 @@ try{
       case 'printConversation' :
         printConversationC();
       break;
+      case 'createConversation' :
+      createConversation();
+      break;
     }
   }else{
     home();
