@@ -76,13 +76,14 @@ function deleteComment($address,$idComment,$idUser){
 }
 function addCourrier($address,$idConv){
   $db= dbConnect();
-  $query= $db->prepare('INSERT INTO courrier(datecou,adresse,conv) VALUES(:datecou,:adresse,:conv)');
+  $query= $db->prepare('INSERT INTO courrier(datecou,adresse,conversation) VALUES(:datecou,:adresse,:conv)');
   $query->execute(array(
     'conv'=> $idConv,
     'adresse'=> $address,
     'datecou'=> date('Y-m-d H:i:s')
   ));
 }
+
 function getConv($idConv){
   $db= dbConnect();
   $query= $db->query('SELECT * FROM courrier where id =:idConv');

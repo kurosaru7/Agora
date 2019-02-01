@@ -57,6 +57,9 @@ try{
         }
         addCommentC($onlyPrint);
         break;
+      case 'addCourrier' :
+        addMesC();
+        break;
       case 'deleteMyProfile':
         deleteMyProfile();
         break;

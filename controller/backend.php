@@ -153,7 +153,7 @@ function printSubjectC($id){
   $statutSujet = $data['statutSujet'];
   $categorieSujet = $data['statutSujet'];
   $nomCategorie = $data['nomCategorie'];
-  $avatar = 'public/images/avatar/'.$data['avatar'];
+  $avatar = getAvatarPath($data['pseudo']);
   if(!file_exists($avatar) || $data['avatar'] == ""){
     $avatar = 'public/images/avatar/default.png';
   }
@@ -595,6 +595,7 @@ function printConversationC(){
   if(isConnect()){
     $dataConversation = getAconversation($_GET['id']);
     $count = 0;
+    $idConv = $_GET['id'];
     while($data = $dataConversation->fetch()){
       $sujet = $data['sujet'];
       $dateCrea = getFrenchDate($data['dateC']);

@@ -83,11 +83,10 @@ function deleteCommentD($deletePrint){
 }
 }
 
-function addMesC($onlyPrint){
+function addMesC(){
   if(isConnect()){
 
-    if($onlyPrint == false){
-      $idSujet = $_GET['idConv'];
+      $idConv = $_GET['idConv'];
 
       $rdm = uniqid();
       $address = $rdm.'.txt';
@@ -101,8 +100,6 @@ function addMesC($onlyPrint){
 
       header('Location: index.php?action=printConversation&id='.$idConv);
 
-
-    }
   }
 }
 ?>
